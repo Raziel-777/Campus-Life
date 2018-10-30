@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
+import {UserService} from '../user.service';
+import {User} from '../user';
 
 @Component({
   selector: 'app-detail',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
-  constructor() { }
+  userToShow: User = null;
+
+  constructor(private userService: UserService = new UserService()) { }
 
   ngOnInit() {
+    this.userService.sendDetails.subscribe(userToShow => {
+      this.userToShow = userToShow;
+    });
   }
 
 }

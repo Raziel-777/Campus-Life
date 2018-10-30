@@ -1,9 +1,9 @@
 export class User {
 
   private _userID: number;
-  private _firstname: string;
-  private _lastname: string;
-  private _birthdate: number; // timestamp
+  private _firstName: string;
+  private _lastName: string;
+  private _birthDate: number; // timestamp
   private _gender: string;
   private _email: string;
   private _address?: string;
@@ -14,13 +14,13 @@ export class User {
   private _avatar?: string;
   private _presentation?: string;
 
-  constructor(userID: number, firstname: string, lastname: string, birthdate: number, gender: string, email: string, city: string,
+  constructor(userID: number, firstName: string, lastName: string, birthDate: number, gender: string, email: string, city: string,
               address: string, postcode: string, phone1: string, phone2: string, avatar: string, presentation: string) {
 
     this._userID = userID;
-    this._firstname = firstname;
-    this._lastname = lastname;
-    this._birthdate = birthdate;
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this._birthDate = birthDate;
     this._gender = gender;
     this._email = email;
     if (address.length > 0 && address != null) {
@@ -54,28 +54,28 @@ export class User {
     this._userID = value;
   }
 
-  get firstname(): string {
-    return this._firstname;
+  get firstName(): string {
+    return this._firstName;
   }
 
-  set firstname(value: string) {
-    this._firstname = value;
+  set firstName(value: string) {
+    this._firstName = value;
   }
 
-  get lastname(): string {
-    return this._lastname;
+  get lastName(): string {
+    return this._lastName;
   }
 
-  set lastname(value: string) {
-    this._lastname = value;
+  set lastName(value: string) {
+    this._lastName = value;
   }
 
-  get birthdate(): number {
-    return this._birthdate;
+  get birthDate(): number {
+    return this._birthDate;
   }
 
-  set birthdate(value: number) {
-    this._birthdate = value;
+  set birthDate(value: number) {
+    this._birthDate = value;
   }
 
   get gender(): string {
@@ -99,7 +99,7 @@ export class User {
   }
 
   set address(value: string) {
-    this._address = value;
+    this.address = value;
   }
 
   get postcode(): string {

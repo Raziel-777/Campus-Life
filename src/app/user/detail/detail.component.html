@@ -1,3 +1,18 @@
-<p>
-  detail works!
-</p>
+<div *ngIf="userToShow !== null" class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{ userToShow.avatar }}" alt="avatar">
+  <div class="card-body">
+    <p class="card-text">{{ userToShow.presentation }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">First name: {{ userToShow.firstName }}</li>
+    <li class="list-group-item">Last name: {{ userToShow.lastName }}</li>
+    <li class="list-group-item">Birth date: {{ userToShow.birthDate | date : 'dd MM yyyy' }}</li>
+    <li class="list-group-item">Gender: {{ userToShow.gender }}</li>
+    <li class="list-group-item">Email: {{ userToShow.email }}</li>
+    <li class="list-group-item">Address: {{ userToShow.address }}</li>
+    <li class="list-group-item">Postcode: {{ userToShow.postcode }}</li>
+    <li class="list-group-item">City: {{ userToShow.city }}</li>
+    <li class="list-group-item">Phone 1: {{ userToShow.phone1 }}</li>
+    <li class="list-group-item">Phone 2: {{ userToShow.phone2 }}</li>
+  </ul>
+</div>

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatListModule} from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
-import {MatFormField} from '@angular/material/form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,7 +33,7 @@ import { DetailComponent } from './user/detail/detail.component';
     BrowserAnimationsModule,
     MatListModule,
     MatIconModule,
-    MatFormField
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

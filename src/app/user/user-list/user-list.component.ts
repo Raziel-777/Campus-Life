@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {UserService} from '../user.service';
 import {User} from '../user';
 
@@ -11,11 +11,17 @@ export class UserListComponent implements OnInit {
 
   private usersList: User[];
 
+  @HostListener('click')
+  show(id: number) {
+    this.userService.showDetails(id);
+  }
+
   constructor(private userService: UserService = new UserService()) {
   }
 
   ngOnInit() {
     this.usersList = this.userService.getUsers();
   }
+
 
 }
