@@ -1,0 +1,11 @@
+<div style="border: solid 1px cadetblue">
+  <mat-list>
+    <mat-list-item *ngFor="let user of usersList">
+      <img matListAvatar src="{{user.avatar}}">
+      <h3 matLine> {{user.firstname}} </h3>
+      <button mat-icon-button (click)="showInfo(link)">
+        <mat-icon>person</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</div>
