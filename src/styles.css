@@ -5,3 +5,7 @@
   height: 24px;
   transform: scale(2);
 }
+
+.borderComponent {
+  border: solid 1px cadetblue;
+}

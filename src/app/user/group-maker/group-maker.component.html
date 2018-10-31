@@ -1,15 +1,26 @@
-<!--<div class="example-container">-->
-  <!--<mat-form-field>-->
-    <!--<input matInput placeholder="Input">-->
-  <!--</mat-form-field>-->
+<div class="borderComponent" style="padding: 20px">
+  <form class="group-size-form" [formGroup]="formGroup" (ngSubmit)="makeGroup()">
+    <h4 class="text-center">Choose your options</h4>
+    <mat-form-field class="d-block" [hideRequiredMarker]="formGroup.value.hideRequired">
+      <mat-label>Group Size</mat-label>
+      <input matInput type="number" placeholder="Please choose a group size" [formControl]="formGroupSize"
+             required>
+      <mat-error *ngIf="formGroupSize.invalid">{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <br>
+    <div>
+      <label>Parity :</label>
+      <br>
+      <br>
+      <mat-radio-group [formControl]="formGroupOptions">
+        <mat-radio-button style="margin-right: 10px" value="parityYes">Yes</mat-radio-button>
+        <mat-radio-button value="parityNo">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <br>
+    <div class="text-center">
+      <button [disabled]="formGroupSize.invalid" type="submit" class="btn btn-success">Make group</button>
+    </div>
+  </form>
+</div>
 
-  <!--<mat-form-field>-->
-    <!--<textarea matInput placeholder="Textarea"></textarea>-->
-  <!--</mat-form-field>-->
-
-  <!--<mat-form-field>-->
-    <!--<mat-select placeholder="Select">-->
-      <!--<mat-option value="option">Option</mat-option>-->
-    <!--</mat-select>-->
-  <!--</mat-form-field>-->
-<!--</div>-->

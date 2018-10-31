@@ -1,16 +1,15 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {UserListComponent} from './user/user-list/user-list.component';
 import {GroupMakerComponent} from './user/group-maker/group-maker.component';
 import {CollectiveTaskComponent} from './user/collective-task/collective-task.component';
 import {VotingComponent} from './user/voting/voting.component';
-import {DetailComponent} from './user/detail/detail.component';
+import {MainUserComponent} from './page/main-user/main-user.component';
+import {MainGroupMakerComponent} from './page/main-group-maker/main-group-maker.component';
 
 const routes: Routes = [
-  {path: '', component: UserListComponent},
-  {path: 'students', component: UserListComponent},
-  {path: 'detail/:id', component: DetailComponent},
-  {path: 'group-maker', component: GroupMakerComponent},
+  {path: '', redirectTo: 'students', pathMatch: 'full'},
+  {path: 'students', component: MainUserComponent},
+  {path: 'group-maker', component: MainGroupMakerComponent},
   {path: 'collective-task', component: CollectiveTaskComponent},
   {path: 'voting', component: VotingComponent}
 ];

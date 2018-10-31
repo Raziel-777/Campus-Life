@@ -11,12 +11,11 @@ export class UserListComponent implements OnInit {
 
   private usersList: User[];
 
-  @HostListener('click')
   show(id: number) {
     this.userService.showDetails(id);
   }
 
-  constructor(private userService: UserService = new UserService()) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {

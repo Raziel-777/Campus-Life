@@ -11,7 +11,7 @@ export class DetailComponent implements OnInit {
 
   userToShow: User = null;
 
-  constructor(private userService: UserService = new UserService()) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.sendDetails.subscribe(userToShow => {
