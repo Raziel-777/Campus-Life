@@ -9,7 +9,7 @@ import {User} from '../user';
 })
 export class UserListComponent implements OnInit {
 
-  private usersList: User[];
+  usersList: User[];
 
   show(id: number) {
     this.userService.showDetails(id);
