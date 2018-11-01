@@ -1,4 +1,4 @@
-<div *ngIf="userToShow !== null" class="card" >
+<div *ngIf="userToShow !== null" class="card">
   <div class="text-center">
     <img src="{{ userToShow.avatar }}" alt="avatar" class="img-user">
   </div>
@@ -24,5 +24,20 @@
         <li class="list-group-item">Phone 2: {{ userToShow.phone2 }}</li>
       </ul>
     </div>
+  </div>
+</div>
+
+<div class="borderComponent" *ngIf="usersResult !== null && usersResult.length > 0">
+  <div class="row justify-content-around">
+    <div *ngFor="let user of usersResult">
+      <a (click)="show(user.userID)" ><img data-toggle="tooltip" title="{{ user.firstName }}" style="width: 100%; height: 100%" src="{{ user.avatar }}"
+                      alt="avatar"></a>
+    </div>
+  </div>
+</div>
+
+<div class="borderComponent" style="padding: 20px" *ngIf="usersResult !== null && usersResult.length === 0">
+  <div class="row justify-content-around">
+    <p>Sorry, we did not find any results</p>
   </div>
 </div>

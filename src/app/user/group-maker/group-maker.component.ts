@@ -17,12 +17,6 @@ export class GroupMakerComponent implements OnInit {
   private usersList: User[];
   private readonly maxGroupSize: number;
 
-  getErrorMessage() {
-    return this.formGroupSize.hasError('required') ? 'You must enter a value' :
-      this.formGroupSize.hasError('max') ? 'Choose a value between 2 and ' + this.maxGroupSize :
-        this.formGroupSize.hasError('min') ? 'Choose a value between 2 and ' + this.maxGroupSize : '';
-  }
-
   constructor(private userService: UserService, formBuilder: FormBuilder) {
     this.usersList = this.userService.getUsers();
     this.maxGroupSize = Math.round(this.usersList.length / 2);
@@ -34,11 +28,16 @@ export class GroupMakerComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
 
+  getErrorMessage() {
+    return this.formGroupSize.hasError('required') ? 'You must enter a value' :
+      this.formGroupSize.hasError('max') ? 'Choose a value between 2 and ' + this.maxGroupSize :
+        this.formGroupSize.hasError('min') ? 'Choose a value between 2 and ' + this.maxGroupSize : '';
   }
 
   makeGroup() {
-
+  this.userService.makeGroup(this.formGroupSize.value, this.formGroupOptions.value);
   }
 
 }

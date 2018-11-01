@@ -1,72 +1,31 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {User} from './user';
+import users from '../../assets/users.json';
+import {Router} from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  @Output() sendDetails: EventEmitter<User> = new EventEmitter();
-
-  private usersJson = {
-    'users': [
-      {
-        'userID': 1,
-        'firstName': 'Gerard',
-        'lastName': 'Lebranchu',
-        'birthDate': 278518305,
-        'gender': 'male',
-        'address': '40 allée de la boustifaille',
-        'postcode': '75500',
-        'city': 'Paris',
-        'phone1': '0547125896',
-        'phone2': '0785124578',
-        'email': 'lepetitbranchu@gmail.com',
-        'avatar': 'assets/img/avatar/baseMale.png',
-        'presentation': 'Aime le foot et la bière'
-      },
-      {
-        'userID': 2,
-        'firstName': 'Robert',
-        'lastName': 'Dubois',
-        'birthDate': 341676705,
-        'gender': 'male',
-        'address': '8 rue des totems',
-        'postcode': '75500',
-        'city': 'Paris',
-        'phone1': '0547147966',
-        'phone2': '0714254578',
-        'email': 'bebertdu75@gmail.com',
-        'avatar': 'assets/img/avatar/baseMale.png',
-        'presentation': 'Aime le foot et la bière'
-      },
-      {
-        'userID': 3,
-        'firstName': 'Julie',
-        'lastName': 'Cousine',
-        'birthDate': 814975905,
-        'gender': 'female',
-        'address': '78 avenue Gerard Lebranchu',
-        'postcode': '42600',
-        'city': 'Saint Etienne',
-        'phone1': '0541025896',
-        'phone2': '',
-        'email': 'petitefleur@gmail.com',
-        'avatar': 'assets/img/avatar/baseFemale.png',
-        'presentation': 'Caissière à Mammouth'
-      }
-    ]
-  };
-
   private readonly users: User[];
 
-  constructor() {
+  constructor(public router: Router) {
     this.users = [];
-    for (const user of this.usersJson.users) {
+    for (const user of users.students) {
       const newUser = new User(user.userID, user.firstName, user.lastName, user.birthDate, user.gender, user.email, user.city, user.address,
         user.postcode, user.phone1, user.phone2, user.avatar, user.presentation);
       this.users.push(newUser);
     }
+  }
+
+  @Output() sendDetails: EventEmitter<User> = new EventEmitter();
+  @Output() sendGroup: EventEmitter<Array<User[]>> = new EventEmitter();
+  @Output() sendSearch: EventEmitter<User[]> = new EventEmitter();
+
+  static randomItem(items: User[]): User {
+    return items[Math.floor(Math.random() * items.length)];
   }
 
   getUsers(): User[] {
@@ -76,5 +35,87 @@ export class UserService {
   showDetails(id: number) {
     const userToShow = this.users.find(i => i.userID === id);
     this.sendDetails.emit(userToShow);
+  }
+
+  search(input: string) {
+    const result: User[] = [];
+    for (const user of this.users) {
+      if (user.firstName.toLowerCase().includes(input.toLowerCase()) || user.lastName.toLowerCase().includes(input.toLowerCase())) {
+        result.push(user);
+      }
+    }
+    this.sendSearch.emit(result);
+    this.router.navigate(['/students']);
+  }
+
+  makeGroup(groupSize: number, option: string) {
+    console.log(option);
+    const usersList = Object.assign([], this.users);
+    const result: User[][] = [];
+    const fullGroupNumber = Math.trunc(this.users.length / groupSize);
+    if (option === 'parityNo') {
+
+      for (let i = 0; i < fullGroupNumber; i++) {
+        const group: User[] = [];
+        for (let j = 0; j < groupSize; j++) {
+          const randomUser = UserService.randomItem(usersList);
+          group.push(randomUser);
+          usersList.splice(usersList.indexOf(randomUser), 1);
+        }
+        result.push(group);
+      }
+      if (usersList.length > 0) {
+        result.push(usersList);
+      }
+      this.sendGroup.emit(result);
+    } else if (option === 'parityYes') {
+      const manGroup: User[] = [];
+      const womanGroup: User[] = [];
+      for (const user of usersList) {
+        if (user.gender === 'male') {
+          manGroup.push(user);
+        } else {
+          womanGroup.push(user);
+        }
+      }
+      let pingPong = 'manGroup';
+      for (let i = 0; i < fullGroupNumber; i++) {
+        const group: User[] = [];
+        for (let j = 0; j < groupSize; j++) {
+          if (pingPong === 'manGroup') {
+            if (manGroup.length > 0) {
+              const randomUser = UserService.randomItem(manGroup);
+              group.push(randomUser);
+              manGroup.splice(manGroup.indexOf(randomUser), 1);
+              pingPong = 'womanGroup';
+              continue;
+            } else {
+              pingPong = 'womanGroup';
+              j--;
+              continue;
+            }
+          } else if (pingPong === 'womanGroup') {
+            if (womanGroup.length > 0) {
+              const randomUser = UserService.randomItem(womanGroup);
+              group.push(randomUser);
+              womanGroup.splice(womanGroup.indexOf(randomUser), 1);
+              pingPong = 'manGroup';
+              continue;
+            } else {
+              pingPong = 'manGroup';
+              j--;
+              continue;
+            }
+          }
+        }
+        result.push(group);
+      }
+      const lastGroup: User[] = womanGroup.concat(manGroup);
+      if (lastGroup.length > 0) {
+        result.push(lastGroup);
+      }
+      console.log(result);
+      this.sendGroup.emit(result);
+    }
   }
 }

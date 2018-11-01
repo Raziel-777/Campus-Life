@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../user.service';
+import {User} from '../user';
 
 @Component({
   selector: 'app-user-group',
@@ -8,9 +9,16 @@ import {UserService} from '../user.service';
 })
 export class UserGroupComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  groups: User[][] = null;
+  col: number;
 
-  ngOnInit() {
+  constructor(private userService: UserService) {
   }
 
+  ngOnInit() {
+    this.userService.sendGroup.subscribe(groups => {
+      this.groups = groups;
+      this.col = Math.floor(12 / this.groups[0].length);
+    });
+  }
 }

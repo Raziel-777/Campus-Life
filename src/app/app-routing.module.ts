@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {GroupMakerComponent} from './user/group-maker/group-maker.component';
 import {CollectiveTaskComponent} from './user/collective-task/collective-task.component';
 import {VotingComponent} from './user/voting/voting.component';
 import {MainUserComponent} from './page/main-user/main-user.component';
