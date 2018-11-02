@@ -1,7 +1,14 @@
 <div *ngIf="groups !== null" class="borderComponent" style="padding: 20px">
-  <div class="row" *ngFor="let group of groups " style="margin-bottom: 20px">
-    <div class="col-{{ col }}" *ngFor="let user of group">
-      <img data-toggle="tooltip" title="{{ user.gender }}" style="width: 100%; height: 100%" src="{{ user.avatar }}" alt="avatar">
+  <div class="row" *ngFor="let group of groups; let i = index" style="margin-bottom: 40px">
+    <span> Group number :{{ i + 1 }}</span>
+    <div class="col-2" *ngFor="let user of group">
+      <div>
+        <img data-toggle="tooltip" title="{{ user.firstName }}" style="width: 100%; height: 100%"
+             src="{{ user.avatar }}" alt="avatar">
+      </div>
+      <div>
+        <p>{{ user.firstName }}</p>
+      </div>
     </div>
   </div>
 </div>
