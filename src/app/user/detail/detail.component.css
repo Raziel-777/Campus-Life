@@ -1,4 +1,12 @@
-.img-user {
-  width: 250px;
-  height: 250px;
+.image-card {
+  display: block;
+  width: 70%;
+  height: 70%;
+  margin: -21.875% auto;
+}
+
+.card-around-img {
+  overflow: hidden;
+  text-align: center;
+  margin: 2%;
 }

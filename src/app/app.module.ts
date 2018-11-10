@@ -4,11 +4,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatListModule} from '@angular/material';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material';
+import {MatDividerModule} from '@angular/material/divider';
 import {MatOptionModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
 import {AppRoutingModule} from './app-routing.module';
 
 import {AppComponent} from './app.component';
@@ -22,6 +25,7 @@ import {DetailComponent} from './user/detail/detail.component';
 import {MainUserComponent} from './page/main-user/main-user.component';
 import {MainGroupMakerComponent} from './page/main-group-maker/main-group-maker.component';
 import {UserGroupComponent} from './user/user-group/user-group.component';
+import { PageBottomComponent } from './page/page-bottom/page-bottom.component';
 
 
 @NgModule({
@@ -36,7 +40,8 @@ import {UserGroupComponent} from './user/user-group/user-group.component';
     DetailComponent,
     MainUserComponent,
     MainGroupMakerComponent,
-    UserGroupComponent
+    UserGroupComponent,
+    PageBottomComponent
   ],
   imports: [
     BrowserModule,
@@ -46,11 +51,14 @@ import {UserGroupComponent} from './user/user-group/user-group.component';
     ReactiveFormsModule,
     MatRadioModule,
     MatListModule,
+    MatGridListModule,
     MatIconModule,
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

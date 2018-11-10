@@ -12,7 +12,8 @@ export class DetailComponent implements OnInit {
   userToShow: User = null;
   usersResult: User[] = null;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
     this.userService.sendDetails.subscribe(userToShow => {
@@ -27,5 +28,9 @@ export class DetailComponent implements OnInit {
 
   show(id: number) {
     this.userService.showDetails(id);
+  }
+
+  mailTo(mail): void {
+    window.location.href = 'mailto:' + mail;
   }
 }

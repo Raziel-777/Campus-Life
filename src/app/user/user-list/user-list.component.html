@@ -1,11 +1,19 @@
 <div class="borderComponent">
-  <mat-list>
-    <mat-list-item *ngFor="let user of usersList">
-      <img matListAvatar src="{{ user.avatar }}">
-      <h3 matLine> {{ user.firstName }} </h3>
-      <button mat-icon-button (click)="show(user.userID)">
-        <mat-icon>person</mat-icon>
-      </button>
-    </mat-list-item>
-  </mat-list>
+  <mat-grid-list cols="3" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let user of usersList">
+      <div class="flex-column" style="padding: 10px">
+        <p style="margin-bottom: 5px" class="text-center">{{ user.firstName }} {{ user.lastName }}</p>
+        <div class="row">
+          <div class="col-sm-4">
+            <img class="img-fluid" src="{{ user.avatar }}" alt="Avatar">
+          </div>
+          <div class="offset-2 col-sm-4 btn-group-vertical">
+            <button mat-icon-button (click)="show(user.userID)">
+              <mat-icon>person</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
