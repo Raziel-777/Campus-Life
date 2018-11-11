@@ -26,6 +26,6 @@ export class PageTopComponent implements OnInit {
 
   search() {
     this.userService.search(this.formSearchInput.value);
-    this.formSearchInput.reset();
+    this.formSearchInput.reset('');
   }
 }

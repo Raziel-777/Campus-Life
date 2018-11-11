@@ -1,59 +1,66 @@
-<form class="form-profile" [formGroup]="formProfile">
-  <mat-form-field>
-    <input matInput placeholder="First Name" [formControl]="formFirstNameInput">
-  </mat-form-field>
+<h2 mat-dialog-title>Change you profile...</h2>
+<div mat-dialog-content>
 
-  <mat-form-field>
-    <input matInput placeholder="Last Name" [formControl]="formLastNameInput">
-  </mat-form-field>
+  <form class="form-profile" [formGroup]="formProfile" (ngSubmit)="userUpdate()">
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="firstName" required>
+      <mat-error *ngIf="firstName?.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <textarea style="height: 75px" matInput placeholder="Presentation" [formControl]="formPresentationInput"></textarea>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="lastName" required>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="email" placeholder="Email" [formControl]="formEmailInput">
-  </mat-form-field>
+    <mat-form-field>
+      <textarea maxlength="255" style="height: 75px" matInput placeholder="Presentation"
+                formControlName="presentation"></textarea>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Phone 1" [formControl]="formPhone1Input">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput type="email" placeholder="Email" formControlName="email" required>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Phone 2" [formControl]="formPhone2Input">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Phone 1" formControlName="phone1" minlength="10" maxlength="10">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput [matDatepicker]="formBirthDate" placeholder="Birth Date" [formControl]="formBirthDateInput">
-    <mat-datepicker-toggle matSuffix [for]="formBirthDate"></mat-datepicker-toggle>
-    <mat-datepicker #formBirthDate></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Phone 2" formControlName="phone2" minlength="10" maxlength="10">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Address" [formControl]="formAddressInput">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="formBirthDate" placeholder="Birth Date" formControlName="birthDate">
+      <mat-datepicker-toggle matSuffix [for]="formBirthDate"></mat-datepicker-toggle>
+      <mat-datepicker #formBirthDate></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Postcode" [formControl]="formPostcodeInput">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Address" formControlName="address">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="City" [formControl]="formCityInput">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Postcode" formControlName="postCode">
+    </mat-form-field>
 
-  <mat-radio-group [formControl]="formGenderInput">
-    <mat-radio-button style="margin-right: 10px" value="female">Woman</mat-radio-button>
-    <mat-radio-button value="male">Man</mat-radio-button>
-  </mat-radio-group>
+    <mat-form-field>
+      <input matInput placeholder="City" formControlName="city">
+    </mat-form-field>
 
-  <br>
+    <mat-radio-group formControlName="gender">
+      <mat-radio-button style="margin-right: 10px" value="female">Woman</mat-radio-button>
+      <mat-radio-button value="male">Man</mat-radio-button>
+    </mat-radio-group>
 
-  <!--<span>Avatar :</span>-->
-  <!--<mat-form-field>-->
+    <br>
+
+    <!--<span>Avatar :</span>-->
+    <!--<mat-form-field>-->
     <!--<input matInput type="file">-->
-  <!--</mat-form-field>-->
-
-  <button [mat-dialog-close] style="width: 30%" mat-button>Save profile</button>
-  <br>
-  <button [mat-dialog-close] style="width: 30%" mat-button>Cancel</button>
-</form>
+    <!--</mat-form-field>-->
+    <div mat-dialog-actions="">
+      <button [disabled]="formProfile.invalid" type="submit" style="width: 30%" mat-raised-button>Save profile</button>
+      <br>
+      <button [mat-dialog-close] style="width: 30%" mat-button>Cancel</button>
+    </div>
+  </form>
+</div>

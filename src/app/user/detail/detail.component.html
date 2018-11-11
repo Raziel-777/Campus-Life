@@ -29,25 +29,11 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="mailTo( userToShow.email )" style="margin-right: 5%" mat-button>Send an email</button>
-      <button (click)="editProfile(userToShow)" mat-button>Edit your profile</button>
-      <button mat-button>Edit his profile</button>
+      <button (click)="mailTo( userToShow.email )" style="margin-right: 5%" mat-stroked-button color="primary" >Send an email</button>
+      <button (click)="editProfile(userToShow)" mat-stroked-button color="accent">Edit your profile</button>
+      <!--<button mat-stroked-button color="accent">Edit his profile</button>-->
     </mat-card-actions>
   </mat-card>
 </div>
 
-<div class="borderComponent" *ngIf="usersResult !== null && usersResult.length > 0">
-  <div class="row justify-content-around">
-    <div *ngFor="let user of usersResult">
-      <a (click)="show(user.userID)"><img data-toggle="tooltip" title="{{ user.firstName }}"
-                                          style="width: 100%; height: 100%" src="{{ user.avatar }}"
-                                          alt="avatar"></a>
-    </div>
-  </div>
-</div>
-
-<div class="borderComponent" style="padding: 20px" *ngIf="usersResult !== null && usersResult.length === 0">
-  <div class="row justify-content-around">
-    <p>Sorry, we did not find any results</p>
-  </div>
-</div>
+<app-result-search *ngIf="usersResult !== null" [result]="usersResult"></app-result-search>

@@ -1,8 +1,7 @@
-<div *ngIf="groups !== null" class="borderComponent" style="padding: 20px">
+<div *ngIf="groups !== null">
   <div class="row" *ngFor="let group of groups; let i = index" style="margin-bottom: 40px">
-    <mat-card class="example-card">
+    <mat-card class="group-card">
       <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>Group {{ i + 1 }}</mat-card-title>
       </mat-card-header>
       <mat-divider></mat-divider>

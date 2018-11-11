@@ -28,13 +28,9 @@ export class DetailComponent implements OnInit {
   ngOnInit() {
   }
 
-  show(id: number): void {
-    this.userService.showDetails(id);
-  }
-
   editProfile(user: User): void {
     const profileDialog = this.dialog.open(DialogProfileComponent, {
-      width: '500px',
+      width: '700px',
       data: {user: user},
       disableClose: true
     });

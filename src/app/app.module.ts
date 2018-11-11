@@ -16,6 +16,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material/button';
 
 
 import {AppComponent} from './app.component';
@@ -30,6 +31,7 @@ import {MainUserComponent} from './page/main-user/main-user.component';
 import {MainGroupMakerComponent} from './page/main-group-maker/main-group-maker.component';
 import {UserGroupComponent} from './user/user-group/user-group.component';
 import {DialogProfileComponent} from './user/dialog-profile/dialog-profile.component';
+import { ResultSearchComponent } from './user/result-search/result-search.component';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import {DialogProfileComponent} from './user/dialog-profile/dialog-profile.compo
     MainUserComponent,
     MainGroupMakerComponent,
     UserGroupComponent,
-    DialogProfileComponent
+    DialogProfileComponent,
+    ResultSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import {DialogProfileComponent} from './user/dialog-profile/dialog-profile.compo
     MatDividerModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonModule
   ],
   entryComponents: [
     DialogProfileComponent
