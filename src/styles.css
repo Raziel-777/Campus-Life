@@ -7,5 +7,36 @@
 }
 
 .borderComponent {
-  border: solid 1px cadetblue;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+/** {*/
+/*margin: 0;*/
+/*}*/
+/*html, body {*/
+/*height: 100%;*/
+/*}*/
+/*.wrapper {*/
+/*min-height: 100%;*/
+/*height: auto !important;*/
+/*height: 100%;*/
+/*margin: 0 auto -4em;*/
+/*}*/
+/*.footer, .push {*/
+/*height: 4em;*/
+/*}*/
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1;
+}
+
+#copyright {
+  font-size: 10px;
 }

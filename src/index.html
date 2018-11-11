@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" type="text/css" href="src/styles.css"/>
   <meta charset="utf-8">
   <title>CampusLife</title>
   <base href="/">
@@ -9,7 +10,17 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-  <app-root></app-root>
+<body class="app">
+<app-root class="app-content"></app-root>
+<div class="container">
+  <div class="row" style="margin-top: 2%">
+    <div class="offset-4 col-sm-4 text-center">
+      <p id="copyright">
+        &copy; Damien Thibault from<a href="https://digital-valenceromans.fr/le-campus/" target="_blank"> Campus Digital
+        Valence</a>
+      </p>
+    </div>
+  </div>
+</div>
 </body>
 </html>

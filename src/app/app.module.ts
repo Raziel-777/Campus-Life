@@ -25,7 +25,6 @@ import {DetailComponent} from './user/detail/detail.component';
 import {MainUserComponent} from './page/main-user/main-user.component';
 import {MainGroupMakerComponent} from './page/main-group-maker/main-group-maker.component';
 import {UserGroupComponent} from './user/user-group/user-group.component';
-import { PageBottomComponent } from './page/page-bottom/page-bottom.component';
 
 
 @NgModule({
@@ -40,8 +39,7 @@ import { PageBottomComponent } from './page/page-bottom/page-bottom.component';
     DetailComponent,
     MainUserComponent,
     MainGroupMakerComponent,
-    UserGroupComponent,
-    PageBottomComponent
+    UserGroupComponent
   ],
   imports: [
     BrowserModule,

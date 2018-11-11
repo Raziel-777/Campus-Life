@@ -44,8 +44,9 @@ export class UserService {
         result.push(user);
       }
     }
-    this.sendSearch.emit(result);
-    this.router.navigate(['/students']);
+    this.router.navigate(['/students']).then(() => {
+      this.sendSearch.emit(result);
+    });
   }
 
   makeGroup(groupSize: number, option: string) {
