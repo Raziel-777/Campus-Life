@@ -14,21 +14,15 @@
         {{ userToShow.presentation }}
       </p>
       <div class="row">
-        <div class="col-4">
+        <div class="col-6">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ userToShow.firstName }}</li>
             <li class="list-group-item">{{ userToShow.email }}</li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ userToShow.lastName }}</li>
-            <li class="list-group-item">{{ userToShow.phone1 }} {{ userToShow.phone2 }}</li>
-          </ul>
-        </div>
-        <div class="col-4">
-          <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ userToShow.birthDate | date : 'd MMM yyyy' }}</li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ userToShow.phone1 }} / {{ userToShow.phone2 }}</li>
             <li class="list-group-item">{{ userToShow.address }} {{ userToShow.postcode }} {{ userToShow.city }}</li>
           </ul>
         </div>
@@ -36,7 +30,8 @@
     </mat-card-content>
     <mat-card-actions>
       <button (click)="mailTo( userToShow.email )" style="margin-right: 5%" mat-button>Send an email</button>
-      <button mat-button>Edit your profile</button>
+      <button (click)="editProfile(userToShow)" mat-button>Edit your profile</button>
+      <button mat-button>Edit his profile</button>
     </mat-card-actions>
   </mat-card>
 </div>

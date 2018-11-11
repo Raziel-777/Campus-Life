@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppRoutingModule} from './app-routing.module';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatListModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -12,7 +13,10 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatOptionModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
-import {AppRoutingModule} from './app-routing.module';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+
 
 import {AppComponent} from './app.component';
 import {UserListComponent} from './user/user-list/user-list.component';
@@ -25,6 +29,7 @@ import {DetailComponent} from './user/detail/detail.component';
 import {MainUserComponent} from './page/main-user/main-user.component';
 import {MainGroupMakerComponent} from './page/main-group-maker/main-group-maker.component';
 import {UserGroupComponent} from './user/user-group/user-group.component';
+import {DialogProfileComponent} from './user/dialog-profile/dialog-profile.component';
 
 
 @NgModule({
@@ -39,7 +44,8 @@ import {UserGroupComponent} from './user/user-group/user-group.component';
     DetailComponent,
     MainUserComponent,
     MainGroupMakerComponent,
-    UserGroupComponent
+    UserGroupComponent,
+    DialogProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,13 @@ import {UserGroupComponent} from './user/user-group/user-group.component';
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  entryComponents: [
+    DialogProfileComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

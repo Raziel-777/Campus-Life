@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class UserService {
 
   private readonly users: User[];
+  private userSearchResult: User[] = [];
 
   constructor(public router: Router) {
     this.users = [];
@@ -38,19 +39,18 @@ export class UserService {
   }
 
   search(input: string) {
-    const result: User[] = [];
+    this.userSearchResult = [];
     for (const user of this.users) {
       if (user.firstName.toLowerCase().includes(input.toLowerCase()) || user.lastName.toLowerCase().includes(input.toLowerCase())) {
-        result.push(user);
+        this.userSearchResult.push(user);
       }
     }
-    this.router.navigate(['/students']).then(() => {
-      this.sendSearch.emit(result);
+    this.router.navigate(['/students']).then( () => {
+      this.sendSearch.emit(this.userSearchResult);
     });
   }
 
   makeGroup(groupSize: number, option: string) {
-    console.log(option);
     const usersList = Object.assign([], this.users);
     const result: User[][] = [];
     const fullGroupNumber = Math.trunc(this.users.length / groupSize);

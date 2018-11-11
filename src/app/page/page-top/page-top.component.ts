@@ -24,8 +24,8 @@ export class PageTopComponent implements OnInit {
     return this.formSearchInput.hasError('minlength') ? 'Please at least 3 characters' : '';
   }
 
-  search () {
+  search() {
     this.userService.search(this.formSearchInput.value);
+    this.formSearchInput.reset();
   }
-
 }

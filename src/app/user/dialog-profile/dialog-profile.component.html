@@ -1,0 +1,59 @@
+<form class="form-profile" [formGroup]="formProfile">
+  <mat-form-field>
+    <input matInput placeholder="First Name" [formControl]="formFirstNameInput">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Last Name" [formControl]="formLastNameInput">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea style="height: 75px" matInput placeholder="Presentation" [formControl]="formPresentationInput"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="email" placeholder="Email" [formControl]="formEmailInput">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Phone 1" [formControl]="formPhone1Input">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Phone 2" [formControl]="formPhone2Input">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="formBirthDate" placeholder="Birth Date" [formControl]="formBirthDateInput">
+    <mat-datepicker-toggle matSuffix [for]="formBirthDate"></mat-datepicker-toggle>
+    <mat-datepicker #formBirthDate></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Address" [formControl]="formAddressInput">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Postcode" [formControl]="formPostcodeInput">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="City" [formControl]="formCityInput">
+  </mat-form-field>
+
+  <mat-radio-group [formControl]="formGenderInput">
+    <mat-radio-button style="margin-right: 10px" value="female">Woman</mat-radio-button>
+    <mat-radio-button value="male">Man</mat-radio-button>
+  </mat-radio-group>
+
+  <br>
+
+  <!--<span>Avatar :</span>-->
+  <!--<mat-form-field>-->
+    <!--<input matInput type="file">-->
+  <!--</mat-form-field>-->
+
+  <button [mat-dialog-close] style="width: 30%" mat-button>Save profile</button>
+  <br>
+  <button [mat-dialog-close] style="width: 30%" mat-button>Cancel</button>
+</form>
