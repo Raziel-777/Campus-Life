@@ -351,21 +351,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-@angular/forms
-MIT
+@angular/material/grid-list
 
 @angular/animations
 MIT
 
-@angular/material/core
-
-@angular/material/list
+@angular/material/button
 
 @angular/material/icon
+
+@angular/material/card
+
+@angular/material/divider
+
+@angular/forms
+MIT
 
 @angular/material/form-field
 
 @angular/material/radio
+
+@angular/material/dialog
+
+@angular/material/datepicker
 
 zone.js
 MIT
