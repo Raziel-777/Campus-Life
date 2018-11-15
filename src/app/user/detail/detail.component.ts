@@ -30,7 +30,7 @@ export class DetailComponent implements OnInit {
 
   editProfile(user: User): void {
     const profileDialog = this.dialog.open(DialogProfileComponent, {
-      width: '700px',
+      width: '600px',
       data: {user: user},
       disableClose: true
     });

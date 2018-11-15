@@ -29,9 +29,23 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="mailTo( userToShow.email )" style="margin-right: 5%" mat-stroked-button color="primary" >Send an email</button>
-      <button (click)="editProfile(userToShow)" mat-stroked-button color="accent">Edit your profile</button>
-      <!--<button mat-stroked-button color="accent">Edit his profile</button>-->
+      <div class="row">
+        <div class="col-3">
+          <button (click)="mailTo( userToShow.email )" style="margin-right: 5%" mat-stroked-button color="primary">Send
+            an
+            email
+          </button>
+        </div>
+        <div class="col-3">
+          <button (click)="editProfile(userToShow)" style="margin-right: 5%" mat-stroked-button color="accent">Edit your
+            profile
+          </button>
+        </div>
+        <div class="offset-4 col-2">
+          <button (click)="delete()" style="margin-left: 1%" mat-stroked-button="" color="link">Delete</button>
+          <!--<button mat-stroked-button color="accent">Edit his profile</button>-->
+        </div>
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>

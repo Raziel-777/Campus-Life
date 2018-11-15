@@ -16,6 +16,7 @@ export class DialogProfileComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data,
               formBuilder: FormBuilder) {
     const user: User = data.user;
+    const birthDate = ((user.birthDate !== null) ? new Date(user.birthDate).toISOString() : null);
     this.formProfile = formBuilder.group({
       firstName: new FormControl(user.firstName, Validators.required),
       lastName: new FormControl(user.lastName, Validators.required),
@@ -23,7 +24,7 @@ export class DialogProfileComponent implements OnInit {
       email: new FormControl(user.email, [Validators.required, Validators.email]),
       phone1: new FormControl(user.phone1, [Validators.minLength(10), Validators.maxLength(10)]),
       phone2: new FormControl(user.phone2, [Validators.minLength(10), Validators.maxLength(10)]),
-      birthDate: new FormControl(new Date(user.birthDate).toISOString()),
+      birthDate: new FormControl(birthDate, Validators.required),
       address: new FormControl(user.address),
       postCode: new FormControl(user.postcode),
       city: new FormControl(user.city),

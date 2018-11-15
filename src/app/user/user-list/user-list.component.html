@@ -1,19 +1,18 @@
-<div class="borderComponent">
-  <mat-grid-list cols="3" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let user of usersList">
-      <div class="flex-column" style="padding: 10px">
-        <p style="margin-bottom: 5px" class="text-center">{{ user.firstName }} {{ user.lastName }}</p>
-        <div class="row">
-          <div class="col-sm-4">
-            <img class="img-fluid" src="{{ user.avatar }}" alt="Avatar">
-          </div>
-          <div class="offset-2 col-sm-4 btn-group-vertical">
-            <button mat-icon-button (click)="show(user.userID)">
-              <mat-icon>person</mat-icon>
-            </button>
-          </div>
+<div class="row borderComponent" style="padding: 1%">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let user of usersList">
+      <a class="selectHover" (click)="show(user.userID)">
+        <div style="margin-top: 10%">
+          <img class="avatar" data-toggle="tooltip" title="{{ user.firstName }}"
+               src="{{ user.avatar }}" alt="avatar">
         </div>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
+        <div>
+          <p class="text-center">{{ user.firstName }}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="row" style="margin-top: 2%">
+  <button (click)="addUser()" mat-raised-button="" color="accent">Add a student</button>
 </div>
