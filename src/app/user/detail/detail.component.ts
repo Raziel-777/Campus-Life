@@ -23,6 +23,10 @@ export class DetailComponent implements OnInit {
       this.usersResult = userSearchResult;
       this.userToShow = null;
     });
+    const currentUser = this.userService._currentUserDetail;
+    if (currentUser) {
+      this.userToShow = currentUser;
+    }
   }
 
   ngOnInit() {

@@ -10,7 +10,9 @@ import {Router} from '@angular/router';
 export class UserService {
 
   private readonly users: User[];
-  private userSearchResult: User[] = [];
+  private userSearchResult: User[];
+  private currentUsersGroup: Object;
+  private currentUserDetail: User;
 
   constructor(public router: Router) {
     this.users = [];
@@ -22,7 +24,7 @@ export class UserService {
   }
 
   @Output() sendDetails: EventEmitter<User> = new EventEmitter();
-  @Output() sendGroup: EventEmitter<Array<User[]>> = new EventEmitter();
+  @Output() sendGroup: EventEmitter<object> = new EventEmitter();
   @Output() sendSearch: EventEmitter<User[]> = new EventEmitter();
 
   static randomItem(items: User[]): User {
@@ -33,19 +35,29 @@ export class UserService {
     return this.users;
   }
 
+  get _currentUserDetail(): User {
+    return this.currentUserDetail;
+  }
+
+  get _currentUsersGroup(): Object {
+    return this.currentUsersGroup;
+  }
+
   showDetails(id: number) {
     const userToShow = this.users.find(i => i.userID === id);
     this.sendDetails.emit(userToShow);
+    this.currentUserDetail = userToShow;
   }
 
   search(input: string) {
     this.userSearchResult = [];
+    this.currentUserDetail = null;
     for (const user of this.users) {
       if (user.firstName.toLowerCase().includes(input.toLowerCase()) || user.lastName.toLowerCase().includes(input.toLowerCase())) {
         this.userSearchResult.push(user);
       }
     }
-    this.router.navigate(['/students']).then( () => {
+    this.router.navigate(['/students']).then(() => {
       this.sendSearch.emit(this.userSearchResult);
     });
   }
@@ -68,7 +80,7 @@ export class UserService {
       if (usersList.length > 0) {
         result.push(usersList);
       }
-      this.sendGroup.emit(result);
+      this.sendGroup.emit({groups: result, size: groupSize});
     } else if (option === 'parityYes') {
       const manGroup: User[] = [];
       const womanGroup: User[] = [];
@@ -115,8 +127,8 @@ export class UserService {
       if (lastGroup.length > 0) {
         result.push(lastGroup);
       }
-      console.log(result);
-      this.sendGroup.emit(result);
+      this.sendGroup.emit({groups: result, size: groupSize});
     }
+    this.currentUsersGroup = {groups: result, size: groupSize};
   }
 }

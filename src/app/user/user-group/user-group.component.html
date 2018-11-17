@@ -1,71 +1,25 @@
 <div *ngIf="groups !== null">
-  <div *ngFor="let group of groups; let i = index; let even = even" style="margin-bottom: 10px">
-    <div class="row" *ngIf="even && i < groups.length - 1">
-      <div class="col-6" *ngIf="groups[i].length > 0">
-        <mat-card class="group-card">
-          <mat-card-header>
-            <mat-card-title>Group {{ i + 1 }}</mat-card-title>
-          </mat-card-header>
-          <mat-divider></mat-divider>
-          <mat-card-content class="contentMarginTop">
-            <div class="row">
-              <div class="col-sm-2" *ngFor="let user of groups[i]">
-                <div style="margin-top: 10%">
-                  <img class="avatar" data-toggle="tooltip" title="{{ user.firstName }}"
-                       src="{{ user.avatar }}" alt="avatar">
-                </div>
-                <div>
-                  <p class="text-center">{{ user.firstName }}</p>
-                </div>
+  <div class="row" *ngFor="let interGroup of groups; let i = index;">
+    <div class="col-{{ colSizeRow }}" *ngFor="let usersGroup of interGroup; let j = index" style="margin-bottom: 2%">
+      <mat-card class="group-card">
+        <mat-card-header>
+          <mat-card-title>Group {{ i * groups[0].length + j + 1}}</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="contentMarginTop">
+          <div class="row justify-content-around">
+            <div class="col-sm-{{ colSizeGroup }}" *ngFor="let user of usersGroup">
+              <div style="margin-top: 10%">
+                <img class="avatar" data-toggle="tooltip" title="{{ user.firstName }}"
+                     src="{{ user.avatar }}" alt="avatar">
+              </div>
+              <div>
+                <p class="text-center">{{ user.firstName }}</p>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div class="col-6" *ngIf="groups[i+1].length > 0">
-        <mat-card class="group-card">
-          <mat-card-header>
-            <mat-card-title>Group {{ i + 2 }}</mat-card-title>
-          </mat-card-header>
-          <mat-divider></mat-divider>
-          <mat-card-content class="contentMarginTop">
-            <div class="row">
-              <div class="col-sm-2" *ngFor="let user of groups[i+1]">
-                <div style="margin-top: 10%">
-                  <img class="avatar" data-toggle="tooltip" title="{{ user.firstName }}"
-                       src="{{ user.avatar }}" alt="avatar">
-                </div>
-                <div>
-                  <p class="text-center">{{ user.firstName }}</p>
-                </div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
-    <div class="row" *ngIf="even && i === groups.length - 1">
-      <div class="col-6">
-        <mat-card class="group-card">
-          <mat-card-header>
-            <mat-card-title>Group {{ i + 1 }}</mat-card-title>
-          </mat-card-header>
-          <mat-divider></mat-divider>
-          <mat-card-content class="contentMarginTop">
-            <div class="row">
-              <div class="col-sm-2" *ngFor="let user of groups[i]">
-                <div style="margin-top: 10%">
-                  <img class="avatar" data-toggle="tooltip" title="{{ user.firstName }}"
-                       src="{{ user.avatar }}" alt="avatar">
-                </div>
-                <div>
-                  <p class="text-center">{{ user.firstName }}</p>
-                </div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>
