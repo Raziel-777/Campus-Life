@@ -40,4 +40,7 @@ export class GroupMakerComponent implements OnInit {
   this.userService.makeGroup(this.formGroupSize.value, this.formGroupOptions.value);
   }
 
+  saveGroups() {
+    this.userService.saveCurrentGroups();
+  }
 }

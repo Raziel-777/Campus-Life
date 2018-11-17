@@ -11,8 +11,9 @@ export class UserService {
 
   private readonly users: User[];
   private userSearchResult: User[];
-  private currentUsersGroup: Object;
+  private currentUsersGroup: { groups: User[][], size: number };
   private currentUserDetail: User;
+  private usersGroupList: Object[];
 
   constructor(public router: Router) {
     this.users = [];
@@ -33,6 +34,10 @@ export class UserService {
 
   getUsers(): User[] {
     return this.users;
+  }
+
+  getUsersGroupList() {
+    // Attention gérer si un ID est manquant -> return Object groups et size group
   }
 
   get _currentUserDetail(): User {
@@ -60,6 +65,12 @@ export class UserService {
     this.router.navigate(['/students']).then(() => {
       this.sendSearch.emit(this.userSearchResult);
     });
+  }
+
+  saveCurrentGroups() {
+    for (const group in this.currentUsersGroup.groups) {
+
+    }
   }
 
   makeGroup(groupSize: number, option: string) {
