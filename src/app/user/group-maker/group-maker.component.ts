@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../user.service';
 import {User} from '../user';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
+import {DialogAlertComponent} from '../../component/dialog-alert/dialog-alert.component';
 
 @Component({
   selector: 'app-group-maker',
@@ -20,7 +22,7 @@ export class GroupMakerComponent implements OnInit {
   private selectedIndex: number;
   private saveGroupsBtn = false;
 
-  constructor(private userService: UserService, formBuilder: FormBuilder) {
+  constructor(private userService: UserService, formBuilder: FormBuilder, private dialog: MatDialog) {
     this.usersList = this.userService.getUsers();
     this.usersGroupList = this.userService.getUsersGroupList();
     this.maxGroupSize = Math.round(this.usersList.length / 2);
@@ -45,9 +47,9 @@ export class GroupMakerComponent implements OnInit {
   }
 
   makeGroup() {
-  this.userService.makeGroup(this.formGroupSize.value, this.formGroupOptions.value);
-  this.selectedIndex = null;
-  this.saveGroupsBtn = true;
+    this.userService.makeGroup(this.formGroupSize.value, this.formGroupOptions.value);
+    this.selectedIndex = null;
+    this.saveGroupsBtn = true;
   }
 
   saveGroups() {
@@ -55,8 +57,31 @@ export class GroupMakerComponent implements OnInit {
   }
 
   showGroups(index: number) {
-    this.saveGroupsBtn = false;
-    this.userService.showGroups(index);
-    this.selectedIndex = index;
+    if (this.selectedIndex === null && this.saveGroupsBtn === true) {
+      const alertDialog = this.dialog.open(DialogAlertComponent, {
+        width: '450px',
+        data: {state: 'Be careful your groups are not saved.', message: 'Do you want to delete or save them ?'},
+        autoFocus: false
+      });
+
+      alertDialog.afterClosed().subscribe(result => {
+        if (result === 'delete') {
+          this.saveGroupsBtn = false;
+          this.userService.showGroups(index);
+          this.selectedIndex = index;
+        } else {
+          this.saveGroups();
+          this.saveGroupsBtn = false;
+          this.userService.showGroups(index);
+          this.selectedIndex = index;
+        }
+      });
+
+    } else {
+      this.saveGroupsBtn = false;
+      this.userService.showGroups(index);
+      this.selectedIndex = index;
+    }
+
   }
 }

@@ -1,5 +1,5 @@
-import {Component, HostBinding, Inject, OnInit} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material';
 import {UserService} from '../user.service';
 import {User} from '../user';
 import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component';

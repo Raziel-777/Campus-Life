@@ -141,6 +141,7 @@ export class UserService {
     }
     dataToSend.size = this.currentUsersGroup.size;
     console.log(JSON.stringify(dataToSend));
+    // TODO: enlever bouton save groups si save ok
   }
 
   makeGroup(groupSize: number, option: string) {

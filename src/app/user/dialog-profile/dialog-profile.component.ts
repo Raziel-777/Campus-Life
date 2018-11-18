@@ -37,6 +37,6 @@ export class DialogProfileComponent implements OnInit {
   }
 
   userUpdate() {
-    console.log(this.formProfile.value);
+    this.dialogRef.close(this.formProfile.value);
   }
 }

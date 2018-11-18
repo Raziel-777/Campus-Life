@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row d-flex justify-content-end">
+    <a (click)="close()" class="selectHover"><mat-icon mat-list-icon>close</mat-icon></a>
+  </div>
+  <div class="row">
+    <h5>{{ state }}</h5>
+  </div>
+  <div class="row" style="margin-top: 2%">
+    <p>{{ message }}</p>
+  </div>
+  <div class="row justify-content-around" style="margin-top: 5%">
+    <button (click)="delete()" mat-stroked-button color="accent">Delete</button>
+    <button (click)="save()" mat-stroked-button color="primary">Save</button>
+  </div>
+</div>
