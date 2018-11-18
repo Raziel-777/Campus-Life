@@ -18,9 +18,9 @@ export class GroupMakerComponent implements OnInit {
 
   private usersList: User[];
   private readonly maxGroupSize: number;
-  private usersGroupList: { groups: User[][], size: number }[];
-  private selectedIndex: number;
-  private saveGroupsBtn = false;
+  usersGroupList: { groups: User[][], size: number }[];
+  selectedIndex: number;
+  saveGroupsBtn = false;
 
   constructor(private userService: UserService, formBuilder: FormBuilder, private dialog: MatDialog) {
     this.usersList = this.userService.getUsers();

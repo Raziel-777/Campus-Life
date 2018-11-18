@@ -8,8 +8,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class DialogAlertComponent implements OnInit {
 
-  private state: string;
-  private message: string;
+  state: string;
+  message: string;
 
   constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: { state: string, message: string }) {
     this.state = data.state;
