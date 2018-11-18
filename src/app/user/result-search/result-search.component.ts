@@ -18,7 +18,9 @@ export class ResultSearchComponent implements OnInit {
   }
 
   show(id: number) {
-    this.result = [];
-    this.userService.showDetails(id);
+    if (id) {
+      this.result = [];
+      this.userService.showDetails(id);
+    }
   }
 }

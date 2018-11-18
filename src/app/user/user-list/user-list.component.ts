@@ -21,7 +21,9 @@ export class UserListComponent implements OnInit {
   }
 
   show(id: number) {
-    this.userService.showDetails(id);
+    if (id) {
+      this.userService.showDetails(id);
+    }
   }
 
   addUser() {

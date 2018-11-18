@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 
 
 import {AppComponent} from './app.component';
@@ -31,7 +32,7 @@ import {MainUserComponent} from './page/main-user/main-user.component';
 import {MainGroupMakerComponent} from './page/main-group-maker/main-group-maker.component';
 import {UserGroupComponent} from './user/user-group/user-group.component';
 import {DialogProfileComponent} from './user/dialog-profile/dialog-profile.component';
-import { ResultSearchComponent } from './user/result-search/result-search.component';
+import {ResultSearchComponent} from './user/result-search/result-search.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ResultSearchComponent } from './user/result-search/result-search.compon
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonModule
+    MatButtonModule,
+    ScrollDispatchModule
   ],
   entryComponents: [
     DialogProfileComponent

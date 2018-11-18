@@ -16,15 +16,23 @@ export class GroupMakerComponent implements OnInit {
 
   private usersList: User[];
   private readonly maxGroupSize: number;
+  private usersGroupList: { groups: User[][], size: number }[];
+  private selectedIndex: number;
+  private saveGroupsBtn = false;
 
   constructor(private userService: UserService, formBuilder: FormBuilder) {
     this.usersList = this.userService.getUsers();
+    this.usersGroupList = this.userService.getUsersGroupList();
     this.maxGroupSize = Math.round(this.usersList.length / 2);
     this.formGroup = formBuilder.group({
       hideRequired: true,
     });
     this.formGroupSize = new FormControl('', [Validators.required, Validators.min(2), Validators.max(this.maxGroupSize)]);
     this.formGroupOptions = new FormControl('parityNo');
+    this.selectedIndex = (this.userService._currentUsersGroupIndex);
+    if (this.userService._currentUsersGroupIndex === null && this.userService._currentUsersGroup !== null) {
+      this.saveGroupsBtn = true;
+    }
   }
 
   ngOnInit() {
@@ -38,9 +46,17 @@ export class GroupMakerComponent implements OnInit {
 
   makeGroup() {
   this.userService.makeGroup(this.formGroupSize.value, this.formGroupOptions.value);
+  this.selectedIndex = null;
+  this.saveGroupsBtn = true;
   }
 
   saveGroups() {
     this.userService.saveCurrentGroups();
+  }
+
+  showGroups(index: number) {
+    this.saveGroupsBtn = false;
+    this.userService.showGroups(index);
+    this.selectedIndex = index;
   }
 }

@@ -16,19 +16,20 @@ export class DialogProfileComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data,
               formBuilder: FormBuilder) {
     const user: User = data.user;
-    const birthDate = ((user.birthDate !== null) ? new Date(user.birthDate).toISOString() : null);
+    // TODO invalid time value quand add new User
+    const birthDate = ((user._birthDate !== null) ? new Date(user._birthDate).toISOString() : null);
     this.formProfile = formBuilder.group({
-      firstName: new FormControl(user.firstName, Validators.required),
-      lastName: new FormControl(user.lastName, Validators.required),
-      presentation: new FormControl(user.presentation, Validators.maxLength(255)),
-      email: new FormControl(user.email, [Validators.required, Validators.email]),
-      phone1: new FormControl(user.phone1, [Validators.minLength(10), Validators.maxLength(10)]),
-      phone2: new FormControl(user.phone2, [Validators.minLength(10), Validators.maxLength(10)]),
+      firstName: new FormControl(user._firstName, Validators.required),
+      lastName: new FormControl(user._lastName, Validators.required),
+      presentation: new FormControl(user._presentation, Validators.maxLength(255)),
+      email: new FormControl(user._email, [Validators.required, Validators.email]),
+      phone1: new FormControl(user._phone1, [Validators.minLength(10), Validators.maxLength(10)]),
+      phone2: new FormControl(user._phone2, [Validators.minLength(10), Validators.maxLength(10)]),
       birthDate: new FormControl(birthDate, Validators.required),
-      address: new FormControl(user.address),
-      postCode: new FormControl(user.postcode),
-      city: new FormControl(user.city),
-      gender: new FormControl(user.gender, Validators.required)
+      address: new FormControl(user._address),
+      postCode: new FormControl(user._postcode),
+      city: new FormControl(user._city),
+      gender: new FormControl(user._gender, Validators.required)
     });
   }
 

@@ -1,152 +1,152 @@
 export class User {
 
-  private _userID: number;
-  private _firstName: string;
-  private _lastName: string;
-  private _birthDate: number; // timestamp
-  private _gender: string;
-  private _email: string;
-  private _address?: string;
-  private _postcode?: string;
-  private _city?: string;
-  private _phone1?: string;
-  private _phone2?: string;
-  private _avatar?: string;
-  private _presentation?: string;
+  private userID: number;
+  private firstName: string;
+  private lastName: string;
+  private birthDate: number; // timestamp
+  private gender: string;
+  private email: string;
+  private address?: string;
+  private postcode?: string;
+  private city?: string;
+  private phone1?: string;
+  private phone2?: string;
+  private avatar?: string;
+  private presentation?: string;
 
   constructor(userID: number, firstName: string, lastName: string, birthDate: number, gender: string, email: string, city: string,
               address: string, postcode: string, phone1: string, phone2: string, avatar: string, presentation: string) {
 
-    this._userID = userID;
-    this._firstName = firstName;
-    this._lastName = lastName;
-    this._birthDate = birthDate;
-    this._gender = gender;
-    this._email = email;
+    this.userID = userID;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthDate = birthDate;
+    this.gender = gender;
+    this.email = email;
     if (address.length > 0 && address != null) {
-      this._address = address;
+      this.address = address;
     }
     if (postcode.length > 0 && postcode != null) {
-      this._postcode = postcode;
+      this.postcode = postcode;
     }
     if (city.length > 0 && city != null) {
-      this._city = city;
+      this.city = city;
     }
     if (phone1.length > 0 && phone1) {
-      this._phone1 = phone1;
+      this.phone1 = phone1;
     }
     if (phone2.length > 0 && phone2 != null) {
-      this._phone2 = phone2;
+      this.phone2 = phone2;
     }
     if (avatar.length > 0 && avatar != null) {
-      this._avatar = avatar;
+      this.avatar = avatar;
     }
     if (presentation.length > 0 && presentation != null) {
-      this._presentation = presentation;
+      this.presentation = presentation;
     }
   }
 
-  get userID(): number {
-    return this._userID;
+  get _userID(): number {
+    return this.userID;
   }
 
-  set userID(value: number) {
-    this._userID = value;
+  set _userID(value: number) {
+    this.userID = value;
   }
 
-  get firstName(): string {
-    return this._firstName;
+  get _firstName(): string {
+    return this.firstName;
   }
 
-  set firstName(value: string) {
-    this._firstName = value;
+  set _firstName(value: string) {
+    this.firstName = value;
   }
 
-  get lastName(): string {
-    return this._lastName;
+  get _lastName(): string {
+    return this.lastName;
   }
 
-  set lastName(value: string) {
-    this._lastName = value;
+  set _lastName(value: string) {
+    this.lastName = value;
   }
 
-  get birthDate(): number {
-    return this._birthDate;
+  get _birthDate(): number {
+    return this.birthDate;
   }
 
-  set birthDate(value: number) {
-    this._birthDate = value;
+  set _birthDate(value: number) {
+    this.birthDate = value;
   }
 
-  get gender(): string {
-    return this._gender;
+  get _gender(): string {
+    return this.gender;
   }
 
-  set gender(value: string) {
-    this._gender = value;
+  set _gender(value: string) {
+    this.gender = value;
   }
 
-  get email(): string {
-    return this._email;
+  get _email(): string {
+    return this.email;
   }
 
-  set email(value: string) {
-    this._email = value;
+  set _email(value: string) {
+    this.email = value;
   }
 
-  get address(): string {
-    return this._address;
+  get _address(): string {
+    return this.address;
   }
 
-  set address(value: string) {
+  set _address(value: string) {
     this.address = value;
   }
 
-  get postcode(): string {
-    return this._postcode;
+  get _postcode(): string {
+    return this.postcode;
   }
 
-  set postcode(value: string) {
-    this._postcode = value;
+  set _postcode(value: string) {
+    this.postcode = value;
   }
 
-  get city(): string {
-    return this._city;
+  get _city(): string {
+    return this.city;
   }
 
-  set city(value: string) {
-    this._city = value;
+  set _city(value: string) {
+    this.city = value;
   }
 
-  get phone1(): string {
-    return this._phone1;
+  get _phone1(): string {
+    return this.phone1;
   }
 
-  set phone1(value: string) {
-    this._phone1 = value;
+  set _phone1(value: string) {
+    this.phone1 = value;
   }
 
-  get phone2(): string {
-    return this._phone2;
+  get _phone2(): string {
+    return this.phone2;
   }
 
-  set phone2(value: string) {
-    this._phone2 = value;
+  set _phone2(value: string) {
+    this.phone2 = value;
   }
 
-  get avatar(): string {
-    return this._avatar;
+  get _avatar(): string {
+    return this.avatar;
   }
 
-  set avatar(value: string) {
-    this._avatar = value;
+  set _avatar(value: string) {
+    this.avatar = value;
   }
 
-  get presentation(): string {
-    return this._presentation;
+  get _presentation(): string {
+    return this.presentation;
   }
 
-  set presentation(value: string) {
-    this._presentation = value;
+  set _presentation(value: string) {
+    this.presentation = value;
   }
 }

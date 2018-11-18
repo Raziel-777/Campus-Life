@@ -1,6 +1,9 @@
 <div class="borderComponent" style="padding: 5%">
   <form class="group-size-form" [formGroup]="formGroup">
-    <h4 class="text-center">Group factory</h4>
+    <div class="row justify-content-center">
+      <mat-icon mat-list-icon style="margin-right: 4%">group</mat-icon>
+      <h4 class="text-center">Group factory</h4>
+    </div>
     <mat-form-field [hideRequiredMarker]="formGroup.value.hideRequired">
       <mat-label>Group Size</mat-label>
       <input matInput type="number" [formControl]="formGroupSize"
@@ -15,26 +18,36 @@
       </mat-radio-group>
     </div>
   </form>
-  <div class="row justify-content-around" style="margin-top: 7%">
+  <div class="row justify-content-between" style="margin: 7% 4% 0">
     <div>
-      <button [disabled]="formGroupSize.invalid" (click)="makeGroup()" mat-stroked-button color="primary">Make groups</button>
+      <button [disabled]="formGroupSize.invalid" (click)="makeGroup()" mat-stroked-button color="primary">Make groups
+      </button>
     </div>
     <div>
-      <button (click)="saveGroups()"  mat-raised-button color="accent">Save groups ?</button>
+      <button *ngIf="saveGroupsBtn" (click)="saveGroups()" mat-raised-button color="accent">Save groups ?</button>
     </div>
   </div>
 </div>
-
 <div class="borderComponent" style="padding: 5%; margin-top: 10%">
-
-    <h4 class="text-center">Group management</h4>
-    <p>liste des groups</p>
-  <div class="row justify-content-around">
+  <div class="row justify-content-center">
+    <mat-icon mat-list-icon style="margin-right: 4%">group</mat-icon>
+    <h4 class="text-center" style="margin-bottom: 6%">Group management</h4>
+  </div>
+  <cdk-virtual-scroll-viewport itemSize="50" class="group-list-viewport">
+    <div class="list-group">
+      <a class="list-group-item d-flex justify-content-between selectHover" (click)="showGroups(i)"
+         *cdkVirtualFor="let userGroup of usersGroupList; let i = index" [class.active]="selectedIndex === i">
+        <span>From 25 Jan to 19 April</span>
+        <span class="badge badge-dark">{{ userGroup.size }}</span>
+      </a>
+    </div>
+  </cdk-virtual-scroll-viewport>
+  <div class="row justify-content-between" style="margin: 7% 4% 0">
     <div>
-      <button [disabled]="formGroupSize.invalid" type="submit" class="btn btn-success">Make groups</button>
+      <button [disabled]="selectedIndex === null" mat-stroked-button color="primary">Send notifications</button>
     </div>
     <div>
-      <button class="btn btn-success">Save these groups</button>
+      <button [disabled]="selectedIndex === null" mat-stroked-button color="warn">Delete</button>
     </div>
   </div>
 </div>

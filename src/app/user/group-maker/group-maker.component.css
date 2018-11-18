@@ -1,1 +1,9 @@
+.group-list-viewport {
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
 
+.active {
+  background-color: #cfc9c8;
+  border-color: #cfc9c8;
+}
