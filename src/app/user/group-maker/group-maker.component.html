@@ -44,10 +44,10 @@
   </cdk-virtual-scroll-viewport>
   <div class="row justify-content-between" style="margin: 7% 4% 0">
     <div>
-      <button [disabled]="selectedIndex === null" mat-stroked-button color="primary">Send notifications</button>
+      <button (click)="export()" [disabled]="selectedIndex === null" mat-stroked-button color="primary">Export to PDF</button>
     </div>
     <div>
-      <button [disabled]="selectedIndex === null" mat-stroked-button color="warn">Delete</button>
+      <button (click)="delete()" [disabled]="selectedIndex === null" mat-stroked-button color="warn">Delete</button>
     </div>
   </div>
 </div>

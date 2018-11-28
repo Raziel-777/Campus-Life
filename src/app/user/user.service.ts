@@ -54,6 +54,7 @@ export class UserService {
   @Output() sendDetails: EventEmitter<User> = new EventEmitter();
   @Output() sendGroup: EventEmitter<object> = new EventEmitter();
   @Output() sendSearch: EventEmitter<User[]> = new EventEmitter();
+  @Output() sendExportGroupPdf: EventEmitter<any> = new EventEmitter();
 
   static randomItem(items: User[]): User {
     return items[Math.floor(Math.random() * items.length)];
@@ -214,5 +215,9 @@ export class UserService {
       this.sendGroup.emit({groups: result, size: groupSize});
     }
     this._currentUsersGroup = {groups: result, size: groupSize};
+  }
+
+  exportGroupPdf() {
+    this.sendExportGroupPdf.emit();
   }
 }

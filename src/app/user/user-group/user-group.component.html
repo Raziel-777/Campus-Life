@@ -1,4 +1,8 @@
-<div *ngIf="groups !== null">
+<div id="groups" *ngIf="groups !== null">
+  <!--TODO: add ng-if created_at-->
+  <div class="text-center" style="margin-bottom: 5%">
+    <h3>Period from 25 January to 12 Mars</h3>
+  </div>
   <div class="row" *ngFor="let interGroup of groups; let i = index;">
     <div class="col-{{ colSizeRow }}" *ngFor="let usersGroup of interGroup; let j = index" style="margin-bottom: 2%">
       <mat-card class="group-card">

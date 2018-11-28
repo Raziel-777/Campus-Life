@@ -84,4 +84,12 @@ export class GroupMakerComponent implements OnInit {
     }
 
   }
+
+  export() {
+    this.userService.exportGroupPdf();
+  }
+
+  delete() {
+
+  }
 }

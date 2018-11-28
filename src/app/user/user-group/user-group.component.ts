@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../user.service';
 import {User} from '../user';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-user-group',
@@ -9,7 +12,7 @@ import {User} from '../user';
 })
 export class UserGroupComponent implements OnInit {
 
-  groups: User[][][];
+  groups: User[][][] = null;
   sizeUsersGroup: number;
   colSizeRow: number;
   colSizeGroup: number;
@@ -19,6 +22,9 @@ export class UserGroupComponent implements OnInit {
     if (currentGroup) {
       this.makeHtmlGroup(currentGroup);
     }
+    this.userService.sendExportGroupPdf.subscribe(() => {
+      this.exportGroupToPdf();
+    });
   }
 
   ngOnInit() {
@@ -90,5 +96,20 @@ export class UserGroupComponent implements OnInit {
     }
     this.colSizeRow = 12 / groupsPerRow;
     this.colSizeGroup = Math.trunc(12 / this.sizeUsersGroup);
+  }
+
+  exportGroupToPdf() {
+    const data = document.getElementById('groups');
+    html2canvas(data).then(canvas => {
+      const imgWidth = 200;
+      const pageHeight = 300;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const heightLeft = imgHeight;
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jspdf('p', 'mm', 'a4');
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('groups.pdf');
+    });
   }
 }
