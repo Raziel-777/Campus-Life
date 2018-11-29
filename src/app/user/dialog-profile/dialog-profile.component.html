@@ -30,7 +30,7 @@
     <mat-form-field style="width: 25%">
       <input matInput [matDatepicker]="formBirthDate" placeholder="Birth Date" formControlName="birthDate" required>
       <mat-datepicker-toggle matSuffix [for]="formBirthDate"></mat-datepicker-toggle>
-      <mat-datepicker #formBirthDate></mat-datepicker>
+      <mat-datepicker #formBirthDate [startAt]="startDate"></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field>

@@ -1,5 +1,5 @@
-<div *ngIf="userToShow !== null" class="card" style="margin-top: 9%">
-  <mat-card class="student-card">
+<div *ngIf="userToShow !== null" style="margin-top: 9.3%">
+  <mat-card>
     <mat-card-header>
       <div mat-card-avatar class="header-image"></div>
       <mat-card-title>{{ userToShow._firstName }} {{ userToShow._lastName }}</mat-card-title>
@@ -31,20 +31,14 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <div class="row justify-content-between">
-        <div class="col-3">
-          <button (click)="editProfile(userToShow)" mat-stroked-button color="accent">Edit your
-            profile
-          </button>
-          <!--<button (click)="editProfile(userToShow)" mat-stroked-button color="accent">Edit his-->
-          <!--profile-->
-          <!--</button>-->
-        </div>
-        <div class="col-2">
-          <button (click)="delete()" mat-stroked-button color="link">Delete</button>
-          <!--<button mat-stroked-button color="accent">Edit his profile</button>-->
-        </div>
-      </div>
+      <button (click)="editProfile(userToShow)" style="margin-right: 2%" mat-stroked-button color="accent">Edit your
+        profile
+      </button>
+      <button (click)="delete()" mat-stroked-button color="link">Delete</button>
+      <!--<button (click)="editProfile(userToShow)" mat-stroked-button color="accent">Edit his-->
+      <!--profile-->
+      <!--</button>-->
+      <!--<button mat-stroked-button color="accent">Edit his profile</button>-->
     </mat-card-actions>
   </mat-card>
 </div>

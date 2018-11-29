@@ -36,16 +36,12 @@ export class DetailComponent implements OnInit {
     const profileDialog = this.dialog.open(DialogProfileComponent, {
       width: '600px',
       data: {user: user},
-      disableClose: true
+      disableClose: false
     });
 
     profileDialog.afterClosed().subscribe(result => {
       console.log(result);
     });
-  }
-
-  mailTo(mail: string): void {
-    window.location.href = 'mailto:' + mail;
   }
 }
 

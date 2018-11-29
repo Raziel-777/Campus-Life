@@ -24,29 +24,14 @@ export class User {
     this.birthDate = birthDate;
     this.gender = gender;
     this.email = email;
+    this.address = address;
+    this.postcode = postcode;
+    this.city = city;
+    this.phone1 = phone1;
+    this.phone2 = phone2;
+    this.avatar = avatar;
+    this.presentation = presentation;
     this.sector = sector;
-    // TODO: check with DATABASE
-    if (address != null && address.length > 0) {
-      this.address = address;
-    }
-    if (postcode != null && postcode.length > 0) {
-      this.postcode = postcode;
-    }
-    if (city != null && city.length > 0) {
-      this.city = city;
-    }
-    if (phone1 != null && phone1.length > 0) {
-      this.phone1 = phone1;
-    }
-    if (phone2 != null && phone2.length > 0) {
-      this.phone2 = phone2;
-    }
-    if (avatar != null && avatar.length > 0) {
-      this.avatar = avatar;
-    }
-    if (presentation != null && presentation.length > 0) {
-      this.presentation = presentation;
-    }
   }
 
   get _sector(): string {

@@ -11,6 +11,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 export class DialogProfileComponent implements OnInit {
 
   formProfile: FormGroup;
+  startDate: string = null;
 
   constructor(private dialogRef: MatDialogRef<DialogProfileComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
@@ -19,8 +20,9 @@ export class DialogProfileComponent implements OnInit {
     let birthDate;
     if (user._birthDate) {
       birthDate = new Date(user._birthDate).toISOString();
+      this.startDate = null;
     } else {
-      birthDate = null;
+      this.startDate = new Date(Date.now() - 788400000000).toISOString();
     }
     this.formProfile = formBuilder.group({
       firstName: new FormControl(user._firstName, Validators.required),

@@ -1,9 +1,14 @@
-<div class="row" style="margin-bottom: 1%">
-  <mat-button-toggle-group #group="matButtonToggleGroup" aria-label="Group Filter">
-    <mat-button-toggle checked value="all">All</mat-button-toggle>
-    <mat-button-toggle value="indus">Indus</mat-button-toggle>
-    <mat-button-toggle value="web">Web</mat-button-toggle>
-  </mat-button-toggle-group>
+<div class="row justify-content-between" style="margin-bottom: 1%">
+  <div>
+    <mat-button-toggle-group #group="matButtonToggleGroup" aria-label="Group Filter">
+      <mat-button-toggle checked value="all">All</mat-button-toggle>
+      <mat-button-toggle value="indus">Indus</mat-button-toggle>
+      <mat-button-toggle value="web">Web</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div>
+    <button (click)="addUser()" mat-raised-button color="accent">Add a student</button>
+  </div>
 </div>
 
 <div class="row">
@@ -54,8 +59,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="row" style="margin-top: 2%">
-  <button (click)="addUser()" mat-raised-button color="accent">Add a student</button>
 </div>
