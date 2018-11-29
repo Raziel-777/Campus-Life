@@ -18,6 +18,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
 import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 import {AppComponent} from './app.component';
@@ -33,7 +34,7 @@ import {MainGroupMakerComponent} from './page/main-group-maker/main-group-maker.
 import {UserGroupComponent} from './user/user-group/user-group.component';
 import {DialogProfileComponent} from './user/dialog-profile/dialog-profile.component';
 import {ResultSearchComponent} from './user/result-search/result-search.component';
-import { DialogAlertComponent } from './component/dialog-alert/dialog-alert.component';
+import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.component';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { DialogAlertComponent } from './component/dialog-alert/dialog-alert.comp
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
+    MatButtonToggleModule,
     ScrollDispatchModule
   ],
   entryComponents: [

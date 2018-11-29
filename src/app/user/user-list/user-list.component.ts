@@ -12,12 +12,16 @@ import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component
 export class UserListComponent implements OnInit {
 
   usersList: User[];
+  usersListWeb: User[];
+  usersListIndus: User[];
 
   constructor(private userService: UserService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.usersList = this.userService.getUsers();
+    this.usersListWeb = this.userService.getUsersWeb();
+    this.usersListIndus = this.userService.getUsersIndus();
   }
 
   show(id: number) {
@@ -28,18 +32,19 @@ export class UserListComponent implements OnInit {
 
   addUser() {
     const initUser = {
-      'firstName': '',
-      'lastName': '',
+      'firstName': null,
+      'lastName': null,
       'birthDate': null,
-      'gender': '',
-      'address': '',
-      'postcode': '',
-      'city': '',
-      'phone1': '',
-      'phone2': '',
-      'email': '',
-      'avatar': '',
-      'presentation': ''
+      'gender': null,
+      'address': null,
+      'postcode': null,
+      'city': null,
+      'phone1': null,
+      'phone2': null,
+      'email': null,
+      'avatar': null,
+      'presentation': null,
+      'sector': null
     };
     const profileDialog = this.dialog.open(DialogProfileComponent, {
       width: '600px',

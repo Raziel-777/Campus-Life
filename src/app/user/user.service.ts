@@ -10,6 +10,8 @@ import {Router} from '@angular/router';
 export class UserService {
 
   private readonly users: User[];
+  private readonly usersIndus: User[];
+  private readonly usersWeb: User[];
   private userSearchResult: User[];
   private currentUsersGroup: { groups: User[][], size: number } = null;
   private currentUsersGroupIndex: number = null;
@@ -42,11 +44,18 @@ export class UserService {
 
   constructor(public router: Router) {
     this.users = [];
+    this.usersWeb = [];
+    this.usersIndus = [];
     // TODO faire une API service
     for (const user of users.students) {
       const newUser = new User(user.userID, user.firstName, user.lastName, user.birthDate, user.gender, user.email, user.city, user.address,
-        user.postcode, user.phone1, user.phone2, user.avatar, user.presentation);
+        user.postcode, user.phone1, user.phone2, user.avatar, user.presentation, user.sector);
       this.users.push(newUser);
+      if (newUser._sector === 'indus') {
+        this.usersIndus.push(newUser);
+      } else if (newUser._sector === 'web') {
+        this.usersWeb.push(newUser);
+      }
     }
     this.fetchUsersGroupList();
   }
@@ -54,6 +63,7 @@ export class UserService {
   @Output() sendDetails: EventEmitter<User> = new EventEmitter();
   @Output() sendGroup: EventEmitter<object> = new EventEmitter();
   @Output() sendSearch: EventEmitter<User[]> = new EventEmitter();
+  @Output() sendExportGroupPdf: EventEmitter<any> = new EventEmitter();
 
   static randomItem(items: User[]): User {
     return items[Math.floor(Math.random() * items.length)];
@@ -61,6 +71,14 @@ export class UserService {
 
   getUsers(): User[] {
     return this.users;
+  }
+
+  getUsersWeb(): User[] {
+    return this.usersWeb;
+  }
+
+  getUsersIndus(): User[] {
+    return this.usersIndus;
   }
 
   getUsersGroupList() {
@@ -214,5 +232,9 @@ export class UserService {
       this.sendGroup.emit({groups: result, size: groupSize});
     }
     this._currentUsersGroup = {groups: result, size: groupSize};
+  }
+
+  exportGroupPdf() {
+    this.sendExportGroupPdf.emit();
   }
 }

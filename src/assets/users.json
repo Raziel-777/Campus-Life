@@ -13,7 +13,8 @@
       "phone2": "0678451252",
       "email": "anthonybaptiste@mail.fr",
       "avatar": "assets/img/avatar/anthony.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": null
     },
     {
       "userID": 2,
@@ -28,7 +29,8 @@
       "phone2": "0678451252",
       "email": "anzorissaev@mail.fr",
       "avatar": "assets/img/avatar/anzor.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "indus"
     },
     {
       "userID": 3,
@@ -43,7 +45,8 @@
       "phone2": "0678451252",
       "email": "damiendubois@mail.fr",
       "avatar": "assets/img/avatar/dubois.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "web"
     },
     {
       "userID": 4,
@@ -58,7 +61,8 @@
       "phone2": "0678451252",
       "email": "damienthibault@mail.fr",
       "avatar": "assets/img/avatar/damien.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": null
     },
     {
       "userID": 5,
@@ -73,7 +77,8 @@
       "phone2": "0678451252",
       "email": "ghislainchalas@mail.fr",
       "avatar": "assets/img/avatar/ghislain.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "indus"
     },
     {
       "userID": 6,
@@ -88,7 +93,8 @@
       "phone2": "0678451252",
       "email": "mariefontanel@mail.fr",
       "avatar": "assets/img/avatar/marie.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "web"
     },
     {
       "userID": 7,
@@ -103,7 +109,8 @@
       "phone2": "0678451252",
       "email": "maxencererat@mail.fr",
       "avatar": "assets/img/avatar/maxence.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": null
     },
     {
       "userID": 8,
@@ -118,7 +125,8 @@
       "phone2": "0678451252",
       "email": "melissabouzon@mail.fr",
       "avatar": "assets/img/avatar/melissa.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "indus"
     },
     {
       "userID": 9,
@@ -133,7 +141,8 @@
       "phone2": "0678451252",
       "email": "michaeljouve@mail.fr",
       "avatar": "assets/img/avatar/michael.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": null
     },
     {
       "userID": 10,
@@ -148,7 +157,8 @@
       "phone2": "0678451252",
       "email": "nicolasmartinez@mail.fr",
       "avatar": "assets/img/avatar/nicolas.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "web"
     },
     {
       "userID": 11,
@@ -163,7 +173,8 @@
       "phone2": "0678451252",
       "email": "remitabardel@mail.fr",
       "avatar": "assets/img/avatar/remi.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": null
     },
     {
       "userID": 12,
@@ -178,7 +189,8 @@
       "phone2": "0678451252",
       "email": "romainribet@mail.fr",
       "avatar": "assets/img/avatar/romain.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "indus"
     },
     {
       "userID": 13,
@@ -193,7 +205,8 @@
       "phone2": "0678451252",
       "email": "romaricgilson@mail.fr",
       "avatar": "assets/img/avatar/romaric.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": null
     },
     {
       "userID": 14,
@@ -208,7 +221,8 @@
       "phone2": "0678451252",
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "web"
     },
     {
       "userID": 15,
@@ -223,7 +237,8 @@
       "phone2": "0678451252",
       "email": "sylvainfelix@mail.fr",
       "avatar": "assets/img/avatar/sylvain.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "indus"
     },
     {
       "userID": 16,
@@ -238,7 +253,8 @@
       "phone2": "0678451252",
       "email": "vincentlejeune@mail.fr",
       "avatar": "assets/img/avatar/vincent.jpg",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "indus"
     },
     {
       "userID": 17,
@@ -253,7 +269,8 @@
       "phone2": "0678451252",
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "web"
     },
     {
       "userID": 18,
@@ -268,7 +285,8 @@
       "phone2": "0678451252",
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": null
     },
     {
       "userID": 19,
@@ -283,7 +301,8 @@
       "phone2": "0678451252",
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "web"
     },
     {
       "userID": 20,
@@ -298,7 +317,8 @@
       "phone2": "0678451252",
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "indus"
     },
     {
       "userID": 21,
@@ -313,7 +333,8 @@
       "phone2": "0678451252",
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": null,
+      "sector": null
     },
     {
       "userID": 22,
@@ -328,7 +349,8 @@
       "phone2": "0678451252",
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
-      "presentation": "Aime le foot et la binouze"
+      "presentation": "Aime le foot et la binouze",
+      "sector": "web"
     }
   ]
 }
