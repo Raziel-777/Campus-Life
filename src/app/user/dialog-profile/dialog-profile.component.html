@@ -45,9 +45,17 @@
       <input matInput placeholder="City" formControlName="city">
     </mat-form-field>
 
-    <mat-radio-group formControlName="gender" required>
+    <mat-radio-group formControlName="gender" style="margin-bottom: 3%" required>
       <mat-radio-button style="margin-right: 10px" value="female">Woman</mat-radio-button>
       <mat-radio-button value="male">Man</mat-radio-button>
+    </mat-radio-group>
+
+    <p style="margin-bottom: 1%">Sector :</p>
+
+    <mat-radio-group formControlName="sector" required>
+      <mat-radio-button style="margin-right: 10px" value="undefined">Undefined</mat-radio-button>
+      <mat-radio-button style="margin-right: 10px" value="indus">indus</mat-radio-button>
+      <mat-radio-button value="web">Web</mat-radio-button>
     </mat-radio-group>
 
     <br>

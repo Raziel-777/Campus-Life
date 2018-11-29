@@ -13,9 +13,10 @@ export class User {
   private phone2?: string;
   private avatar?: string;
   private presentation?: string;
+  private sector?: string;
 
   constructor(userID: number, firstName: string, lastName: string, birthDate: number, gender: string, email: string, city: string,
-              address: string, postcode: string, phone1: string, phone2: string, avatar: string, presentation: string) {
+              address: string, postcode: string, phone1: string, phone2: string, avatar: string, presentation: string, sector: string) {
 
     this.userID = userID;
     this.firstName = firstName;
@@ -23,27 +24,37 @@ export class User {
     this.birthDate = birthDate;
     this.gender = gender;
     this.email = email;
-    if (address.length > 0 && address != null) {
+    this.sector = sector;
+    // TODO: check with DATABASE
+    if (address != null && address.length > 0) {
       this.address = address;
     }
-    if (postcode.length > 0 && postcode != null) {
+    if (postcode != null && postcode.length > 0) {
       this.postcode = postcode;
     }
-    if (city.length > 0 && city != null) {
+    if (city != null && city.length > 0) {
       this.city = city;
     }
-    if (phone1.length > 0 && phone1) {
+    if (phone1 != null && phone1.length > 0) {
       this.phone1 = phone1;
     }
-    if (phone2.length > 0 && phone2 != null) {
+    if (phone2 != null && phone2.length > 0) {
       this.phone2 = phone2;
     }
-    if (avatar.length > 0 && avatar != null) {
+    if (avatar != null && avatar.length > 0) {
       this.avatar = avatar;
     }
-    if (presentation.length > 0 && presentation != null) {
+    if (presentation != null && presentation.length > 0) {
       this.presentation = presentation;
     }
+  }
+
+  get _sector(): string {
+    return this.sector;
+  }
+
+  set _sector(value: string) {
+    this.sector = value;
   }
 
   get _userID(): number {

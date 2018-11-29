@@ -16,8 +16,12 @@ export class DialogProfileComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data,
               formBuilder: FormBuilder) {
     const user: User = data.user;
-    // TODO invalid time value quand add new User
-    const birthDate = ((user._birthDate !== null) ? new Date(user._birthDate).toISOString() : null);
+    let birthDate;
+    if (user._birthDate) {
+      birthDate = new Date(user._birthDate).toISOString();
+    } else {
+      birthDate = null;
+    }
     this.formProfile = formBuilder.group({
       firstName: new FormControl(user._firstName, Validators.required),
       lastName: new FormControl(user._lastName, Validators.required),
@@ -29,7 +33,8 @@ export class DialogProfileComponent implements OnInit {
       address: new FormControl(user._address),
       postCode: new FormControl(user._postcode),
       city: new FormControl(user._city),
-      gender: new FormControl(user._gender, Validators.required)
+      gender: new FormControl(user._gender, Validators.required),
+      sector: new FormControl(user._sector, Validators.required)
     });
   }
 
