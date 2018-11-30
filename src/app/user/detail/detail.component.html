@@ -3,7 +3,7 @@
     <mat-card-header>
       <div mat-card-avatar class="header-image"></div>
       <mat-card-title>{{ userToShow._firstName }} {{ userToShow._lastName }}</mat-card-title>
-      <mat-card-subtitle *ngIf="userToShow._sector !== null"
+      <mat-card-subtitle *ngIf="userToShow._sector !== 'undefined'"
                          style="color: #FF50A8">{{ userToShow._sector.toUpperCase() }}</mat-card-subtitle>
     </mat-card-header>
     <mat-divider></mat-divider>

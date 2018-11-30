@@ -14,7 +14,7 @@
       "email": "anthonybaptiste@mail.fr",
       "avatar": "assets/img/avatar/anthony.jpg",
       "presentation": "Aime le foot et la binouze",
-      "sector": null
+      "sector": "undefined"
     },
     {
       "userID": 2,
@@ -62,7 +62,7 @@
       "email": "damienthibault@mail.fr",
       "avatar": "assets/img/avatar/damien.jpg",
       "presentation": "Aime le foot et la binouze",
-      "sector": null
+      "sector": "undefined"
     },
     {
       "userID": 5,
@@ -110,7 +110,7 @@
       "email": "maxencererat@mail.fr",
       "avatar": "assets/img/avatar/maxence.jpg",
       "presentation": "Aime le foot et la binouze",
-      "sector": null
+      "sector": "undefined"
     },
     {
       "userID": 8,
@@ -142,7 +142,7 @@
       "email": "michaeljouve@mail.fr",
       "avatar": "assets/img/avatar/michael.jpg",
       "presentation": "Aime le foot et la binouze",
-      "sector": null
+      "sector": "undefined"
     },
     {
       "userID": 10,
@@ -174,7 +174,7 @@
       "email": "remitabardel@mail.fr",
       "avatar": "assets/img/avatar/remi.jpg",
       "presentation": "Aime le foot et la binouze",
-      "sector": null
+      "sector": "undefined"
     },
     {
       "userID": 12,
@@ -206,7 +206,7 @@
       "email": "romaricgilson@mail.fr",
       "avatar": "assets/img/avatar/romaric.jpg",
       "presentation": "Aime le foot et la binouze",
-      "sector": null
+      "sector": "undefined"
     },
     {
       "userID": 14,
@@ -286,7 +286,7 @@
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
       "presentation": "Aime le foot et la binouze",
-      "sector": null
+      "sector": "undefined"
     },
     {
       "userID": 19,
@@ -334,7 +334,7 @@
       "email": "thibaultdescamps@mail.fr",
       "avatar": "assets/img/avatar/baseMale.png",
       "presentation": null,
-      "sector": null
+      "sector": "undefined"
     },
     {
       "userID": 22,

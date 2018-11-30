@@ -14,7 +14,8 @@ export class GroupMakerComponent implements OnInit {
 
   formGroup: FormGroup;
   formGroupSize: FormControl;
-  formGroupOptions: FormControl;
+  formGroupParity: FormControl;
+  formGroupSector: FormControl;
 
   private usersList: User[];
   private readonly maxGroupSize: number;
@@ -30,7 +31,8 @@ export class GroupMakerComponent implements OnInit {
       hideRequired: true,
     });
     this.formGroupSize = new FormControl('', [Validators.required, Validators.min(2), Validators.max(this.maxGroupSize)]);
-    this.formGroupOptions = new FormControl('parityNo');
+    this.formGroupParity = new FormControl('parityNo');
+    this.formGroupSector = new FormControl('all');
     this.selectedIndex = (this.userService._currentUsersGroupIndex);
     if (this.userService._currentUsersGroupIndex === null && this.userService._currentUsersGroup !== null) {
       this.saveGroupsBtn = true;
@@ -47,9 +49,26 @@ export class GroupMakerComponent implements OnInit {
   }
 
   makeGroup() {
-    this.userService.makeGroup(this.formGroupSize.value, this.formGroupOptions.value);
-    this.selectedIndex = null;
-    this.saveGroupsBtn = true;
+    if (this.saveGroupsBtn === true) {
+      const alertDialog = this.dialog.open(DialogAlertComponent, {
+        width: '450px',
+        data: {state: 'Be careful your groups are not saved.', message: 'Do you want to delete or save them ?'},
+        autoFocus: false
+      });
+
+      alertDialog.afterClosed().subscribe(result => {
+        if (result === 'delete') {
+          this.userService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
+        } else if (result === 'save') {
+          this.saveGroups();
+          this.userService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
+        }
+      });
+    } else {
+      this.userService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
+      this.selectedIndex = null;
+      this.saveGroupsBtn = true;
+    }
   }
 
   saveGroups() {
@@ -69,7 +88,7 @@ export class GroupMakerComponent implements OnInit {
           this.saveGroupsBtn = false;
           this.userService.showGroups(index);
           this.selectedIndex = index;
-        } else {
+        } else if (result === 'save') {
           this.saveGroups();
           this.saveGroupsBtn = false;
           this.userService.showGroups(index);

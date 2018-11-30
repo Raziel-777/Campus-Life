@@ -1,9 +1,13 @@
 <div class="row justify-content-between" style="margin-bottom: 1%">
   <div>
     <mat-button-toggle-group #group="matButtonToggleGroup" aria-label="Group Filter">
-      <mat-button-toggle checked value="all">All</mat-button-toggle>
-      <mat-button-toggle value="indus">Indus</mat-button-toggle>
-      <mat-button-toggle value="web">Web</mat-button-toggle>
+      <mat-button-toggle class="buttonToggleSize" checked value="all"><span matBadge="{{ usersList.length }}"
+                                                                            matBadgeOverlap="false">All&nbsp;</span>
+      </mat-button-toggle>
+      <mat-button-toggle class="buttonToggleSize" value="indus"><span matBadge="{{ usersListIndus.length }}"
+                                                                      matBadgeOverlap="false">Indus&nbsp;</span></mat-button-toggle>
+      <mat-button-toggle class="buttonToggleSize" value="web"><span matBadge="{{ usersListWeb.length }}"
+                                                                    matBadgeOverlap="false">Web&nbsp;</span></mat-button-toggle>
     </mat-button-toggle-group>
   </div>
   <div>

@@ -4,6 +4,14 @@
       <mat-icon mat-list-icon style="margin-right: 4%">group</mat-icon>
       <h4 class="text-center">Group factory</h4>
     </div>
+    <div style="margin-top: 3%">
+      <p>Sector</p>
+      <mat-radio-group [formControl]="formGroupSector">
+        <mat-radio-button style="margin-right: 10px" value="all">All</mat-radio-button>
+        <mat-radio-button style="margin-right: 10px" value="indus">Indus</mat-radio-button>
+        <mat-radio-button value="web">Web</mat-radio-button>
+      </mat-radio-group>
+    </div>
     <mat-form-field [hideRequiredMarker]="formGroup.value.hideRequired">
       <mat-label>Group Size</mat-label>
       <input matInput type="number" [formControl]="formGroupSize"
@@ -12,7 +20,7 @@
     </mat-form-field>
     <div style="margin-top: 3%">
       <p>Parity man/woman :</p>
-      <mat-radio-group [formControl]="formGroupOptions">
+      <mat-radio-group [formControl]="formGroupParity">
         <mat-radio-button style="margin-right: 10px" value="parityYes">Yes</mat-radio-button>
         <mat-radio-button value="parityNo">No</mat-radio-button>
       </mat-radio-group>
@@ -37,8 +45,9 @@
     <div class="list-group">
       <a class="list-group-item d-flex justify-content-between selectHover" (click)="showGroups(i)"
          *cdkVirtualFor="let userGroup of usersGroupList; let i = index" [class.active]="selectedIndex === i">
-        <span>From 25 Jan to 19 April</span>
-        <span class="badge badge-dark">{{ userGroup.size }}</span>
+        <span style="font-size: 0.8em">From 25 Jan to 19 April</span>
+        <span style="color: #3f51b5">Indus</span>
+        <span class="badge badge-dark" style="max-height: 20px">{{ userGroup.size }}</span>
       </a>
     </div>
   </cdk-virtual-scroll-viewport>

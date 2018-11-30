@@ -17,6 +17,7 @@ export class UserService {
   private currentUsersGroupIndex: number = null;
   private currentUserDetail: User;
   private usersGroupList: { groups: User[][], size: number }[];
+  // TODO: add sector to groups
   private usersGroupListExample: { groups: Number[][], size: number }[] = [
     {'groups': [[12, 19], [7, 1], [2, 15], [10, 13], [3, 16], [18, 5], [17, 8], [4, 14], [11, 22], [20, 9], [21, 6]], 'size': 2},
     {'groups': [[14, 19, 8], [20, 1, 2], [10, 17, 18], [12, 4, 13], [11, 5, 6], [9, 16, 7], [3, 21, 22], [15]], 'size': 3},
@@ -67,6 +68,26 @@ export class UserService {
 
   static randomItem(items: User[]): User {
     return items[Math.floor(Math.random() * items.length)];
+  }
+
+  static alreadyMatch(user: User, groupsList: { groups: User[][], size: number }[]): User[] {
+    let usersFound: User[] = [];
+    for (const obj of groupsList) {
+      for (const group of obj.groups) {
+        if (group.includes(user)) {
+          usersFound = usersFound.concat(group);
+        }
+      }
+    }
+    for (let i = 0; i < usersFound.length; i++) {
+      for (let j = i + 1; j < usersFound.length; j++) {
+        if (usersFound[i] === usersFound[j]) {
+          usersFound.splice(j--, 1);
+        }
+      }
+    }
+    usersFound.splice(usersFound.indexOf(user), 1);
+    return usersFound;
   }
 
   getUsers(): User[] {
@@ -162,20 +183,42 @@ export class UserService {
     // TODO: enlever bouton save groups si save ok
   }
 
-  makeGroup(groupSize: number, option: string) {
+  makeGroup(groupSize: number, parity: string, sector: string) {
     this.currentUsersGroup = null;
     this.currentUsersGroupIndex = null;
-    const usersList = Object.assign([], this.users);
+    let usersList;
+    switch (sector) {
+      case 'all':
+        usersList = Object.assign([], this.users);
+        break;
+      case 'indus':
+        usersList = Object.assign([], this.usersIndus);
+        break;
+      case 'web':
+        usersList = Object.assign([], this.usersWeb);
+        break;
+      default:
+        usersList = Object.assign([], this.users);
+    }
+
     const result: User[][] = [];
-    const fullGroupNumber = Math.trunc(this.users.length / groupSize);
-    if (option === 'parityNo') {
+    const fullGroupNumber = Math.trunc(usersList.length / groupSize);
+    if (parity === 'parityNo') {
 
       for (let i = 0; i < fullGroupNumber; i++) {
+        const noDuplicate: User[] = Object.assign([], usersList);
         const group: User[] = [];
         for (let j = 0; j < groupSize; j++) {
-          const randomUser = UserService.randomItem(usersList);
+          const randomUser = UserService.randomItem(noDuplicate);
           group.push(randomUser);
           usersList.splice(usersList.indexOf(randomUser), 1);
+          noDuplicate.splice(noDuplicate.indexOf(randomUser), 1);
+          const usersFound = UserService.alreadyMatch(randomUser, this.usersGroupList);
+          for (const user of usersFound) {
+            if (noDuplicate.length > groupSize) {
+              noDuplicate.splice(noDuplicate.indexOf(user), 1);
+            }
+          }
         }
         result.push(group);
       }
@@ -183,7 +226,7 @@ export class UserService {
         result.push(usersList);
       }
       this.sendGroup.emit({groups: result, size: groupSize});
-    } else if (option === 'parityYes') {
+    } else if (parity === 'parityYes') {
       const manGroup: User[] = [];
       const womanGroup: User[] = [];
       for (const user of usersList) {
@@ -195,13 +238,24 @@ export class UserService {
       }
       let pingPong = 'manGroup';
       for (let i = 0; i < fullGroupNumber; i++) {
+        const noDuplicateMan: User[] = Object.assign([], manGroup);
+        const noDuplicateWoman: User[] = Object.assign([], womanGroup);
         const group: User[] = [];
         for (let j = 0; j < groupSize; j++) {
           if (pingPong === 'manGroup') {
             if (manGroup.length > 0) {
-              const randomUser = UserService.randomItem(manGroup);
+              const randomUser = UserService.randomItem(noDuplicateMan);
               group.push(randomUser);
               manGroup.splice(manGroup.indexOf(randomUser), 1);
+              noDuplicateMan.splice(noDuplicateMan.indexOf(randomUser), 1);
+              const usersFound = UserService.alreadyMatch(randomUser, this.usersGroupList);
+              for (const user of usersFound) {
+                if (user._gender === 'male') {
+                  if (noDuplicateMan.length > Math.ceil(groupSize / 2)) {
+                    noDuplicateMan.splice(noDuplicateMan.indexOf(user), 1);
+                  }
+                }
+              }
               pingPong = 'womanGroup';
               continue;
             } else {
@@ -211,9 +265,18 @@ export class UserService {
             }
           } else if (pingPong === 'womanGroup') {
             if (womanGroup.length > 0) {
-              const randomUser = UserService.randomItem(womanGroup);
+              const randomUser = UserService.randomItem(noDuplicateWoman);
               group.push(randomUser);
               womanGroup.splice(womanGroup.indexOf(randomUser), 1);
+              noDuplicateWoman.splice(noDuplicateWoman.indexOf(randomUser), 1);
+              const usersFound = UserService.alreadyMatch(randomUser, this.usersGroupList);
+              for (const user of usersFound) {
+                if (user._gender === 'female') {
+                  if (noDuplicateWoman.length > Math.ceil(groupSize / 2)) {
+                    noDuplicateWoman.splice(noDuplicateWoman.indexOf(user), 1);
+                  }
+                }
+              }
               pingPong = 'manGroup';
               continue;
             } else {
