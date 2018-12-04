@@ -27,21 +27,9 @@ export class UserService {
     {'groups': [[19, 5, 1, 21, 8, 15], [12, 10, 13, 3, 11, 22], [4, 2, 14, 7, 9, 16], [6, 17, 18, 20]], 'size': 6},
     {'groups': [[19, 5, 1, 21, 8, 15], [12, 10, 13, 3, 11, 22], [4, 2, 14, 7, 9, 16], [6, 17, 18, 20]], 'size': 6}
   ];
-  private defaultUser: Object = {
-    'userID': null,
-    'firstName': 'Deleted user',
-    'lastName': 'Deleted user',
-    'birthDate': null,
-    'gender': null,
-    'email': null,
-    'address': null,
-    'postcode': null,
-    'city': null,
-    'phone1': null,
-    'phone2': null,
-    'avatar': 'assets/img/avatar/baseMale.jpg',
-    'presentation': null
-  };
+  private deletedUser: User = new User(null, 'Deleted', 'Deleted', null,
+    null, null, null, null, null, null, null,
+    'assets/img/avatar/baseMale.png', null, 'undefined');
 
   constructor(public router: Router) {
     this.users = [];
@@ -79,15 +67,9 @@ export class UserService {
         }
       }
     }
-    for (let i = 0; i < usersFound.length; i++) {
-      for (let j = i + 1; j < usersFound.length; j++) {
-        if (usersFound[i] === usersFound[j]) {
-          usersFound.splice(j--, 1);
-        }
-      }
-    }
-    usersFound.splice(usersFound.indexOf(user), 1);
-    return usersFound;
+    const unique: User[] = Array.from(new Set(usersFound));
+    unique.splice(unique.indexOf(user), 1);
+    return unique;
   }
 
   getUsers(): User[] {
@@ -134,6 +116,8 @@ export class UserService {
           const user: User = this.users.find(i => i._userID === userId);
           if (user) {
             userGroup.push(user);
+          } else {
+            userGroup.push(this.deletedUser);
           }
         }
         groupObject.groups.push(userGroup);
@@ -213,6 +197,7 @@ export class UserService {
           group.push(randomUser);
           usersList.splice(usersList.indexOf(randomUser), 1);
           noDuplicate.splice(noDuplicate.indexOf(randomUser), 1);
+          // TODO: use only this.usersGroupList with good sector
           const usersFound = UserService.alreadyMatch(randomUser, this.usersGroupList);
           for (const user of usersFound) {
             if (noDuplicate.length > groupSize) {
@@ -243,7 +228,7 @@ export class UserService {
         const group: User[] = [];
         for (let j = 0; j < groupSize; j++) {
           if (pingPong === 'manGroup') {
-            if (manGroup.length > 0) {
+            if (noDuplicateMan.length > 0) {
               const randomUser = UserService.randomItem(noDuplicateMan);
               group.push(randomUser);
               manGroup.splice(manGroup.indexOf(randomUser), 1);
@@ -251,8 +236,12 @@ export class UserService {
               const usersFound = UserService.alreadyMatch(randomUser, this.usersGroupList);
               for (const user of usersFound) {
                 if (user._gender === 'male') {
-                  if (noDuplicateMan.length > Math.ceil(groupSize / 2)) {
+                  if (noDuplicateMan.length + noDuplicateWoman.length > groupSize) {
                     noDuplicateMan.splice(noDuplicateMan.indexOf(user), 1);
+                  }
+                } else {
+                  if (noDuplicateMan.length + noDuplicateWoman.length > groupSize) {
+                    noDuplicateWoman.splice(noDuplicateWoman.indexOf(user), 1);
                   }
                 }
               }
@@ -264,7 +253,7 @@ export class UserService {
               continue;
             }
           } else if (pingPong === 'womanGroup') {
-            if (womanGroup.length > 0) {
+            if (noDuplicateWoman.length > 0) {
               const randomUser = UserService.randomItem(noDuplicateWoman);
               group.push(randomUser);
               womanGroup.splice(womanGroup.indexOf(randomUser), 1);
@@ -272,8 +261,12 @@ export class UserService {
               const usersFound = UserService.alreadyMatch(randomUser, this.usersGroupList);
               for (const user of usersFound) {
                 if (user._gender === 'female') {
-                  if (noDuplicateWoman.length > Math.ceil(groupSize / 2)) {
+                  if (noDuplicateMan.length + noDuplicateWoman.length > groupSize) {
                     noDuplicateWoman.splice(noDuplicateWoman.indexOf(user), 1);
+                  }
+                } else {
+                  if (noDuplicateMan.length + noDuplicateWoman.length > groupSize) {
+                    noDuplicateMan.splice(noDuplicateMan.indexOf(user), 1);
                   }
                 }
               }
