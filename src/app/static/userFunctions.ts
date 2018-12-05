@@ -39,9 +39,9 @@ export default class UserFunctions {
     }
   }
 
-  static removeAlreadyGrouped(usersFound: User[], usersGroup: User[][], groupSize: number): User[][] {
+  static removeAlreadyGrouped(usersFound: User[], usersGroup: User[][], remainingSize: number): User[][] {
     for (let z = 0; z < usersFound.length; z++) {
-      if (usersGroup[0].length + usersGroup[1].length > groupSize) {
+      if (usersGroup[0].length + usersGroup[1].length > remainingSize) {
         const userToRemove = UserFunctions.randomUser(usersFound);
         const indexMajorGroup = usersGroup[0].indexOf(userToRemove);
         if (indexMajorGroup !== -1) {
@@ -79,7 +79,7 @@ export default class UserFunctions {
           noDuplicate.splice(noDuplicate.indexOf(randomUser), 1);
           const usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
           for (let z = 0; z < usersFound.length; z++) {
-            if (noDuplicate.length > groupSize) {
+            if (noDuplicate.length >= groupSize - z - 1) {
               const userToRemove = UserFunctions.randomUser(usersFound);
               const index = noDuplicate.indexOf(userToRemove);
               if (index !== -1) {
@@ -103,93 +103,78 @@ export default class UserFunctions {
         const group: User[] = [];
         let majorNumber = 0;
         let minorNumber = 0;
+        let randomUser: User = null;
+        let usersFound: User[] = null;
         if (noDuplicateMinor.length > 0) {
-          let randomUser = UserFunctions.randomUser(noDuplicateMinor);
+          randomUser = UserFunctions.randomUser(noDuplicateMinor);
           group.push(randomUser);
           minorNumber++;
           minorGroup.splice(minorGroup.indexOf(randomUser), 1);
           noDuplicateMinor.splice(noDuplicateMinor.indexOf(randomUser), 1);
-          const usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
+          usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
           [noDuplicateMajor, noDuplicateMinor] = UserFunctions.removeAlreadyGrouped(usersFound,
             [noDuplicateMajor, noDuplicateMinor],
             groupSize - 1);
           for (let j = 0; j < groupSize - 1; j++) {
-            if (majorNumber / minorNumber < totalRatio) {
+            if (majorNumber / minorNumber <= totalRatio) {
               if (noDuplicateMajor.length > 0) {
                 randomUser = UserFunctions.randomUser(noDuplicateMajor);
                 group.push(randomUser);
                 majorNumber++;
-                usersList.splice(usersList.indexOf(randomUser), 1);
+                majorGroup.splice(majorGroup.indexOf(randomUser), 1);
                 noDuplicateMajor.splice(noDuplicateMajor.indexOf(randomUser), 1);
-
+              } else {
+                randomUser = UserFunctions.randomUser(noDuplicateMinor);
+                group.push(randomUser);
+                minorNumber++;
+                minorGroup.splice(minorGroup.indexOf(randomUser), 1);
+                noDuplicateMinor.splice(noDuplicateMinor.indexOf(randomUser), 1);
               }
-
-              if (pingPong === 'manGroup') {
-                if (noDuplicateMan.length > 0) {
-                  const randomUser = this.randomItem(noDuplicateMan);
-                  group.push(randomUser);
-                  manGroup.splice(manGroup.indexOf(randomUser), 1);
-                  noDuplicateMan.splice(noDuplicateMan.indexOf(randomUser), 1);
-                  const usersFound = this.alreadyMatch(randomUser, this.usersGroupList);
-                  for (const user of usersFound) {
-                    if (user._gender === 'male') {
-                      if (noDuplicateMan.length + noDuplicateWoman.length > groupSize) {
-                        noDuplicateMan.splice(noDuplicateMan.indexOf(user), 1);
-                      }
-                    } else {
-                      if (noDuplicateMan.length + noDuplicateWoman.length > groupSize) {
-                        noDuplicateWoman.splice(noDuplicateWoman.indexOf(user), 1);
-                      }
-                    }
-                  }
-                  pingPong = 'womanGroup';
-                  continue;
+            } else {
+              if (noDuplicateMinor.length > 0) {
+                randomUser = UserFunctions.randomUser(noDuplicateMinor);
+                group.push(randomUser);
+                minorNumber++;
+                minorGroup.splice(minorGroup.indexOf(randomUser), 1);
+                noDuplicateMinor.splice(noDuplicateMinor.indexOf(randomUser), 1);
+              } else {
+                randomUser = UserFunctions.randomUser(noDuplicateMajor);
+                group.push(randomUser);
+                majorNumber++;
+                majorGroup.splice(majorGroup.indexOf(randomUser), 1);
+                noDuplicateMajor.splice(noDuplicateMajor.indexOf(randomUser), 1);
+              }
+            }
+            usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
+            for (let z = 0; z < usersFound.length; z++) {
+              if (noDuplicateMajor.length + noDuplicateMinor.length >= groupSize - j - 2) {
+                const userToRemove = UserFunctions.randomUser(usersFound);
+                const indexMajorGroup = noDuplicateMajor.indexOf(userToRemove);
+                if (indexMajorGroup !== -1) {
+                  noDuplicateMajor.splice(indexMajorGroup, 1);
                 } else {
-                  pingPong = 'womanGroup';
-                  j--;
-                  continue;
-                }
-              } else if (pingPong === 'womanGroup') {
-                if (noDuplicateWoman.length > 0) {
-                  const randomUser = this.randomItem(noDuplicateWoman);
-                  group.push(randomUser);
-                  womanGroup.splice(womanGroup.indexOf(randomUser), 1);
-                  noDuplicateWoman.splice(noDuplicateWoman.indexOf(randomUser), 1);
-                  const usersFound = this.alreadyMatch(randomUser, this.usersGroupList);
-                  for (const user of usersFound) {
-                    if (user._gender === 'female') {
-                      if (noDuplicateMan.length + noDuplicateWoman.length > groupSize) {
-                        noDuplicateWoman.splice(noDuplicateWoman.indexOf(user), 1);
-                      }
-                    } else {
-                      if (noDuplicateMan.length + noDuplicateWoman.length > groupSize) {
-                        noDuplicateMan.splice(noDuplicateMan.indexOf(user), 1);
-                      }
-                    }
+                  const indexMinorGroup = noDuplicateMinor.indexOf(userToRemove);
+                  if (indexMinorGroup !== -1) {
+                    noDuplicateMinor.splice(indexMinorGroup, 1);
                   }
-                  pingPong = 'manGroup';
-                  continue;
-                } else {
-                  pingPong = 'manGroup';
-                  j--;
-                  continue;
                 }
               }
             }
-            result.push(group);
           }
-          const lastGroup: User[] = womanGroup.concat(manGroup);
-          if (lastGroup.length > 0) {
-            result.push(lastGroup);
-          }
-          this.sendGroup.emit({groups: result, size: groupSize});
+        } else {
+
         }
-        this._currentUsersGroup = {groups: result, size: groupSize};
+        result.push(group);
       }
-
+      const lastGroup: User[] = womanGroup.concat(manGroup);
+      if (lastGroup.length > 0) {
+        result.push(lastGroup);
+      }
+      this.sendGroup.emit({groups: result, size: groupSize});
     }
-
+    this._currentUsersGroup = {groups: result, size: groupSize};
   }
+
 }
 
 
