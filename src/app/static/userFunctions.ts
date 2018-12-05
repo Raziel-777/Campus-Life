@@ -40,7 +40,21 @@ export default class UserFunctions {
   }
 
   static removeAlreadyGrouped(usersFound: User[], usersGroup: User[][], groupSize: number): User[][] {
-
+    for (let z = 0; z < usersFound.length; z++) {
+      if (usersGroup[0].length + usersGroup[1].length > groupSize) {
+        const userToRemove = UserFunctions.randomUser(usersFound);
+        const indexMajorGroup = usersGroup[0].indexOf(userToRemove);
+        if (indexMajorGroup !== -1) {
+          usersGroup[0].splice(indexMajorGroup, 1);
+        } else {
+          const indexMinorGroup = usersGroup[1].indexOf(userToRemove);
+          if (indexMinorGroup !== -1) {
+            usersGroup[1].splice(indexMinorGroup, 1);
+          }
+        }
+      }
+    }
+    return usersGroup;
   }
 
   static randomGroupMaker(
@@ -84,8 +98,8 @@ export default class UserFunctions {
     } else if (parity === 'parityYes' && majorGroup.length > 0 && minorGroup.length > 0) {
       const totalRatio = majorGroup.length / minorGroup.length;
       for (let i = 0; i < fullGroupNumber; i++) {
-        const noDuplicateMajor: User[] = Object.assign([], majorGroup);
-        const noDuplicateMinor: User[] = Object.assign([], minorGroup);
+        let noDuplicateMajor: User[] = Object.assign([], majorGroup);
+        let noDuplicateMinor: User[] = Object.assign([], minorGroup);
         const group: User[] = [];
         let majorNumber = 0;
         let minorNumber = 0;
@@ -96,21 +110,9 @@ export default class UserFunctions {
           minorGroup.splice(minorGroup.indexOf(randomUser), 1);
           noDuplicateMinor.splice(noDuplicateMinor.indexOf(randomUser), 1);
           const usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
-          for (let z = 0; z < usersFound.length; z++) {
-            if (noDuplicateMajor.length + noDuplicateMinor.length > groupSize) {
-              const userToRemove = UserFunctions.randomUser(usersFound);
-              const indexMajor = noDuplicateMajor.indexOf(userToRemove);
-              if (indexMajor !== -1) {
-                noDuplicateMajor.splice(indexMajor, 1);
-              } else {
-                const indexMinor = noDuplicateMinor.indexOf(userToRemove);
-                if (indexMinor !== -1) {
-                  noDuplicateMinor.splice(indexMinor, 1);
-                }
-              }
-            }
-          }
-
+          [noDuplicateMajor, noDuplicateMinor] = UserFunctions.removeAlreadyGrouped(usersFound,
+            [noDuplicateMajor, noDuplicateMinor],
+            groupSize - 1);
           for (let j = 0; j < groupSize - 1; j++) {
             if (majorNumber / minorNumber < totalRatio) {
               if (noDuplicateMajor.length > 0) {
