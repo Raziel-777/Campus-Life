@@ -54,8 +54,9 @@ export default class UserFunctions {
       majorGroupToRemove = splitGroupToRemove[1];
       minorGroupToRemove = splitGroupToRemove[0];
     }
-    for (let z = 0; z < usersFound.length; z++) {
-      if (usersGroup[0].users.length + usersGroup[1].users.length >= remainingSize) {
+    const usersFoundLength = usersFound.length;
+    for (let z = 0; z < usersFoundLength; z++) {
+      if (usersGroup[0].users.length + usersGroup[1].users.length > remainingSize) {
         if (usersGroup[1].users.length > 0) {
           if (usersGroup[0].users.length / usersGroup[1].users.length >= ratioToKeep) {
             const userToRemove = UserFunctions.randomUser(majorGroupToRemove.users);
@@ -90,7 +91,6 @@ export default class UserFunctions {
     usersGroupList: { groups: User[][], size: number, sector: string }[],
     groupSize: number,
     parity: string): User[][] {
-
     const result: User[][] = [];
     const fullGroupNumber = Math.trunc(usersList.length / groupSize);
     const splitGroup: { users: User[], gender: string }[] = UserFunctions.splitParityGroup(usersList);
@@ -105,13 +105,17 @@ export default class UserFunctions {
           group.push(randomUser);
           usersList.splice(usersList.indexOf(randomUser), 1);
           noDuplicate.splice(noDuplicate.indexOf(randomUser), 1);
-          const usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
-          for (let z = 0; z < usersFound.length; z++) {
-            if (noDuplicate.length >= groupSize - z - 1) {
-              const userToRemove = UserFunctions.randomUser(usersFound);
-              const index = noDuplicate.indexOf(userToRemove);
-              if (index !== -1) {
-                noDuplicate.splice(index, 1);
+          if (groupSize - j - 1 !== 0) {
+            const usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
+            const usersFoundLength = usersFound.length;
+            for (let z = 0; z < usersFoundLength; z++) {
+              if (noDuplicate.length > groupSize - j - 1) {
+                const userToRemove = UserFunctions.randomUser(usersFound);
+                usersFound.splice(usersFound.indexOf(userToRemove), 1);
+                const index = noDuplicate.indexOf(userToRemove);
+                if (index !== -1) {
+                  noDuplicate.splice(index, 1);
+                }
               }
             }
           }
@@ -126,8 +130,8 @@ export default class UserFunctions {
     } else if (parity === 'parityYes' && majorGroup.users.length > 0 && minorGroup.users.length > 0) {
       const totalRatio = majorGroup.users.length / minorGroup.users.length;
       for (let i = 0; i < fullGroupNumber; i++) {
-        let noDuplicateMajor: { users: User[], gender: string } = Object.assign({}, majorGroup);
-        let noDuplicateMinor: { users: User[], gender: string } = Object.assign({}, minorGroup);
+        let noDuplicateMajor: { users: User[], gender: string } = {users: Object.assign([], majorGroup.users), gender: majorGroup.gender};
+        let noDuplicateMinor: { users: User[], gender: string } = {users: Object.assign([], minorGroup.users), gender: minorGroup.gender};
         const group: User[] = [];
         let majorNumber = 0;
         let minorNumber = 0;
@@ -172,8 +176,8 @@ export default class UserFunctions {
                 noDuplicateMajor.users.splice(noDuplicateMajor.users.indexOf(randomUser), 1);
               }
             }
-            usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
             if (groupSize - j - 2 !== 0) {
+              usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
               [noDuplicateMajor, noDuplicateMinor] = UserFunctions.removeAlreadyGrouped(usersFound,
                 [noDuplicateMajor, noDuplicateMinor], groupSize - j - 2, totalRatio);
             }
@@ -184,8 +188,8 @@ export default class UserFunctions {
             group.push(randomUser);
             majorGroup.users.splice(majorGroup.users.indexOf(randomUser), 1);
             noDuplicateMajor.users.splice(noDuplicateMajor.users.indexOf(randomUser), 1);
-            usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
             if (groupSize - z - 1 !== 0) {
+              usersFound = UserFunctions.alreadyGrouped(randomUser, usersGroupList);
               [noDuplicateMajor, noDuplicateMinor] = UserFunctions.removeAlreadyGrouped(usersFound,
                 [noDuplicateMajor, noDuplicateMinor], groupSize - z - 1, totalRatio);
             }
@@ -197,6 +201,7 @@ export default class UserFunctions {
       if (lastGroup.length > 0) {
         result.push(lastGroup);
       }
+      console.log(result);
       return result;
     }
   }
