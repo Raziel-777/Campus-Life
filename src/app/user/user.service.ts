@@ -195,11 +195,8 @@ export class UserService {
       default:
         usersList = Object.assign([], this.users);
     }
-
     const result = UserFunctions.randomGroupMaker(usersList, this.usersGroupList, groupSize, parity);
-
-
-
+    this._currentUsersGroup = {groups: result, size: groupSize};
     this.sendGroup.emit({groups: result, size: groupSize});
   }
 
