@@ -1,7 +1,7 @@
 TODO:
 
-Mettre les boutons OK dans les forms avec onsublit c'est plus mieux !
 MEttre des tooltips sur les boutons disabled ?
-Finir algo avec ancien group
 photo resize crop
 Faire 2 promos et tranqsverse
+DRAG AND DROP
+

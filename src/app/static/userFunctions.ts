@@ -201,7 +201,6 @@ export default class UserFunctions {
       if (lastGroup.length > 0) {
         result.push(lastGroup);
       }
-      console.log(result);
       return result;
     }
   }

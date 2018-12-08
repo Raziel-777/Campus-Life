@@ -18,7 +18,6 @@ export class UserService {
   private currentUsersGroupIndex: number = null;
   private currentUserDetail: User;
   private usersGroupList: { groups: User[][], size: number, sector: string }[];
-  // TODO: add sector to groups
   private usersGroupListExample: { groups: Number[][], size: number, sector: string }[] = [
     {
       'groups': [[12, 19], [7, 1], [2, 15], [10, 13], [3, 16], [18, 5], [17, 8], [4, 14], [11, 22], [20, 9], [21, 6]],

@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material';
 import {UserService} from '../user.service';
 import {User} from '../user';
 import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component';
+import {DialogAlertComponent} from '../../component/dialog-alert/dialog-alert.component';
 
 @Component({
   selector: 'app-detail',
@@ -40,7 +41,30 @@ export class DetailComponent implements OnInit {
     });
 
     profileDialog.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result && result !== 'cancel') {
+        console.log(result);
+      }
+    });
+  }
+
+  deleteUser(user: User): void {
+    const alertDialog = this.dialog.open(DialogAlertComponent, {
+      width: '450px',
+      data: {
+        state: 'You are about to delete a user.',
+        message: 'Do you want to continue?',
+        responseOne: 'Yes',
+        responseTwo: 'No'
+      },
+      autoFocus: false
+    });
+
+    alertDialog.afterClosed().subscribe(result => {
+      if (result === 'Yes') {
+
+      } else if (result === 'No') {
+
+      }
     });
   }
 }

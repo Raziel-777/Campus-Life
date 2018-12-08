@@ -43,7 +43,11 @@ export class DialogProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  userUpdate() {
+  saveUser() {
     this.dialogRef.close(this.formProfile.value);
+  }
+
+  cancelClick() {
+    this.dialogRef.close('cancel');
   }
 }

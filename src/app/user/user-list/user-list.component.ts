@@ -53,7 +53,9 @@ export class UserListComponent implements OnInit {
     });
 
     profileDialog.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result && result !== 'cancel') {
+        console.log(result);
+      }
     });
   }
 

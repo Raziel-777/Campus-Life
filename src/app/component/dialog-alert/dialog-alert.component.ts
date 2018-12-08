@@ -10,25 +10,25 @@ export class DialogAlertComponent implements OnInit {
 
   state: string;
   message: string;
+  responseOne: string;
+  responseTwo: string;
 
-  constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: { state: string, message: string }) {
+  constructor(public dialogRef: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) public data: {
+    state: string,
+    message: string,
+    responseOne: string,
+    responseTwo: string
+  }) {
     this.state = data.state;
     this.message = data.message;
-  }
-
-  close() {
-    this.dialogRef.close();
-  }
-
-  save() {
-    this.dialogRef.close('save');
-  }
-
-  delete() {
-    this.dialogRef.close('delete');
+    this.responseOne = data.responseOne;
+    this.responseTwo = data.responseTwo;
   }
 
   ngOnInit() {
   }
 
+  response(response: string) {
+    this.dialogRef.close(response);
+  }
 }

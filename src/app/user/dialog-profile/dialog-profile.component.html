@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Change you profile...</h2>
 <div mat-dialog-content>
 
-  <form class="form-profile" [formGroup]="formProfile" (ngSubmit)="userUpdate()">
+  <form class="form-profile" [formGroup]="formProfile">
     <mat-form-field>
       <input matInput placeholder="First Name" formControlName="firstName" required>
     </mat-form-field>
@@ -65,9 +65,9 @@
     <!--<input matInput type="file">-->
     <!--</mat-form-field>-->
     <div mat-dialog-actions="">
-      <button [disabled]="formProfile.invalid" type="submit" style="width: 30%" mat-raised-button>Save profile</button>
+      <button [disabled]="formProfile.invalid" (click)="saveUser()" style="width: 30%" mat-raised-button>Save profile</button>
       <br>
-      <button [mat-dialog-close] style="width: 30%" mat-button>Cancel</button>
+      <button (click)="cancelClick()" style="width: 30%" mat-button>Cancel</button>
     </div>
   </form>
 </div>

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row d-flex justify-content-end">
-    <a (click)="close()" class="selectHover"><mat-icon mat-list-icon>close</mat-icon></a>
+    <a (click)="response('cancel')" class="selectHover"><mat-icon mat-list-icon>close</mat-icon></a>
   </div>
   <div class="row">
     <h5>{{ state }}</h5>
@@ -9,7 +9,7 @@
     <p>{{ message }}</p>
   </div>
   <div class="row justify-content-around" style="margin-top: 5%">
-    <button (click)="delete()" mat-stroked-button color="accent">Delete</button>
-    <button (click)="save()" mat-stroked-button color="primary">Save</button>
+    <button (click)="response(responseTwo)" mat-stroked-button color="accent">{{ responseTwo }}</button>
+    <button (click)="response(responseOne)" mat-stroked-button color="primary">{{ responseOne }}</button>
   </div>
 </div>
