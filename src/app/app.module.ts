@@ -20,6 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 import {AppComponent} from './app.component';
@@ -77,6 +78,7 @@ import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.compon
     MatButtonModule,
     MatButtonToggleModule,
     MatBadgeModule,
+    MatTooltipModule,
     ScrollDispatchModule
   ],
   entryComponents: [

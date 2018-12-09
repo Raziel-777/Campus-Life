@@ -83,16 +83,19 @@ export class GroupMakerComponent implements OnInit {
     if (this.selectedIndex === null && this.saveGroupsBtn === true) {
       const alertDialog = this.dialog.open(DialogAlertComponent, {
         width: '450px',
-        data: {state: 'Be careful your groups are not saved.', message: 'Do you want to delete or save them ?'},
+        data: {state: 'Be careful your groups are not saved.',
+          message: 'Do you want to delete or save them ?',
+        responseOne: 'Save',
+        responseTwo: 'Delete'},
         autoFocus: false
       });
 
       alertDialog.afterClosed().subscribe(result => {
-        if (result === 'delete') {
+        if (result === 'Delete') {
           this.saveGroupsBtn = false;
           this.userService.showGroups(index);
           this.selectedIndex = index;
-        } else if (result === 'save') {
+        } else if (result === 'Save') {
           this.saveGroups();
           this.saveGroupsBtn = false;
           this.userService.showGroups(index);

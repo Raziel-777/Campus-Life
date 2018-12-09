@@ -27,8 +27,8 @@
     </div>
   </form>
   <div class="row justify-content-between" style="margin: 7% 4% 0">
-    <div>
-      <button [disabled]="formGroupSize.invalid" (click)="makeGroup()" mat-stroked-button color="primary">Make groups
+    <div [matTooltipDisabled]="!formGroupSize.invalid" matTooltip="Please choose a group size before">
+      <button id="makeGroupBtn" [disabled]="formGroupSize.invalid" (click)="makeGroup()" mat-stroked-button color="primary">Make groups
       </button>
     </div>
     <div>
@@ -52,10 +52,10 @@
     </div>
   </cdk-virtual-scroll-viewport>
   <div class="row justify-content-between" style="margin: 7% 4% 0">
-    <div>
+    <div [matTooltipDisabled]="selectedIndex !== null" matTooltip="Please choose a group before">
       <button (click)="export()" [disabled]="selectedIndex === null" mat-stroked-button color="primary">Export to PDF</button>
     </div>
-    <div>
+    <div [matTooltipDisabled]="selectedIndex !== null" matTooltip="Please choose a group before">
       <button (click)="delete()" [disabled]="selectedIndex === null" mat-stroked-button color="warn">Delete</button>
     </div>
   </div>

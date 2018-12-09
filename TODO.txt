@@ -1,6 +1,5 @@
 TODO:
 
-MEttre des tooltips sur les boutons disabled ?
 photo resize crop
 Faire 2 promos et tranqsverse
 DRAG AND DROP
