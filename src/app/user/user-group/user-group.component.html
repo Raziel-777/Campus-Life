@@ -5,23 +5,41 @@
     <h5 style="color: #FF50A8">Indus</h5>
   </div>
 
-  <mat-grid-list id="toto" cdkDropListGroup cols="3">
-    <mat-grid-tile *ngFor="let group of groups; let i = index;">
+
+  <mat-grid-list cols="{{ colsNumber }}" rowHeight="1:0.7">
+    <mat-grid-tile rowspan="3" *ngFor="let group of groups; let i = index;">
       <div class="container-fluid">
+        <mat-grid-tile-header>
+          <p>Group {{ i + 1 }}</p>
+        </mat-grid-tile-header>
         <div class="row">
-          <div class="container-fluid" *ngFor="let user of group">
+          <div class="col-sm-{{ groupColSize }}" *ngFor="let user of group">
             <div style="margin-top: 10%">
               <img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"
                    src="{{ user._avatar }}" alt="avatar">
             </div>
             <div>
-              <p class="text-center">{{ user._firstName }} {{ user._userID }}</p>
+              <p class="text-center">{{ user._firstName }}</p>
             </div>
           </div>
         </div>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
+
+  <!--<div class="container-fluid">-->
+  <!--<div class="row">-->
+  <!--<div class="container-fluid" *ngFor="let user of group">-->
+  <!--<div style="margin-top: 10%">-->
+  <!--<img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"-->
+  <!--src="{{ user._avatar }}" alt="avatar">-->
+  <!--</div>-->
+  <!--<div>-->
+  <!--<p class="text-center">{{ user._firstName }} {{ user._userID }}</p>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
 
 
   <!--<div class="row" *ngFor="let interGroup of groups; let i = index;">-->

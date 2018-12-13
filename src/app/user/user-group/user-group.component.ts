@@ -15,12 +15,33 @@ export class UserGroupComponent implements OnInit {
 
   groups: User[][] = null;
   sizeUsersGroup: number;
+  colsNumber: number;
+  groupColSize: number;
+  rowSpanNumber: number;
+
 
   constructor(private userService: UserService) {
     const dataGroups = this.userService._currentUsersGroup;
     if (dataGroups) {
       this.groups = dataGroups.groups;
       this.sizeUsersGroup = dataGroups.size;
+      switch (dataGroups.size) {
+        case 2:
+          this.colsNumber = 4;
+          this.groupColSize = 6;
+          this.rowSpanNumber = 2;
+          break;
+        case 3:
+          this.colsNumber = 3;
+          this.groupColSize = 4;
+          this.rowSpanNumber = 1;
+          break;
+        default:
+          this.colsNumber = 2;
+          this.groupColSize = 3;
+          this.rowSpanNumber = 1;
+          break;
+      }
     }
   }
 
@@ -31,6 +52,23 @@ export class UserGroupComponent implements OnInit {
     this.userService.sendGroup.subscribe(data => {
       this.groups = data.groups;
       this.sizeUsersGroup = data.size;
+      switch (data.size) {
+        case 2:
+          this.colsNumber = 4;
+          this.groupColSize = 6;
+          this.rowSpanNumber = 2;
+          break;
+        case 3:
+          this.colsNumber = 3;
+          this.groupColSize = 4;
+          this.rowSpanNumber = 1;
+          break;
+        default:
+          this.colsNumber = 2;
+          this.groupColSize = 3;
+          this.rowSpanNumber = 1;
+          break;
+      }
     });
   }
 
