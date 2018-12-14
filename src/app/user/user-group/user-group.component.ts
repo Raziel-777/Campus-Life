@@ -67,7 +67,7 @@ export class UserGroupComponent implements OnInit {
         case 3:
           this.colsNumber = 3;
           this.groupColSize = 4;
-          this.rowHeight = 0.7;
+          this.rowHeight = 0.8;
           break;
         default:
           this.colsNumber = 2;
@@ -77,7 +77,7 @@ export class UserGroupComponent implements OnInit {
               this.rowHeight = 0.5;
               break;
             default:
-              this.rowHeight = Math.ceil(data.size / 4 - 1) * 0.2 + 0.7;
+              this.rowHeight = Math.ceil(data.size / 4 - 1) * 0.2 + 0.6;
               break;
           }
           break;
@@ -85,14 +85,13 @@ export class UserGroupComponent implements OnInit {
     });
   }
 
-  drop(event: CdkDragDrop<any>) {
-    console.log(event);
-
-    transferArrayItem(event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex);
-
+  drop(event: CdkDragDrop<User[]>) {
+    if (event.previousContainer !== event.container) {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
 
   // makeHtmlGroup(data) {
