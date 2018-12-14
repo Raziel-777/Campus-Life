@@ -17,7 +17,7 @@ export class UserGroupComponent implements OnInit {
   sizeUsersGroup: number;
   colsNumber: number;
   groupColSize: number;
-  rowSpanNumber: number;
+  rowHeight: number;
 
 
   constructor(private userService: UserService) {
@@ -29,17 +29,23 @@ export class UserGroupComponent implements OnInit {
         case 2:
           this.colsNumber = 4;
           this.groupColSize = 6;
-          this.rowSpanNumber = 2;
+          this.rowHeight = 0.5;
           break;
         case 3:
           this.colsNumber = 3;
           this.groupColSize = 4;
-          this.rowSpanNumber = 1;
+          this.rowHeight = 0.7;
           break;
         default:
           this.colsNumber = 2;
           this.groupColSize = 3;
-          this.rowSpanNumber = 1;
+          switch (dataGroups.size) {
+            case 4:
+              this.rowHeight = 0.5;
+              break;
+            case 5:
+              this.rowHeight = 1;
+          }
           break;
       }
     }
@@ -56,17 +62,24 @@ export class UserGroupComponent implements OnInit {
         case 2:
           this.colsNumber = 4;
           this.groupColSize = 6;
-          this.rowSpanNumber = 2;
+          this.rowHeight = 1;
           break;
         case 3:
           this.colsNumber = 3;
           this.groupColSize = 4;
-          this.rowSpanNumber = 1;
+          this.rowHeight = 0.7;
           break;
         default:
           this.colsNumber = 2;
           this.groupColSize = 3;
-          this.rowSpanNumber = 1;
+          switch (data.size) {
+            case 4:
+              this.rowHeight = 0.5;
+              break;
+            default:
+              this.rowHeight = Math.ceil(data.size / 4 - 1) * 0.2 + 0.7;
+              break;
+          }
           break;
       }
     });

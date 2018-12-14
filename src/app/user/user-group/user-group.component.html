@@ -5,21 +5,24 @@
     <h5 style="color: #FF50A8">Indus</h5>
   </div>
 
-
-  <mat-grid-list cols="{{ colsNumber }}" rowHeight="1:0.7">
-    <mat-grid-tile rowspan="3" *ngFor="let group of groups; let i = index;">
-      <div class="container-fluid">
-        <mat-grid-tile-header>
-          <p>Group {{ i + 1 }}</p>
-        </mat-grid-tile-header>
-        <div class="row">
-          <div class="col-sm-{{ groupColSize }}" *ngFor="let user of group">
-            <div style="margin-top: 10%">
-              <img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"
-                   src="{{ user._avatar }}" alt="avatar">
-            </div>
-            <div>
-              <p class="text-center">{{ user._firstName }}</p>
+  <mat-grid-list cols="{{ colsNumber }}" rowHeight="1:{{ rowHeight }}">
+    <mat-grid-tile *ngFor="let group of groups; let i = index;">
+      <div class="container-fluid" style="min-height: 100%">
+        <div class="card">
+          <div class="card-header">
+            Group {{ i + 1 }}
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-{{ groupColSize }}" *ngFor="let user of group">
+                <div style="margin-top: 10%">
+                  <img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"
+                       src="{{ user._avatar }}" alt="avatar">
+                </div>
+                <div>
+                  <p class="text-center">{{ user._firstName }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
