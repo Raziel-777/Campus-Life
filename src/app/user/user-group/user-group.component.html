@@ -1,32 +1,22 @@
 <div id="groups" *ngIf="groups !== null">
   <!--TODO: add ng-if created_at-->
   <div class="text-center" style="margin-bottom: 5%">
-    <h3>Period from 25 January to 12 Mars</h3>
+    <h4>Period from 25 January to 12 Mars</h4>
     <h5 style="color: #FF50A8">Indus</h5>
   </div>
-  <mat-grid-list cdkDropListGroup cols="{{ colsNumber }}" rowHeight="1:{{ rowHeight }}">
-    <mat-grid-tile [cdkDropListData]="group" (cdkDropListDropped)="drop($event)"
-                   *ngFor="let group of groups; let i = index;">
-      <div class="container-fluid" style="min-height: 100%">
-        <div class="card">
-          <div class="card-header">
-            Group {{ i + 1 }}
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-{{ groupColSize }}" *ngFor="let user of group" cdkDrag>
-                <div style="margin-top: 10%">
-                  <img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"
-                       src="{{ user._avatar }}" alt="avatar">
-                </div>
-                <div>
-                  <p class="text-center" style="font-size: 0.8em">{{ user._firstName }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="container-fluid">
+    <div class="row justify-content-around" cdkDropListGroup>
+      <div class="list col-sm-2 container-fluid" cdkDropList [cdkDropListData]="group"
+           (cdkDropListDropped)="drop($event)"
+           *ngFor="let group of groups; let i = index;">
+        <h4 class="text-center">Group {{ i + 1 }}</h4>
+        <div class="box" *ngFor="let user of group" cdkDrag>
+          {{user._firstName}}
+          <img class="img-group-list" data-toggle="tooltip" title="{{ user._firstName }}"
+               src="{{ user._avatar }}" alt="avatar">
+          <img *cdkDragPreview [src]="user._avatar" style="width: 7%">
         </div>
       </div>
-    </mat-grid-tile>
-  </mat-grid-list>
+    </div>
+  </div>
 </div>
