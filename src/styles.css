@@ -41,3 +41,8 @@
 .buttonToggleSize {
   min-width: 100px;
 }
+
+.form-profile {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {User} from './user';
 import users from '../../assets/users.json';
-import UserFunctions from '../static/userFunctions';
+import UserFunctions from './static/userFunctions';
 import {Router} from '@angular/router';
 
 

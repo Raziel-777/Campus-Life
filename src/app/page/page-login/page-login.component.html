@@ -1,14 +1,23 @@
-<!--<div class="card mt-5" style="margin:auto;width: 600px;">-->
-  <!--<div class="card-body">-->
-    <!--<h5 class="card-title">Login</h5>-->
-    <!--<div class="form-group">-->
-      <!--<label for="email">Email</label>-->
-      <!--<input type="text" class="form-control" id="email" placeholder="Email Address" [(ngModel)]="email">-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="email">Password</label>-->
-      <!--<input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="password">-->
-    <!--</div>-->
-    <!--<button type="submit" class="btn btn-primary" (click)="tryLogin()">Login</button>-->
-  <!--</div>-->
-<!--</div>-->
+<div class="row">
+  <div class="col-sm-6 offset-3">
+    <mat-card class="login-card">
+      <mat-card-header>
+        <mat-card-title class="text-center">Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="form-profile">
+          <mat-form-field>
+            <input matInput type="email" placeholder="Email" [(ngModel)]="username" name="email" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password"
+                   required>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="login()" color="primary">Login</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

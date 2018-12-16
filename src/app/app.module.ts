@@ -1,6 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {environment} from '../environments/environment';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {MatRadioModule} from '@angular/material/radio';
@@ -30,6 +34,7 @@ import {AppComponent} from './app.component';
 import {UserListComponent} from './user/user-list/user-list.component';
 import {PageTopComponent} from './page/page-top/page-top.component';
 import {PageLoginComponent} from './page/page-login/page-login.component';
+import {PageRegisterComponent} from './page/page-register/page-register.component';
 import {GroupMakerComponent} from './user/group-maker/group-maker.component';
 import {CollectiveTaskComponent} from './user/collective-task/collective-task.component';
 import {VotingComponent} from './user/voting/voting.component';
@@ -57,12 +62,16 @@ import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.compon
     UserGroupComponent,
     DialogProfileComponent,
     ResultSearchComponent,
-    DialogAlertComponent
+    DialogAlertComponent,
+    PageRegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
     MatRadioModule,
