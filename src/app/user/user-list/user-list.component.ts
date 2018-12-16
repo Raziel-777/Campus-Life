@@ -48,7 +48,7 @@ export class UserListComponent implements OnInit {
     };
     const profileDialog = this.dialog.open(DialogProfileComponent, {
       width: '600px',
-      data: {user: initUser},
+      data: {formTitle: 'Add a student...', user: initUser},
       autoFocus: false
     });
 

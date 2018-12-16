@@ -1,73 +1,105 @@
-<h2 mat-dialog-title>Change you profile...</h2>
-<div mat-dialog-content>
+<div [hidden]="!displayForm">
+  <h2 mat-dialog-title>{{ formTitle }}</h2>
+  <div mat-dialog-content>
 
-  <form class="form-profile" [formGroup]="formProfile">
-    <mat-form-field>
-      <input matInput placeholder="First Name" formControlName="firstName" required>
-    </mat-form-field>
+    <form class="form-profile" [formGroup]="formProfile">
+      <mat-form-field>
+        <input matInput placeholder="First Name" formControlName="firstName" required>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Last Name" formControlName="lastName" required>
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Last Name" formControlName="lastName" required>
+      </mat-form-field>
 
-    <mat-form-field>
+      <mat-form-field>
       <textarea maxlength="255" style="height: 75px" matInput placeholder="Presentation"
                 formControlName="presentation"></textarea>
-    </mat-form-field>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput type="email" placeholder="Email" formControlName="email" required>
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput type="email" placeholder="Email" formControlName="email" required>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Phone 1" formControlName="phone1" minlength="10" maxlength="10">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Phone 1" formControlName="phone1" minlength="10" maxlength="10">
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Phone 2" formControlName="phone2" minlength="10" maxlength="10">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Phone 2" formControlName="phone2" minlength="10" maxlength="10">
+      </mat-form-field>
 
-    <mat-form-field style="width: 25%">
-      <input matInput [matDatepicker]="formBirthDate" placeholder="Birth Date" formControlName="birthDate" required>
-      <mat-datepicker-toggle matSuffix [for]="formBirthDate"></mat-datepicker-toggle>
-      <mat-datepicker #formBirthDate [startAt]="startDate"></mat-datepicker>
-    </mat-form-field>
+      <mat-form-field style="width: 25%">
+        <input matInput [matDatepicker]="formBirthDate" placeholder="Birth Date" formControlName="birthDate" required>
+        <mat-datepicker-toggle matSuffix [for]="formBirthDate"></mat-datepicker-toggle>
+        <mat-datepicker #formBirthDate [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Address" formControlName="address">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="address">
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Postcode" formControlName="postCode">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Postcode" formControlName="postCode">
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="City" formControlName="city">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="City" formControlName="city">
+      </mat-form-field>
 
-    <mat-radio-group formControlName="gender" style="margin-bottom: 3%" required>
-      <mat-radio-button style="margin-right: 10px" value="female">Woman</mat-radio-button>
-      <mat-radio-button value="male">Man</mat-radio-button>
-    </mat-radio-group>
+      <mat-radio-group formControlName="gender" style="margin-bottom: 3%" required>
+        <mat-radio-button style="margin-right: 10px" value="female">Woman</mat-radio-button>
+        <mat-radio-button value="male">Man</mat-radio-button>
+      </mat-radio-group>
 
-    <p style="margin-bottom: 1%">Sector :</p>
+      <p style="margin-bottom: 1%">Sector :</p>
 
-    <mat-radio-group formControlName="sector" required>
-      <mat-radio-button style="margin-right: 10px" value="undefined">Undefined</mat-radio-button>
-      <mat-radio-button style="margin-right: 10px" value="indus">indus</mat-radio-button>
-      <mat-radio-button value="web">Web</mat-radio-button>
-    </mat-radio-group>
+      <mat-radio-group formControlName="sector" style="margin-bottom: 3%" required>
+        <mat-radio-button class="marginRightTen" value="undefined">Undefined</mat-radio-button>
+        <mat-radio-button class="marginRightTen" value="indus">indus</mat-radio-button>
+        <mat-radio-button value="web">Web</mat-radio-button>
+      </mat-radio-group>
+    </form>
 
-    <br>
+    <div>
+      <input #avatarInput style="display: none" type="file" (change)="fileChangeEvent($event)">
+      <button (click)="openFileUpload($event)" style="margin-bottom: 3%" mat-raised-button color="primary">Upload
+        Avatar
+      </button>
+    </div>
 
-    <!--<span>Avatar :</span>-->
-    <!--<mat-form-field>-->
-    <!--<input matInput type="file">-->
-    <!--</mat-form-field>-->
     <div mat-dialog-actions="">
-      <button [disabled]="formProfile.invalid" (click)="saveUser()" style="width: 30%" mat-raised-button>Save profile</button>
+      <button [disabled]="formProfile.invalid" (click)="saveUser()" style="width: 30%" mat-raised-button
+              color="accent">Save profile
+      </button>
       <br>
       <button (click)="cancelClick()" style="width: 30%" mat-button>Cancel</button>
     </div>
-  </form>
+  </div>
+</div>
+
+<div [hidden]="displayForm">
+  <h3 class="text-center">Please Crop your image</h3>
+  <div class="row">
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1"
+      [resizeToWidth]="250"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+  </div>
+  <div class="row contentMarginTop">
+    <div class="col-sm-5">
+      <img [src]="croppedImage"/>
+    </div>
+    <div class="col-sm-5 align-self-end">
+      <button class="marginRightTen" (click)="saveCrop()" style="margin-left: 10%" mat-raised-button color="primary">
+        Upload
+      </button>
+      <button class="marginRightTen" (click)="cancelCrop()" mat-stroked-button>Cancel</button>
+    </div>
+  </div>
 </div>

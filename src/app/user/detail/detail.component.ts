@@ -36,7 +36,7 @@ export class DetailComponent implements OnInit {
   editProfile(user: User): void {
     const profileDialog = this.dialog.open(DialogProfileComponent, {
       width: '600px',
-      data: {user: user},
+      data: {formTitle: 'Change your profile...', user: user},
       disableClose: false
     });
 

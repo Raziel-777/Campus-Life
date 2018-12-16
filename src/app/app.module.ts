@@ -22,6 +22,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 import {AppComponent} from './app.component';
@@ -81,6 +83,8 @@ import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.compon
     MatBadgeModule,
     MatTooltipModule,
     DragDropModule,
+    ImageCropperModule,
+    MatSnackBarModule,
     ScrollDispatchModule
   ],
   entryComponents: [
