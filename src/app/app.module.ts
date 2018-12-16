@@ -17,7 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
-import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -85,7 +85,7 @@ import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.compon
     DragDropModule,
     ImageCropperModule,
     MatSnackBarModule,
-    ScrollDispatchModule
+    ScrollingModule
   ],
   entryComponents: [
     DialogProfileComponent,
