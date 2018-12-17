@@ -2,13 +2,15 @@
   <h2 mat-dialog-title>{{ formTitle }}</h2>
   <div mat-dialog-content>
 
-    <form class="form-profile" [formGroup]="formProfile">
+    <form class="form-profile" [formGroup]="formProfile" (ngSubmit)="saveUser()" (keydown)="$event.preventDefault()">
       <mat-form-field>
         <input matInput placeholder="First Name" formControlName="firstName" required>
+        <mat-error *ngIf="formProfile.controls.firstName.invalid">{{ getFirstNameErrorMessage() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <input matInput placeholder="Last Name" formControlName="lastName" required>
+        <mat-error *ngIf="formProfile.controls.lastName.invalid">{{ getLastNameErrorMessage() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -18,6 +20,7 @@
 
       <mat-form-field>
         <input matInput type="email" placeholder="Email" formControlName="email" required>
+        <mat-error *ngIf="formProfile.controls.email.invalid">{{ getEmailErrorMessage() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -46,34 +49,43 @@
         <input matInput placeholder="City" formControlName="city">
       </mat-form-field>
 
-      <mat-radio-group formControlName="gender" style="margin-bottom: 3%" required>
+      <mat-form-field *ngIf="displayPassword">
+        <input matInput type="password" placeholder="Password" formControlName="password" required>
+        <mat-error *ngIf="formProfile.controls.password.invalid">{{ getPasswordErrorMessage() }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="displayPassword">
+        <input matInput type="password" placeholder="Confirm Password" formControlName="repeatPassword" required>
+        <mat-error *ngIf="formProfile.controls.repeatPassword.invalid">{{ getRepeatPasswordErrorMessage() }}</mat-error>
+      </mat-form-field>
+
+      <mat-radio-group class="contentMarginTop" formControlName="gender" required>
         <mat-radio-button style="margin-right: 10px" value="female">Woman</mat-radio-button>
         <mat-radio-button value="male">Man</mat-radio-button>
       </mat-radio-group>
 
-      <p style="margin-bottom: 1%">Sector :</p>
+      <p class="contentMarginTop" style="margin-bottom: 1%">Sector :</p>
 
-      <mat-radio-group formControlName="sector" style="margin-bottom: 3%" required>
+      <mat-radio-group formControlName="sector" required>
         <mat-radio-button class="marginRightTen" value="undefined">Undefined</mat-radio-button>
         <mat-radio-button class="marginRightTen" value="indus">indus</mat-radio-button>
         <mat-radio-button value="web">Web</mat-radio-button>
       </mat-radio-group>
+
+      <div class="contentMarginTop">
+        <input #avatarInput style="display: none" type="file" (change)="fileChangeEvent($event)">
+        <button (click)="openFileUpload($event)" style="margin-bottom: 3%" mat-raised-button color="primary">Upload
+          Avatar
+        </button>
+      </div>
+
+      <div mat-dialog-actions>
+        <button type="submit" class="marginRightTen" style="width: 30%; margin-right: 3%" mat-raised-button color="accent">Save profile
+        </button>
+        <br>
+        <button (click)="cancelClick()" style="width: 30%" mat-button>Cancel</button>
+      </div>
     </form>
-
-    <div>
-      <input #avatarInput style="display: none" type="file" (change)="fileChangeEvent($event)">
-      <button (click)="openFileUpload($event)" style="margin-bottom: 3%" mat-raised-button color="primary">Upload
-        Avatar
-      </button>
-    </div>
-
-    <div mat-dialog-actions="">
-      <button [disabled]="formProfile.invalid" (click)="saveUser()" style="width: 30%" mat-raised-button
-              color="accent">Save profile
-      </button>
-      <br>
-      <button (click)="cancelClick()" style="width: 30%" mat-button>Cancel</button>
-    </div>
   </div>
 </div>
 

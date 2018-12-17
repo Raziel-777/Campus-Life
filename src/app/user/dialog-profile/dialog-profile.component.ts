@@ -1,9 +1,8 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {User} from '../user';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
-import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-dialog-profile',
@@ -20,12 +19,14 @@ export class DialogProfileComponent implements OnInit {
   croppedImage: any = '';
   @ViewChild('avatarInput')
   avatarInput: ElementRef;
+  displayPassword: boolean;
 
 
   constructor(private dialogRef: MatDialogRef<DialogProfileComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
               formBuilder: FormBuilder,
               public snackBar: MatSnackBar) {
+    this.displayPassword = !!data.password;
     this.formTitle = data.formTitle;
     const user: User = data.user;
     let birthDate;
@@ -49,13 +50,37 @@ export class DialogProfileComponent implements OnInit {
       gender: new FormControl(user._gender, Validators.required),
       sector: new FormControl(user._sector, Validators.required)
     });
+    if (data.password) {
+      const password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$')]);
+      const repeatPassword = new FormControl('', [Validators.required]);
+      this.formProfile.addControl('password', password);
+      this.formProfile.addControl('repeatPassword', repeatPassword);
+      this.formProfile.setValidators(DialogProfileComponent.matchingConfirmPasswords('password', 'repeatPassword'));
+    }
+  }
+
+  static matchingConfirmPasswords(password: string, repeatPassword: string): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors => {
+      const control = formGroup.controls[password];
+      const matchingControl = formGroup.controls[repeatPassword];
+      if (matchingControl.errors && !matchingControl.errors.matchingConfirm) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({matchingConfirm: true});
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 
   ngOnInit() {
   }
 
   saveUser() {
-    this.dialogRef.close({formValue: this.formProfile.value, avatar: this.croppedImage});
+    if (!this.formProfile.invalid) {
+      this.dialogRef.close({formValue: this.formProfile.value, avatar: this.croppedImage});
+    }
   }
 
   cancelClick() {
@@ -87,6 +112,7 @@ export class DialogProfileComponent implements OnInit {
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 5000,
+      panelClass: 'dangerSnackBar'
     });
   }
 
@@ -103,5 +129,34 @@ export class DialogProfileComponent implements OnInit {
     this.imageChangedEvent = null;
     this.avatarInput.nativeElement.value = '';
     this.displayForm = true;
+  }
+
+  getEmailErrorMessage() {
+    return this.formProfile.controls.email.hasError('required') ? 'This field is required' :
+      this.formProfile.controls.email.hasError('email') ? 'Enter a correct email address' :
+        '';
+  }
+
+  getPasswordErrorMessage() {
+    return this.formProfile.controls.password.hasError('required') ? 'This field is required' :
+      this.formProfile.controls.password.hasError('pattern') ?
+        'Password must contain at least 6 characters with 1 capital and 1 digit at least' :
+        '';
+  }
+
+  getRepeatPasswordErrorMessage() {
+    return this.formProfile.controls.repeatPassword.hasError('matchingConfirm') ? 'Confirm password must match password' :
+      this.formProfile.controls.repeatPassword.hasError('required') ? 'This field is required' :
+        '';
+  }
+
+  getFirstNameErrorMessage() {
+    return this.formProfile.controls.firstName.hasError('required') ? 'This field is required' :
+      '';
+  }
+
+  getLastNameErrorMessage() {
+    return this.formProfile.controls.lastName.hasError('required') ? 'This field is required' :
+      '';
   }
 }

@@ -7,7 +7,7 @@
 }
 
 .contentMarginTop {
-  margin-top: 2%;
+  margin-top: 3%;
 }
 
 .borderComponent {
@@ -45,4 +45,16 @@
 .form-profile {
   display: flex;
   flex-direction: column;
+}
+
+.dangerSnackBar {
+  background-color: #C60700;
+}
+
+.marginRightTen {
+  margin-right: 10px;
+}
+
+.noPadding {
+  padding: 0;
 }

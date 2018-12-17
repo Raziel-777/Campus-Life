@@ -1,23 +1,35 @@
 <div class="row">
   <div class="col-sm-6 offset-3">
-    <mat-card class="login-card">
-      <mat-card-header>
-        <mat-card-title class="text-center">Login</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form class="form-profile">
-          <mat-form-field>
-            <input matInput type="email" placeholder="Email" [(ngModel)]="username" name="email" required>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password"
-                   required>
-          </mat-form-field>
-        </form>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button (click)="login()" color="primary">Login</button>
-      </mat-card-actions>
-    </mat-card>
+    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title class="text-center">Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="form-profile">
+            <mat-form-field>
+              <input matInput type="email" placeholder="Email" name="email" formControlName="email" required>
+              <mat-error *ngIf="formLogin.controls.email.invalid">{{ getEmailErrorMessage() }}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Password" type="password" name="password" formControlName="password"
+                     required>
+              <mat-error *ngIf="formLogin.controls.password.invalid">{{ getPasswordErrorMessage() }}</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button type="submit" color="accent">Login</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+    <div class="row align-items-end" style="margin-top: 2%">
+      <div>
+        <span style="vertical-align: text-bottom">You don't have an account yet ? </span>
+      </div>
+      <div style="margin-left: 2%">
+        <button mat-raised-button (click)="goToPageRegister()" color="primary">Register now</button>
+      </div>
+    </div>
   </div>
 </div>

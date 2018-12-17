@@ -1,6 +1,11 @@
 TODO:
+faire form login
+add admin name to mail and pass given by ..
+hide navbar and serach bar if dont connect
 
-photo resize crop
-Faire 2 promos et tranqsverse
-DRAG AND DROP
+https://angular-templates.io/tutorials/about/firebase-authentication-with-angular
 
+
+passer les VAR en private (form group etc... si poiblez)
+
+remove add user et faire autre chose pour donner accées axux gensd ded sinscrire
