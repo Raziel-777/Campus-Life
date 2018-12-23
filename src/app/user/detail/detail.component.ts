@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {UserService} from '../user.service';
+import {GroupService} from '../../services/group/group.service';
 import {User} from '../user';
 import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component';
 import {DialogAlertComponent} from '../../component/dialog-alert/dialog-alert.component';
@@ -15,7 +15,7 @@ export class DetailComponent implements OnInit {
   userToShow: User = null;
   usersResult: User[] = null;
 
-  constructor(private userService: UserService, private dialog: MatDialog) {
+  constructor(private userService: GroupService, private dialog: MatDialog) {
     this.userService.sendDetails.subscribe(userToShow => {
       this.userToShow = userToShow;
       this.usersResult = null;

@@ -6,6 +6,7 @@ export class User {
   private birthDate: number; // timestamp
   private gender: string;
   private email: string;
+  private role: string;
   private address?: string;
   private postcode?: string;
   private city?: string;
@@ -15,8 +16,9 @@ export class User {
   private presentation?: string;
   private sector?: string;
 
-  constructor(userID: number, firstName: string, lastName: string, birthDate: number, gender: string, email: string, city: string,
-              address: string, postcode: string, phone1: string, phone2: string, avatar: string, presentation: string, sector: string) {
+  constructor(userID: number, firstName: string, lastName: string, birthDate: number, gender: string, email: string, role: string,
+              city: string, address: string, postcode: string, phone1: string, phone2: string, avatar: string, presentation: string,
+              sector: string) {
 
     this.userID = userID;
     this.firstName = firstName;
@@ -32,6 +34,10 @@ export class User {
     this.avatar = avatar;
     this.presentation = presentation;
     this.sector = sector;
+  }
+
+  get _role(): string {
+    return this.role;
   }
 
   get _sector(): string {

@@ -2,7 +2,7 @@
   <h2 mat-dialog-title>{{ formTitle }}</h2>
   <div mat-dialog-content>
 
-    <form class="form-profile" [formGroup]="formProfile" (ngSubmit)="saveUser()" (keydown)="$event.preventDefault()">
+    <form class="form-profile" [formGroup]="formProfile" (ngSubmit)="saveUser()" (keydown.enter)="$event.preventDefault()">
       <mat-form-field>
         <input matInput placeholder="First Name" formControlName="firstName" required>
         <mat-error *ngIf="formProfile.controls.firstName.invalid">{{ getFirstNameErrorMessage() }}</mat-error>
@@ -25,10 +25,12 @@
 
       <mat-form-field>
         <input matInput placeholder="Phone 1" formControlName="phone1" minlength="10" maxlength="10">
+        <mat-error *ngIf="formProfile.controls.phone1.invalid">{{ getPhone1ErrorMessage() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <input matInput placeholder="Phone 2" formControlName="phone2" minlength="10" maxlength="10">
+        <mat-error *ngIf="formProfile.controls.phone2.invalid">{{ getPhone2ErrorMessage() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field style="width: 25%">
@@ -62,6 +64,7 @@
       <mat-radio-group class="contentMarginTop" formControlName="gender" required>
         <mat-radio-button style="margin-right: 10px" value="female">Woman</mat-radio-button>
         <mat-radio-button value="male">Man</mat-radio-button>
+        <mat-error *ngIf="formProfile.controls.gender.invalid">{{ getGenderErrorMessage() }}</mat-error>
       </mat-radio-group>
 
       <p class="contentMarginTop" style="margin-bottom: 1%">Sector :</p>

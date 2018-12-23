@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogProfileComponent} from '../../user/dialog-profile/dialog-profile.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-page-register',
@@ -12,11 +13,9 @@ export class PageRegisterComponent implements OnInit {
 
   formBeforeRegister: FormGroup;
 
-  constructor(formBuilder: FormBuilder, private dialog: MatDialog) {
+  constructor(private authService: AuthService, formBuilder: FormBuilder, private dialog: MatDialog, public snackBar: MatSnackBar) {
     this.formBeforeRegister = formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('',
-        [Validators.required])
+      email: new FormControl('', [Validators.required, Validators.email])
     });
   }
 
@@ -25,31 +24,24 @@ export class PageRegisterComponent implements OnInit {
 
   onSubmit() {
     if (!this.formBeforeRegister.invalid) {
-      const initUser = {
-        'firstName': null,
-        'lastName': null,
-        'birthDate': null,
-        'gender': null,
-        'address': null,
-        'postcode': null,
-        'city': null,
-        'phone1': null,
-        'phone2': null,
-        'email': null,
-        'avatar': null,
-        'presentation': null,
-        'sector': null
-      };
+      const email = this.formBeforeRegister.controls.email.value;
       const profileDialog = this.dialog.open(DialogProfileComponent, {
         width: '600px',
-        data: {formTitle: 'Register yourself...', password: true, user: initUser},
+        data: {formTitle: 'Register yourself...', password: true, email: email},
         autoFocus: false,
         disableClose: true
       });
 
       profileDialog.afterClosed().subscribe(result => {
         if (result && result !== 'cancel') {
-          console.log(result);
+          this.authService.signUp(result).then(() => {
+          }, (error) => {
+            this.authService.storeError(error);
+            this.snackBar.open(error.message, '', {
+              duration: 5000,
+              panelClass: 'dangerSnackBar'
+            });
+          });
         }
       });
     }

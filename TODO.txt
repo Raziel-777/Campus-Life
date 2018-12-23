@@ -2,10 +2,33 @@ TODO:
 faire form login
 add admin name to mail and pass given by ..
 hide navbar and serach bar if dont connect
+passer data en FR
+pho,e fileds validator
 
 https://angular-templates.io/tutorials/about/firebase-authentication-with-angular
 
 
 passer les VAR en private (form group etc... si poiblez)
 
-remove add user et faire autre chose pour donner accées axux gensd ded sinscrire
+remove add user et faire autre chose pour donner accées axux gensd ded sinscrire remove inituser
+
+ADMIN: authorized create and delete qd delete user
+users write
+
+Users: users read ok
+
+affichage button en fonction des id et admin
+
+remove object object dans filed email qd add a student ou remove tout
+
+ADD path ref avatar when created user
+
+faire les mails de gestion de compte
+
+MAN WOMAN required message
+
+LOADER FIREBASE
+
+add avatar when upload in fialog
+
+on ne peut pas changer email ????

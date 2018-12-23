@@ -11,14 +11,6 @@
               <input matInput type="email" placeholder="Email" formControlName="email" name="email" required>
               <mat-error *ngIf="formBeforeRegister.controls.email.invalid">{{ getEmailErrorMessage() }}</mat-error>
             </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Password given by your coordinator" formControlName="password"
-                     type="password"
-                     name="password"
-                     required>
-              <mat-error
-                *ngIf="formBeforeRegister.controls.password.invalid">{{ getPasswordErrorMessage() }}</mat-error>
-            </mat-form-field>
           </div>
         </mat-card-content>
         <mat-card-actions>

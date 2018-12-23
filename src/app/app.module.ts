@@ -4,6 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFireStorageModule} from 'angularfire2/storage';
 import {environment} from '../environments/environment';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
@@ -45,6 +46,8 @@ import {UserGroupComponent} from './user/user-group/user-group.component';
 import {DialogProfileComponent} from './user/dialog-profile/dialog-profile.component';
 import {ResultSearchComponent} from './user/result-search/result-search.component';
 import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.component';
+import {AuthService} from './services/auth/auth.service';
+import {AuthGuard} from './services/auth/auth.guard';
 
 
 @NgModule({
@@ -72,6 +75,7 @@ import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.compon
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     FormsModule,
     ReactiveFormsModule,
     MatRadioModule,
@@ -100,7 +104,10 @@ import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.compon
     DialogProfileComponent,
     DialogAlertComponent
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -16,7 +16,8 @@ export class DialogProfileComponent implements OnInit {
   startDate: string = null;
   displayForm = true;
   imageChangedEvent: any = '';
-  croppedImage: any = '';
+  croppedImage = '';
+  imageToSave: Blob = null;
   @ViewChild('avatarInput')
   avatarInput: ElementRef;
   displayPassword: boolean;
@@ -28,7 +29,7 @@ export class DialogProfileComponent implements OnInit {
               public snackBar: MatSnackBar) {
     this.displayPassword = !!data.password;
     this.formTitle = data.formTitle;
-    const user: User = data.user;
+    const user: User = (data.user) ? data.user : null;
     let birthDate;
     if (user._birthDate) {
       birthDate = new Date(user._birthDate).toISOString();
@@ -37,18 +38,20 @@ export class DialogProfileComponent implements OnInit {
       this.startDate = new Date(Date.now() - 788400000000).toISOString();
     }
     this.formProfile = formBuilder.group({
-      firstName: new FormControl(user._firstName, Validators.required),
-      lastName: new FormControl(user._lastName, Validators.required),
-      presentation: new FormControl(user._presentation, Validators.maxLength(255)),
-      email: new FormControl(user._email, [Validators.required, Validators.email]),
-      phone1: new FormControl(user._phone1, [Validators.minLength(10), Validators.maxLength(10)]),
-      phone2: new FormControl(user._phone2, [Validators.minLength(10), Validators.maxLength(10)]),
+      firstName: new FormControl(user._firstName || '', Validators.required),
+      lastName: new FormControl(user._lastName || '', Validators.required),
+      presentation: new FormControl(user._presentation || '', Validators.maxLength(255)),
+      email: new FormControl(user._email || data.email, [Validators.required, Validators.email]),
+      phone1: new FormControl(user._phone1 || '', [Validators.minLength(10), Validators.maxLength(10),
+        Validators.pattern('^([0-9]*)$')]),
+      phone2: new FormControl(user._phone2 || '', [Validators.minLength(10), Validators.maxLength(10),
+        Validators.pattern('^([0-9]*)$')]),
       birthDate: new FormControl(birthDate, Validators.required),
-      address: new FormControl(user._address),
-      postCode: new FormControl(user._postcode),
-      city: new FormControl(user._city),
-      gender: new FormControl(user._gender, Validators.required),
-      sector: new FormControl(user._sector, Validators.required)
+      address: new FormControl(user._address || ''),
+      postCode: new FormControl(user._postcode || ''),
+      city: new FormControl(user._city || ''),
+      gender: new FormControl(user._gender || '', Validators.required),
+      sector: new FormControl(user._sector || 'undefined', Validators.required)
     });
     if (data.password) {
       const password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$')]);
@@ -79,7 +82,7 @@ export class DialogProfileComponent implements OnInit {
 
   saveUser() {
     if (!this.formProfile.invalid) {
-      this.dialogRef.close({formValue: this.formProfile.value, avatar: this.croppedImage});
+      this.dialogRef.close({formValue: this.formProfile.value, avatar: this.imageToSave});
     }
   }
 
@@ -98,6 +101,7 @@ export class DialogProfileComponent implements OnInit {
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
+    this.imageToSave = event.file;
   }
 
   imageLoaded() {
@@ -121,6 +125,7 @@ export class DialogProfileComponent implements OnInit {
     this.imageChangedEvent = null;
     this.avatarInput.nativeElement.value = '';
     this.croppedImage = '';
+    this.imageToSave = null;
     this.displayForm = true;
   }
 
@@ -157,6 +162,25 @@ export class DialogProfileComponent implements OnInit {
 
   getLastNameErrorMessage() {
     return this.formProfile.controls.lastName.hasError('required') ? 'This field is required' :
+      '';
+  }
+
+  getPhone1ErrorMessage() {
+    return this.formProfile.controls.phone1.hasError('minlength') ? 'Invalid phone number' :
+      this.formProfile.controls.phone1.hasError('maxlength') ? 'Invalid phone number' :
+        this.formProfile.controls.phone1.hasError('pattern') ? 'Invalid phone number' :
+          '';
+  }
+
+  getPhone2ErrorMessage() {
+    return this.formProfile.controls.phone2.hasError('minlength') ? 'Invalid phone number' :
+      this.formProfile.controls.phone2.hasError('maxlength') ? 'Invalid phone number' :
+        this.formProfile.controls.phone2.hasError('pattern') ? 'Invalid phone number' :
+      '';
+  }
+
+  getGenderErrorMessage() {
+    return this.formProfile.controls.gender.hasError('required') ? 'You have to choose' :
       '';
   }
 }

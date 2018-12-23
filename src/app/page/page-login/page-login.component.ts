@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-page-login',
@@ -10,7 +11,7 @@ import {Router} from '@angular/router';
 export class PageLoginComponent implements OnInit {
   private formLogin: FormGroup;
 
-  constructor(formBuilder: FormBuilder, public router: Router) {
+  constructor(formBuilder: FormBuilder, public router: Router, private firebaseService: AuthService) {
     this.formLogin = formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
@@ -36,6 +37,6 @@ export class PageLoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('toto');
+    this.firebaseService.signIn(this.formLogin.value);
   }
 }
