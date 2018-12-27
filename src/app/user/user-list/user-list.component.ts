@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {GroupService} from '../../services/group/group.service';
+import {UsersService} from '../../services/group/users.service';
 import {User} from '../user';
 import {MatDialog} from '@angular/material';
 import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component';
@@ -15,7 +15,7 @@ export class UserListComponent implements OnInit {
   usersListWeb: User[];
   usersListIndus: User[];
 
-  constructor(private userService: GroupService, private dialog: MatDialog) {
+  constructor(private userService: UsersService, private dialog: MatDialog) {
   }
 
   ngOnInit() {

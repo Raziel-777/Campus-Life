@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupService} from '../../services/group/group.service';
+import {UsersService} from '../../services/group/users.service';
 import {User} from '../user';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import * as jspdf from 'jspdf';
@@ -20,7 +20,7 @@ export class UserGroupComponent implements OnInit {
   rowHeight: number;
 
 
-  constructor(private userService: GroupService) {
+  constructor(private userService: UsersService) {
     const dataGroups = this.userService._currentUsersGroup;
     if (dataGroups) {
       this.groups = dataGroups.groups;

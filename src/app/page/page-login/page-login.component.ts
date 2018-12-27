@@ -11,7 +11,7 @@ import {AuthService} from '../../services/auth/auth.service';
 export class PageLoginComponent implements OnInit {
   private formLogin: FormGroup;
 
-  constructor(formBuilder: FormBuilder, public router: Router, private firebaseService: AuthService) {
+  constructor(formBuilder: FormBuilder, public router: Router, private authService: AuthService) {
     this.formLogin = formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
@@ -37,6 +37,6 @@ export class PageLoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.firebaseService.signIn(this.formLogin.value);
+    this.authService.signIn(this.formLogin.value).then(() => this.router.navigate(['/students']));
   }
 }

@@ -29,7 +29,7 @@ export class DialogProfileComponent implements OnInit {
               public snackBar: MatSnackBar) {
     this.displayPassword = !!data.password;
     this.formTitle = data.formTitle;
-    const user: User = (data.user) ? data.user : null;
+    const user: User = (data.user) ? data.user : {};
     let birthDate;
     if (user._birthDate) {
       birthDate = new Date(user._birthDate).toISOString();

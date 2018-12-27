@@ -1,5 +1,5 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {GroupService} from '../../services/group/group.service';
+import {UsersService} from '../../services/group/users.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -12,7 +12,7 @@ export class PageTopComponent implements OnInit {
   formSearch: FormGroup;
   formSearchInput: FormControl;
 
-  constructor(private userService: GroupService, formBuilder: FormBuilder) {
+  constructor(private userService: UsersService, formBuilder: FormBuilder) {
     this.formSearch = formBuilder.group({});
     this.formSearchInput = new FormControl('', Validators.minLength(3));
   }

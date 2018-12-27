@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../user';
-import {GroupService} from '../../services/group/group.service';
+import {UsersService} from '../../services/group/users.service';
 
 @Component({
   selector: 'app-result-search',
@@ -11,7 +11,7 @@ export class ResultSearchComponent implements OnInit {
 
   @Input() result: User[];
 
-  constructor(private userService: GroupService) {
+  constructor(private userService: UsersService) {
   }
 
   ngOnInit() {

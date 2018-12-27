@@ -46,8 +46,11 @@ import {UserGroupComponent} from './user/user-group/user-group.component';
 import {DialogProfileComponent} from './user/dialog-profile/dialog-profile.component';
 import {ResultSearchComponent} from './user/result-search/result-search.component';
 import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.component';
+import {LoggerService} from './services/logger/logger.service';
 import {AuthService} from './services/auth/auth.service';
 import {AuthGuard} from './services/auth/auth.guard';
+import {FirebaseService} from './services/database/firebase.service';
+import {UsersService} from './services/group/users.service';
 
 
 @NgModule({
@@ -105,8 +108,11 @@ import {AuthGuard} from './services/auth/auth.guard';
     DialogAlertComponent
   ],
   providers: [
+    LoggerService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    FirebaseService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })

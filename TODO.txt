@@ -32,3 +32,5 @@ LOADER FIREBASE
 add avatar when upload in fialog
 
 on ne peut pas changer email ????
+
+remove auth user si error

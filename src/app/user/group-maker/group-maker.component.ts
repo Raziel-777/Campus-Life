@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GroupService} from '../../services/group/group.service';
+import {UsersService} from '../../services/group/users.service';
 import {User} from '../user';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material';
@@ -23,7 +23,7 @@ export class GroupMakerComponent implements OnInit {
   selectedIndex: number;
   saveGroupsBtn = false;
 
-  constructor(private userService: GroupService, formBuilder: FormBuilder, private dialog: MatDialog) {
+  constructor(private userService: UsersService, formBuilder: FormBuilder, private dialog: MatDialog) {
     this.usersList = this.userService.getUsers();
     this.usersGroupList = this.userService.getUsersGroupList();
     this.maxGroupSize = Math.round(this.usersList.length / 2);

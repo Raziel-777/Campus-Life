@@ -3,6 +3,8 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogProfileComponent} from '../../user/dialog-profile/dialog-profile.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
+import {LoggerService} from '../../services/logger/logger.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-page-register',
@@ -13,7 +15,8 @@ export class PageRegisterComponent implements OnInit {
 
   formBeforeRegister: FormGroup;
 
-  constructor(private authService: AuthService, formBuilder: FormBuilder, private dialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor(private authService: AuthService, formBuilder: FormBuilder, private logger: LoggerService, private dialog: MatDialog,
+              public snackBar: MatSnackBar, public router: Router) {
     this.formBeforeRegister = formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email])
     });
@@ -35,8 +38,9 @@ export class PageRegisterComponent implements OnInit {
       profileDialog.afterClosed().subscribe(result => {
         if (result && result !== 'cancel') {
           this.authService.signUp(result).then(() => {
+            this.router.navigate(['/students']).then(null);
           }, (error) => {
-            this.authService.storeError(error);
+            this.logger.storeError(error);
             this.snackBar.open(error.message, '', {
               duration: 5000,
               panelClass: 'dangerSnackBar'
