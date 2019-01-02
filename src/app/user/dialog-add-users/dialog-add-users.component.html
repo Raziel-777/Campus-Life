@@ -1,0 +1,28 @@
+<div class="container">
+  <div *ngIf="!loaderOn && !resultOn">
+    <h3 class="text-center">Adds emails of authorized students</h3>
+    <p>You can write multiple email address with a space between or "," or ";"</p>
+    <div class="row">
+      <mat-form-field style="width: 100%">
+        <textarea style="min-height: 350px" #textArea matInput placeholder="Write emails..."></textarea>
+      </mat-form-field>
+    </div>
+    <div class="row justify-content-around" style="margin-top: 5%">
+      <button (click)="cancel()" mat-stroked-button color="accent">Cancel</button>
+      <button (click)="addUsers()" mat-stroked-button color="primary">Ok</button>
+    </div>
+  </div>
+  <div class="row justify-content-center" *ngIf="loaderOn">
+    <app-loader [loaderOptions]="loaderOptions"></app-loader>
+  </div>
+  <div *ngIf="resultOn">
+    <h3 *ngIf="resultMessageError" class="text-center">{{ resultMessageError }}</h3>
+    <p *ngIf="!resultMessageError && success > 0" class="text-center">{{ success }} mails address have been successfully
+      added <mat-icon style="color: #29b53e">check_circle_outline</mat-icon></p>
+    <p *ngIf="!resultMessageError && failures.length > 0" class="text-center">An error has occurred for the following addresses : </p>
+    <p *ngFor="let failure of failures">{{ failure }}</p>
+    <div class="row justify-content-around" style="margin-top: 5%">
+      <button (click)="cancel()" mat-stroked-button color="accent">Ok</button>
+    </div>
+  </div>
+</div>

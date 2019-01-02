@@ -2,12 +2,12 @@ import {User} from '../user';
 
 export default class UserFunctions {
 
-  static alreadyGrouped(user: User, groupsList: { groups: User[][], size: number, sector: string }[]): User[] {
+  static alreadyGrouped(user: User, groupsList: { groups: User[][], size: number, sector: string, createdAt: number }[]): User[] {
     let usersFound: User[] = [];
     for (const obj of groupsList) {
       for (const group of obj.groups) {
         if (group.includes(user)) {
-          const filteredGroup = group.filter(userToCheck => userToCheck._firstName !== 'Deleted');
+          const filteredGroup = group.filter(userToCheck => userToCheck.firstName !== 'Deleted');
           usersFound = usersFound.concat(filteredGroup);
         }
       }
@@ -25,7 +25,7 @@ export default class UserFunctions {
     const manGroup: { users: User[], gender: string } = {users: [], gender: 'male'};
     const womanGroup: { users: User[], gender: string } = {users: [], gender: 'female'};
     for (const user of groupToSplit) {
-      if (user._gender === 'male') {
+      if (user.gender === 'male') {
         manGroup.users.push(user);
       } else {
         womanGroup.users.push(user);
@@ -88,7 +88,7 @@ export default class UserFunctions {
 
   static randomGroupMaker(
     usersList: User[],
-    usersGroupList: { groups: User[][], size: number, sector: string }[],
+    usersGroupList: { groups: User[][], size: number, sector: string, createdAt: number }[],
     groupSize: number,
     parity: string): User[][] {
     const result: User[][] = [];

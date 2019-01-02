@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UsersService} from '../../services/group/users.service';
+import {UsersService} from '../../services/users/users.service';
 import {User} from '../user';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material';
@@ -17,24 +17,29 @@ export class GroupMakerComponent implements OnInit {
   formGroupParity: FormControl;
   formGroupSector: FormControl;
 
-  private usersList: User[];
-  private readonly maxGroupSize: number;
-  usersGroupList: { groups: User[][], size: number }[];
-  selectedIndex: number;
+  private maxGroupSize: number;
+  usersGroupList: { id: string, groups: User[][], size: number, sector: string, createdAt: number }[];
+  selectedId: string;
   saveGroupsBtn = false;
 
-  constructor(private userService: UsersService, formBuilder: FormBuilder, private dialog: MatDialog) {
-    this.usersList = this.userService.getUsers();
-    this.usersGroupList = this.userService.getUsersGroupList();
-    this.maxGroupSize = Math.round(this.usersList.length / 2);
+  constructor(private usersService: UsersService, formBuilder: FormBuilder, private dialog: MatDialog) {
+    this.usersGroupList = this.usersService.usersGroupList;
+    this.usersService.sendGroupSaved.subscribe((id?) => {
+      this.usersGroupList = this.usersService.usersGroupList;
+      if (id) {
+        this.saveGroupsBtn = false;
+        this.selectedId = id;
+      }
+    });
+    this.maxGroupSize = Math.round(this.usersService.users.length / 2);
     this.formGroup = formBuilder.group({
       hideRequired: true,
     });
     this.formGroupSize = new FormControl('', [Validators.required, Validators.min(2), Validators.max(this.maxGroupSize)]);
     this.formGroupParity = new FormControl('parityNo');
     this.formGroupSector = new FormControl('all');
-    this.selectedIndex = (this.userService._currentUsersGroupIndex);
-    if (this.userService._currentUsersGroupIndex === null && this.userService._currentUsersGroup !== null) {
+    this.selectedId = this.usersService._currentUsersGroupIndex;
+    if (this.usersService._currentUsersGroupIndex === null && this.usersService._currentUsersGroup !== null) {
       this.saveGroupsBtn = true;
     }
   }
@@ -56,66 +61,85 @@ export class GroupMakerComponent implements OnInit {
           state: 'Be careful your groups are not saved.',
           message: 'Do you want to delete or save them ?',
           responseOne: 'Save',
-          responseTwo: 'Delete'},
+          responseTwo: 'Delete'
+        },
         autoFocus: false
       });
 
       alertDialog.afterClosed().subscribe(result => {
         if (result === 'Delete') {
-          this.userService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
+          this.usersService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
         } else if (result === 'Save') {
           this.saveGroups();
-          this.userService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
+          this.usersService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
         }
       });
     } else {
-      this.userService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
-      this.selectedIndex = null;
+      this.usersService.makeGroup(this.formGroupSize.value, this.formGroupParity.value, this.formGroupSector.value);
+      this.selectedId = null;
       this.saveGroupsBtn = true;
     }
   }
 
   saveGroups() {
-    this.userService.saveCurrentGroups();
+    this.usersService.saveCurrentGroups();
   }
 
-  showGroups(index: number) {
-    if (this.selectedIndex === null && this.saveGroupsBtn === true) {
+  showGroups(id: string) {
+    if (this.selectedId === null && this.saveGroupsBtn === true) {
       const alertDialog = this.dialog.open(DialogAlertComponent, {
         width: '450px',
-        data: {state: 'Be careful your groups are not saved.',
+        data: {
+          state: 'Be careful your groups are not saved.',
           message: 'Do you want to delete or save them ?',
-        responseOne: 'Save',
-        responseTwo: 'Delete'},
+          responseOne: 'Save',
+          responseTwo: 'Delete'
+        },
         autoFocus: false
       });
 
       alertDialog.afterClosed().subscribe(result => {
         if (result === 'Delete') {
           this.saveGroupsBtn = false;
-          this.userService.showGroups(index);
-          this.selectedIndex = index;
+          this.usersService.showGroups(id);
+          this.selectedId = id;
         } else if (result === 'Save') {
           this.saveGroups();
           this.saveGroupsBtn = false;
-          this.userService.showGroups(index);
-          this.selectedIndex = index;
+          this.usersService.showGroups(id);
+          this.selectedId = id;
         }
       });
 
     } else {
       this.saveGroupsBtn = false;
-      this.userService.showGroups(index);
-      this.selectedIndex = index;
+      this.usersService.showGroups(id);
+      this.selectedId = id;
     }
 
   }
 
   export() {
-    this.userService.exportGroupPdf();
+    this.usersService.exportGroupPdf();
   }
 
   delete() {
 
+  }
+
+  changeMinMaxValue(value) {
+    switch (value) {
+      case 'all':
+        this.maxGroupSize = Math.round(this.usersService.users.length / 2);
+        break;
+      case 'indus':
+        this.maxGroupSize = Math.round(this.usersService.usersIndus.length / 2);
+        break;
+      case 'web':
+        this.maxGroupSize = Math.round(this.usersService.usersWeb.length / 2);
+        break;
+    }
+    this.formGroupSize.reset();
+    this.formGroupSize.setValidators([Validators.required, Validators.min(2), Validators.max(this.maxGroupSize)]);
   }
 }

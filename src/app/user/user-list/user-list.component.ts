@@ -1,8 +1,9 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {UsersService} from '../../services/group/users.service';
+import {UsersService} from '../../services/users/users.service';
 import {User} from '../user';
 import {MatDialog} from '@angular/material';
-import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component';
+import {DialogAddUsersComponent} from '../dialog-add-users/dialog-add-users.component';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-user-list',
@@ -11,52 +12,63 @@ import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component
 })
 export class UserListComponent implements OnInit {
 
+  currentUser: User;
   usersList: User[];
   usersListWeb: User[];
   usersListIndus: User[];
+  usersListAdmin: User[];
+  usersLength: number;
+  userPart: number;
+  listHidden;
+  loaderOn;
+  loaderOptions: {color: string, mode: string, value: number} = {color: 'primary', mode: 'determinate', value: 0};
 
-  constructor(private userService: UsersService, private dialog: MatDialog) {
+  constructor(private authService: AuthService, private usersService: UsersService, private dialog: MatDialog) {
+    authService.user.subscribe(user => this.currentUser = user);
+    usersService.sendRefreshUsers.subscribe(() => this.initUsers());
   }
 
   ngOnInit() {
-    this.usersList = this.userService.getUsers();
-    this.usersListWeb = this.userService.getUsersWeb();
-    this.usersListIndus = this.userService.getUsersIndus();
+    this.initUsers();
   }
 
-  show(id: number) {
+  initUsers() {
+    this.listHidden = true;
+    this.loaderOn = true;
+    this.usersList = this.usersService.users;
+    this.usersListWeb = this.usersService.usersWeb;
+    this.usersListIndus = this.usersService.usersIndus;
+    this.usersListAdmin = this.usersService.usersAdmin;
+    this.usersLength = this.usersList.length;
+    this.userPart = Math.ceil(100 / this.usersLength);
+  }
+
+  handlerLoaderRun() {
+    this.loaderOptions.value += this.userPart;
+    if (this.loaderOptions.value >= 100) {
+      this.loaderOn = false;
+      this.listHidden = false;
+    }
+  }
+
+
+  show(id: string) {
     if (id) {
-      this.userService.showDetails(id);
+      this.usersService.showDetails(id);
     }
   }
 
   addUser() {
-    const initUser = {
-      'firstName': null,
-      'lastName': null,
-      'birthDate': null,
-      'gender': null,
-      'address': null,
-      'postcode': null,
-      'city': null,
-      'phone1': null,
-      'phone2': null,
-      'email': null,
-      'avatar': null,
-      'presentation': null,
-      'sector': null
-    };
-    const profileDialog = this.dialog.open(DialogProfileComponent, {
+    const addUsersDialog = this.dialog.open(DialogAddUsersComponent, {
       width: '600px',
-      data: {formTitle: 'Add a student...', user: initUser},
-      autoFocus: false
+      autoFocus: true,
+      disableClose: false
     });
 
-    profileDialog.afterClosed().subscribe(result => {
-      if (result && result !== 'cancel') {
+    addUsersDialog.afterClosed().subscribe(result => {
+      if (result && result instanceof Array) {
         console.log(result);
       }
     });
   }
-
 }

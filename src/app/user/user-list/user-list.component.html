@@ -1,66 +1,83 @@
-<div class="row justify-content-between" style="margin-bottom: 1%">
-  <div>
-    <mat-button-toggle-group #group="matButtonToggleGroup" aria-label="Group Filter">
-      <mat-button-toggle class="buttonToggleSize" checked value="all"><span matBadge="{{ usersList.length }}"
-                                                                            matBadgeOverlap="false">All&nbsp;</span>
-      </mat-button-toggle>
-      <mat-button-toggle class="buttonToggleSize" value="indus"><span matBadge="{{ usersListIndus.length }}"
-                                                                      matBadgeOverlap="false">Indus&nbsp;</span></mat-button-toggle>
-      <mat-button-toggle class="buttonToggleSize" value="web"><span matBadge="{{ usersListWeb.length }}"
-                                                                    matBadgeOverlap="false">Web&nbsp;</span></mat-button-toggle>
-    </mat-button-toggle-group>
+<div [ngClass]="{'hidden': listHidden}">
+  <div class="row justify-content-between" style="margin-bottom: 1%">
+    <div>
+      <mat-button-toggle-group #group="matButtonToggleGroup" aria-label="Group Filter">
+        <mat-button-toggle class="buttonToggleSize" checked value="all"><span matBadge="{{ usersList.length }}"
+                                                                              matBadgeOverlap="false">All&nbsp;</span>
+        </mat-button-toggle>
+        <mat-button-toggle class="buttonToggleSize" value="indus"><span matBadge="{{ usersListIndus.length }}"
+                                                                        matBadgeOverlap="false">Indus&nbsp;</span>
+        </mat-button-toggle>
+        <mat-button-toggle class="buttonToggleSize" value="web"><span matBadge="{{ usersListWeb.length }}"
+                                                                      matBadgeOverlap="false">Web&nbsp;</span>
+        </mat-button-toggle>
+        <mat-button-toggle class="buttonToggleSize" value="admin"><span matBadge="{{ usersListAdmin.length }}"
+                                                                        matBadgeOverlap="false">Admin&nbsp;</span>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div>
+      <button *ngIf=" currentUser && currentUser.role  === 'admin'" (click)="addUser()" mat-raised-button color="accent">Add students</button>
+    </div>
   </div>
-  <div>
-    <button (click)="addUser()" mat-raised-button color="accent">Add a student</button>
-  </div>
-</div>
 
-<div class="row">
   <div *ngIf="group.value === 'all'" class="row borderComponent" style="padding: 1%">
-    <div class="row">
-      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let user of usersList">
-        <a class="selectHover" (click)="show(user._userID)">
-          <div style="margin-top: 10%">
-            <img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"
-                 src="{{ user._avatar }}" alt="avatar">
-          </div>
-          <div>
-            <p class="text-center">{{ user._firstName }}</p>
-          </div>
-        </a>
-      </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let user of usersList">
+      <a class="selectHover" (click)="show(user.userID)">
+        <div style="margin-top: 10%">
+          <img (load)="handlerLoaderRun()" class="img-fluid" data-toggle="tooltip" title="{{ user.firstName }}"
+               src="{{ user.avatar }}" alt="avatar">
+        </div>
+        <div>
+          <p class="text-center">{{ user.firstName }}</p>
+        </div>
+      </a>
     </div>
   </div>
 
   <div *ngIf="group.value === 'indus'" class="row borderComponent" style="padding: 1%">
-    <div class="row">
-      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let user of usersListIndus">
-        <a class="selectHover" (click)="show(user._userID)">
-          <div style="margin-top: 10%">
-            <img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"
-                 src="{{ user._avatar }}" alt="avatar">
-          </div>
-          <div>
-            <p class="text-center">{{ user._firstName }}</p>
-          </div>
-        </a>
-      </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let user of usersListIndus">
+      <a class="selectHover" (click)="show(user.userID)">
+        <div style="margin-top: 10%">
+          <img (load)="handlerLoaderRun()" class="img-fluid" data-toggle="tooltip" title="{{ user.firstName }}"
+               src="{{ user.avatar }}" alt="avatar">
+        </div>
+        <div>
+          <p class="text-center">{{ user.firstName }}</p>
+        </div>
+      </a>
     </div>
   </div>
 
   <div *ngIf="group.value === 'web'" class="row borderComponent" style="padding: 1%">
-    <div class="row">
-      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let user of usersListWeb">
-        <a class="selectHover" (click)="show(user._userID)">
-          <div style="margin-top: 10%">
-            <img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"
-                 src="{{ user._avatar }}" alt="avatar">
-          </div>
-          <div>
-            <p class="text-center">{{ user._firstName }}</p>
-          </div>
-        </a>
-      </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let user of usersListWeb">
+      <a class="selectHover" (click)="show(user.userID)">
+        <div style="margin-top: 10%">
+          <img (load)="handlerLoaderRun()" class="img-fluid" data-toggle="tooltip" title="{{ user.firstName }}"
+               src="{{ user.avatar }}" alt="avatar">
+        </div>
+        <div>
+          <p class="text-center">{{ user.firstName }}</p>
+        </div>
+      </a>
     </div>
   </div>
+
+  <div *ngIf="group.value === 'admin'" class="row borderComponent" style="padding: 1%">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2" *ngFor="let user of usersListAdmin">
+      <a class="selectHover" (click)="show(user.userID)">
+        <div style="margin-top: 10%">
+          <img (load)="handlerLoaderRun()" class="img-fluid" data-toggle="tooltip" title="{{ user.firstName }}"
+               src="{{ user.avatar }}" alt="avatar">
+        </div>
+        <div>
+          <p class="text-center">{{ user.firstName }}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center" *ngIf="loaderOn">
+  <app-loader [loaderOptions]="loaderOptions"></app-loader>
 </div>

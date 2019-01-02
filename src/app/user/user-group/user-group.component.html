@@ -1,8 +1,8 @@
 <div id="groups" *ngIf="groups !== null">
   <!--TODO: add ng-if created_at-->
   <div class="text-center" style="margin-bottom: 5%">
-    <h4>Period from 25 January to 12 Mars</h4>
-    <h5 style="color: #FF50A8">Indus</h5>
+    <h4 *ngIf="usersGroupPeriod">Period from 25 January to 12 Mars</h4>
+    <h5 *ngIf="usersGroupSector !== 'all'" style="color: #FF50A8">{{usersGroupSector.toUpperCase()}}</h5>
   </div>
   <div class="container-fluid">
     <div class="row justify-content-around" cdkDropListGroup>
@@ -11,10 +11,10 @@
            *ngFor="let group of groups; let i = index;">
         <h4 class="text-center">Group {{ i + 1 }}</h4>
         <div class="box" *ngFor="let user of group" cdkDrag>
-          {{user._firstName}}
-          <img class="img-group-list" data-toggle="tooltip" title="{{ user._firstName }}"
-               src="{{ user._avatar }}" alt="avatar">
-          <img *cdkDragPreview [src]="user._avatar" style="width: 7%">
+          {{user.firstName}}
+          <img class="img-group-list" data-toggle="tooltip" title="{{ user.firstName }}"
+               src="{{ user.avatar }}" alt="avatar">
+          <img *cdkDragPreview [src]="user.avatar" style="width: 7%">
         </div>
       </div>
     </div>

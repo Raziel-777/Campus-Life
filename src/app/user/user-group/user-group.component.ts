@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UsersService} from '../../services/group/users.service';
+import {UsersService} from '../../services/users/users.service';
 import {User} from '../user';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import * as jspdf from 'jspdf';
@@ -14,50 +14,22 @@ import html2canvas from 'html2canvas';
 export class UserGroupComponent implements OnInit {
 
   groups: User[][] = null;
-  sizeUsersGroup: number;
+  usersGroupSize: number;
+  usersGroupSector: string;
+  usersGroupPeriod: string;
   colsNumber: number;
   groupColSize: number;
   rowHeight: number;
 
 
   constructor(private userService: UsersService) {
-    const dataGroups = this.userService._currentUsersGroup;
-    if (dataGroups) {
-      this.groups = dataGroups.groups;
-      this.sizeUsersGroup = dataGroups.size;
-      switch (dataGroups.size) {
-        case 2:
-          this.colsNumber = 4;
-          this.groupColSize = 6;
-          this.rowHeight = 0.5;
-          break;
-        case 3:
-          this.colsNumber = 3;
-          this.groupColSize = 4;
-          this.rowHeight = 0.7;
-          break;
-        default:
-          this.colsNumber = 2;
-          this.groupColSize = 3;
-          switch (dataGroups.size) {
-            case 4:
-              this.rowHeight = 0.5;
-              break;
-            case 5:
-              this.rowHeight = 1;
-          }
-          break;
-      }
-    }
-  }
-
-  ngOnInit() {
     this.userService.sendExportGroupPdf.subscribe(() => {
       this.exportGroupToPdf();
     });
     this.userService.sendGroup.subscribe(data => {
       this.groups = data.groups;
-      this.sizeUsersGroup = data.size;
+      this.usersGroupSize = data.size;
+      this.usersGroupSector = data.sector;
       switch (data.size) {
         case 2:
           this.colsNumber = 4;
@@ -85,6 +57,38 @@ export class UserGroupComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+    const dataGroups = this.userService._currentUsersGroup;
+    if (dataGroups) {
+      this.groups = dataGroups.groups;
+      this.usersGroupSize = dataGroups.size;
+      this.usersGroupSector = dataGroups.sector;
+      switch (dataGroups.size) {
+        case 2:
+          this.colsNumber = 4;
+          this.groupColSize = 6;
+          this.rowHeight = 0.5;
+          break;
+        case 3:
+          this.colsNumber = 3;
+          this.groupColSize = 4;
+          this.rowHeight = 0.7;
+          break;
+        default:
+          this.colsNumber = 2;
+          this.groupColSize = 3;
+          switch (dataGroups.size) {
+            case 4:
+              this.rowHeight = 0.5;
+              break;
+            case 5:
+              this.rowHeight = 1;
+          }
+          break;
+      }
+    }
+  }
+
   drop(event: CdkDragDrop<User[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -95,71 +99,6 @@ export class UserGroupComponent implements OnInit {
         event.currentIndex);
     }
   }
-
-  // makeHtmlGroup(data) {
-  //   this.groups = [];
-  //   this.sizeUsersGroup = data.size; // size of users groups
-  //   const groups = data.groups;
-  //   let groupsPerRow; // number of users per row in html
-  //   let i = 0; // iterator for intermediate groups
-  //   let z = 0; // iterator for each group in groups sent by group maker
-  //   switch (this.sizeUsersGroup) {
-  //     case 2:
-  //       groupsPerRow = 4;
-  //       loop:
-  //         while (true) {
-  //           this.groups[i] = [];
-  //           for (let j = 0; j < groupsPerRow; j++) {
-  //             this.groups[i].push(groups[z]);
-  //             if (z === groups.length - 1) {
-  //               break loop;
-  //             }
-  //             z++;
-  //           }
-  //           i++;
-  //         }
-  //       break;
-  //     case 3:
-  //       groupsPerRow = 3;
-  //       loop:
-  //         while (true) {
-  //           this.groups[i] = [];
-  //           for (let j = 0; j < groupsPerRow; j++) {
-  //             this.groups[i].push(groups[z]);
-  //             if (z === groups.length - 1) {
-  //               break loop;
-  //             }
-  //             z++;
-  //           }
-  //           i++;
-  //         }
-  //       break;
-  //     case 4:
-  //     case 5:
-  //       groupsPerRow = 2;
-  //       loop:
-  //         while (true) {
-  //           this.groups[i] = [];
-  //           for (let j = 0; j < groupsPerRow; j++) {
-  //             this.groups[i].push(groups[z]);
-  //             if (z === groups.length - 1) {
-  //               break loop;
-  //             }
-  //             z++;
-  //           }
-  //           i++;
-  //         }
-  //       break;
-  //     default:
-  //       groupsPerRow = 1;
-  //       for (z; z < groups.length; z++) {
-  //         this.groups[z] = [];
-  //         this.groups[z].push(groups[z]);
-  //       }
-  //   }
-  //   this.colSizeRow = 12 / groupsPerRow;
-  //   this.colSizeGroup = Math.trunc(12 / this.sizeUsersGroup);
-  // }
 
   exportGroupToPdf() {
     const data = document.getElementById('groups');

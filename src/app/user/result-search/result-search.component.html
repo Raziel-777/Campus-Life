@@ -8,10 +8,10 @@
     <mat-card-content>
       <div class="row">
         <div class="col-sm-2" *ngFor="let user of result">
-          <a class="selectHover" (click)="show(user._userID)">
+          <a class="selectHover" (click)="show(user.userID)">
             <div style="margin-top: 10%">
-              <img class="avatar" data-toggle="tooltip" title="{{ user._firstName }}"
-                   src="{{ user._avatar }}" alt="avatar">
+              <img class="img-fluid" data-toggle="tooltip" title="{{ user.firstName }}"
+                   src="{{ user.avatar }}" alt="avatar">
             </div>
             <div>
               <p class="text-center">{{ user.firstName }}</p>

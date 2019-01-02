@@ -1,9 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {UsersService} from '../../services/group/users.service';
+import {UsersService} from '../../services/users/users.service';
 import {User} from '../user';
 import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component';
 import {DialogAlertComponent} from '../../component/dialog-alert/dialog-alert.component';
+import {AuthService} from '../../services/auth/auth.service';
+import {FirebaseService} from '../../services/database/firebase.service';
+import {LoggerService} from '../../services/logger/logger.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-detail',
@@ -12,22 +16,22 @@ import {DialogAlertComponent} from '../../component/dialog-alert/dialog-alert.co
 })
 export class DetailComponent implements OnInit {
 
-  userToShow: User = null;
-  usersResult: User[] = null;
+  private userToShow: User;
+  private usersResult: User[];
+  private currentUser: User;
 
-  constructor(private userService: UsersService, private dialog: MatDialog) {
-    this.userService.sendDetails.subscribe(userToShow => {
+  constructor(private usersService: UsersService, private authService: AuthService, private firebaseService: FirebaseService,
+              private logger: LoggerService, private router: Router, private dialog: MatDialog) {
+    authService.user.subscribe(user => this.currentUser = user);
+    this.usersService.sendDetails.subscribe(userToShow => {
       this.userToShow = userToShow;
       this.usersResult = null;
     });
-    this.userService.sendSearch.subscribe(userSearchResult => {
+    this.usersService.sendSearch.subscribe(userSearchResult => {
       this.usersResult = userSearchResult;
       this.userToShow = null;
     });
-    const currentUser = this.userService._currentUserDetail;
-    if (currentUser) {
-      this.userToShow = currentUser;
-    }
+    this.userToShow = (this.usersService.currentUserDetail) ? this.usersService.currentUserDetail : null;
   }
 
   ngOnInit() {
@@ -42,7 +46,9 @@ export class DetailComponent implements OnInit {
 
     profileDialog.afterClosed().subscribe(result => {
       if (result && result !== 'cancel') {
-        console.log(result);
+        this.firebaseService.updateUser(result, this.currentUser).then(() => {
+          this.usersService.refreshUsers(user.userID);
+        }, (error) => this.logger.storeError(error));
       }
     });
   }
@@ -61,9 +67,10 @@ export class DetailComponent implements OnInit {
 
     alertDialog.afterClosed().subscribe(result => {
       if (result === 'Yes') {
-
-      } else if (result === 'No') {
-
+        this.userToShow = null;
+        this.usersService.currentUserDetail = null;
+        this.usersService.unsubscribeUsers();
+        this.firebaseService.deleteUser(user.userID).then(() => this.authService.deleteUser());
       }
     });
   }

@@ -2,30 +2,59 @@
   <a href="https://digital-grenoble.com/structure/campus-numerique-in-the-alps/" target="_blank"><img
     src="assets/img/logo.png" alt="logo"></a>
   <a style="margin-left: 40px" class="navbar-brand" href="/"><span id="title-top">Campus Life</span></a>
-  <div class="offset-1 collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" routerLink="/students">Students</a>
-      </li>
-      <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" routerLink="/group-maker">Groups</a>
-      </li>
-      <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link disabled">Collective Task</a>
-      </li>
-      <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link disabled">Voting</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0" [formGroup]="formSearch" (ngSubmit)="search()">
-      <mat-form-field>
-        <input matInput class="form-control" type="search" placeholder="Search" [formControl]="formSearchInput"
-               aria-label="Search">
-        <mat-error *ngIf="formSearchInput.invalid">{{ getErrorMessage() }}</mat-error>
-      </mat-form-field>
-      <button [disabled]="formSearchInput.value.length === 0 || formSearchInput.invalid" class="btn btn-outline-success"
-              style="margin-left: 15px" type="submit">Search
-      </button>
-    </form>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="user">
+    <div class="col-sm-4">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a routerLinkActive="active" class="nav-link" routerLink="/students">Students</a>
+        </li>
+        <li class="nav-item">
+          <a routerLinkActive="active" class="nav-link" routerLink="/group-maker"
+             [ngClass]="{'disabled': user && user.role !== 'admin'}">Groups</a>
+        </li>
+        <li class="nav-item">
+          <a routerLinkActive="active" class="nav-link disabled">Collective Task</a>
+        </li>
+        <li class="nav-item">
+          <a routerLinkActive="active" class="nav-link disabled">Voting</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <div class="row justify-content-center" *ngIf="user">
+        <p style="margin: 3% 8% 0 0">Welcome &nbsp;&nbsp;<span style="color: #3f51b5; font-style: italic">{{ user.firstName }}</span> </p>
+        <div>
+          <button class="no-outline" mat-icon-button [matMenuTriggerFor]="menu">
+            <img class="img-fluid" style="border-radius: 50%"
+                 src="{{ user.avatar}}">
+          </button>
+          <mat-menu #menu="matMenu">
+            <button class="no-outline" mat-menu-item (click)="showProfile()">
+              <mat-icon style="color: #3f51b5">account_circle</mat-icon>
+              <span>Profile</span>
+            </button>
+            <button class="no-outline" mat-menu-item (click)="logOut()">
+              <mat-icon style="color: red">exit_to_app</mat-icon>
+              <span>LogOut</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+    <div class="row col-sm-4 justify-content-end">
+      <form class="form-inline" [formGroup]="formSearch" (ngSubmit)="search()">
+        <mat-form-field>
+          <input matInput class="form-control" type="search" placeholder="Search" [formControl]="formSearchInput"
+                 aria-label="Search">
+          <mat-error *ngIf="formSearchInput.invalid">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+        <button [disabled]="formSearchInput.value.length === 0 || formSearchInput.invalid"
+                class="btn btn-outline-success"
+                style="margin-left: 15px" type="submit">Search
+        </button>
+      </form>
+    </div>
+
+
   </div>
 </nav>

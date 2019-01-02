@@ -15,8 +15,8 @@ export class AuthService {
 
   user: Observable<User>;
 
-  constructor(private fireAuth: AngularFireAuth, private firebaseService: FirebaseService,
-              public router: Router, private logger: LoggerService) {
+  constructor(private fireAuth: AngularFireAuth, private firebaseService: FirebaseService, private router: Router,
+              private logger: LoggerService) {
     this.user = this.fireAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -28,67 +28,39 @@ export class AuthService {
     );
   }
 
-  get authenticated(): boolean {
-    return this.user !== null;
+  get currentUserObservable(): Observable<any> {
+    return this.fireAuth.authState;
   }
-
-  get currentUser(): any {
-    return this.authenticated ? this.user : null;
-  }
-
-  // get currentUserObservable(): Observable<User> {
-  //   return this.fireAuth.authState;
-  // }
-
-  // get currentUserId(): string {
-  //   return this.authenticated ? this.authState.uid : '';
-  // }
 
   signUp(data) {
     return new Promise(((resolve, reject) => {
       this.fireAuth.auth.createUserWithEmailAndPassword(data.formValue.email, data.formValue.password)
         .then((auth) => {
           this.firebaseService.saveNewUser(data, auth.user.uid)
-            .then(() => {
-              resolve();
-            }, (error) => {
+            .then(() => resolve(), (error) => {
               this.deleteUser();
               reject(error);
             });
-        }, (err) => {
-          reject(err);
-        });
+        }, (error) => reject(error));
     }));
   }
 
   signIn(userData) {
     return new Promise(((resolve, reject) => {
       this.fireAuth.auth.signInWithEmailAndPassword(userData.email, userData.password)
-        .then((user) => {
-          resolve();
-        }, (error) => {
-          reject(error);
-        });
+        .then((user) => resolve(), (error) => reject(error));
     }));
   }
 
   signOut() {
     return new Promise((resolve, reject) => {
-      this.fireAuth.auth.signOut().then(() => {
-        resolve();
-      }, (error) => {
-        reject(error);
-      });
+      this.fireAuth.auth.signOut().then(() => resolve(), (error) => reject(error));
     });
   }
 
   resetPassword(email: string) {
     return new Promise((resolve, reject) => {
-      this.fireAuth.auth.sendPasswordResetEmail(email).then(() => {
-        resolve();
-      }, (error) => {
-        reject(error);
-      });
+      this.fireAuth.auth.sendPasswordResetEmail(email).then(() => resolve(), (error) => reject(error));
     });
   }
 

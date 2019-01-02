@@ -13,10 +13,10 @@ import {Router} from '@angular/router';
 })
 export class PageRegisterComponent implements OnInit {
 
-  formBeforeRegister: FormGroup;
+  private formBeforeRegister: FormGroup;
 
   constructor(private authService: AuthService, formBuilder: FormBuilder, private logger: LoggerService, private dialog: MatDialog,
-              public snackBar: MatSnackBar, public router: Router) {
+              private snackBar: MatSnackBar, private router: Router) {
     this.formBeforeRegister = formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email])
     });

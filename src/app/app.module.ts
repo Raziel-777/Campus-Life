@@ -29,6 +29,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 import {AppComponent} from './app.component';
@@ -48,9 +50,11 @@ import {ResultSearchComponent} from './user/result-search/result-search.componen
 import {DialogAlertComponent} from './component/dialog-alert/dialog-alert.component';
 import {LoggerService} from './services/logger/logger.service';
 import {AuthService} from './services/auth/auth.service';
-import {AuthGuard} from './services/auth/auth.guard';
 import {FirebaseService} from './services/database/firebase.service';
-import {UsersService} from './services/group/users.service';
+import {UsersService} from './services/users/users.service';
+import {AccessGuard} from './guard/access.guard';
+import {LoaderComponent} from './component/loader/loader.component';
+import {DialogAddUsersComponent} from './user/dialog-add-users/dialog-add-users.component';
 
 
 @NgModule({
@@ -69,7 +73,9 @@ import {UsersService} from './services/group/users.service';
     DialogProfileComponent,
     ResultSearchComponent,
     DialogAlertComponent,
-    PageRegisterComponent
+    PageRegisterComponent,
+    DialogAddUsersComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -101,17 +107,20 @@ import {UsersService} from './services/group/users.service';
     DragDropModule,
     ImageCropperModule,
     MatSnackBarModule,
-    ScrollingModule
+    MatMenuModule,
+    ScrollingModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     DialogProfileComponent,
-    DialogAlertComponent
+    DialogAlertComponent,
+    DialogAddUsersComponent
   ],
   providers: [
     LoggerService,
     AuthService,
-    AuthGuard,
     FirebaseService,
+    AccessGuard,
     UsersService
   ],
   bootstrap: [AppComponent]

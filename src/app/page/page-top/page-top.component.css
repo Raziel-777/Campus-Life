@@ -9,3 +9,12 @@
 #under-title-top {
   font-size: 17px;
 }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.no-outline {
+  outline: none;
+}

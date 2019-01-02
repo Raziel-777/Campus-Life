@@ -31,27 +31,27 @@ export class DialogProfileComponent implements OnInit {
     this.formTitle = data.formTitle;
     const user: User = (data.user) ? data.user : {};
     let birthDate;
-    if (user._birthDate) {
-      birthDate = new Date(user._birthDate).toISOString();
+    if (user.birthDate) {
+      birthDate = new Date(user.birthDate);
       this.startDate = null;
     } else {
       this.startDate = new Date(Date.now() - 788400000000).toISOString();
     }
     this.formProfile = formBuilder.group({
-      firstName: new FormControl(user._firstName || '', Validators.required),
-      lastName: new FormControl(user._lastName || '', Validators.required),
-      presentation: new FormControl(user._presentation || '', Validators.maxLength(255)),
-      email: new FormControl(user._email || data.email, [Validators.required, Validators.email]),
-      phone1: new FormControl(user._phone1 || '', [Validators.minLength(10), Validators.maxLength(10),
+      firstName: new FormControl(user.firstName || '', Validators.required),
+      lastName: new FormControl(user.lastName || '', Validators.required),
+      presentation: new FormControl(user.presentation || '', Validators.maxLength(255)),
+      email: new FormControl(user.email || data.email, [Validators.required, Validators.email]),
+      phone1: new FormControl(user.phone1 || '', [Validators.minLength(10), Validators.maxLength(10),
         Validators.pattern('^([0-9]*)$')]),
-      phone2: new FormControl(user._phone2 || '', [Validators.minLength(10), Validators.maxLength(10),
+      phone2: new FormControl(user.phone2 || '', [Validators.minLength(10), Validators.maxLength(10),
         Validators.pattern('^([0-9]*)$')]),
       birthDate: new FormControl(birthDate, Validators.required),
-      address: new FormControl(user._address || ''),
-      postCode: new FormControl(user._postcode || ''),
-      city: new FormControl(user._city || ''),
-      gender: new FormControl(user._gender || '', Validators.required),
-      sector: new FormControl(user._sector || 'undefined', Validators.required)
+      address: new FormControl(user.address || ''),
+      postCode: new FormControl(user.postcode || ''),
+      city: new FormControl(user.city || ''),
+      gender: new FormControl(user.gender || '', Validators.required),
+      sector: new FormControl(user.sector || 'undefined', Validators.required)
     });
     if (data.password) {
       const password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$')]);

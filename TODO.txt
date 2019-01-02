@@ -34,3 +34,17 @@ add avatar when upload in fialog
 on ne peut pas changer email ????
 
 remove auth user si error
+
+rules firebase peut pas changer role
+
+remove rules read all users and remove user observable in usersService
+
+rules avatar if uid !== id
+
+remove le loader si trop long sur le chargement des img
+
+OR choose avatar list ....
+
+refresh users qd edit profile
+
+error qd delete user account ... cest pas authsub dans detail compo et unsub dans users=service

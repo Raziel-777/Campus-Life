@@ -1,48 +1,44 @@
-<div *ngIf="userToShow !== null" style="margin-top: 9.3%">
+<div *ngIf="userToShow" style="margin-top: 9.3%">
   <mat-card>
     <mat-card-header>
       <div mat-card-avatar class="header-image"></div>
-      <mat-card-title>{{ userToShow._firstName }} {{ userToShow._lastName }}</mat-card-title>
-      <mat-card-subtitle *ngIf="userToShow._sector !== 'undefined'"
-                         style="color: #FF50A8">{{ userToShow._sector.toUpperCase() }}</mat-card-subtitle>
+      <mat-card-title>{{ userToShow.firstName }} {{ userToShow.lastName }}</mat-card-title>
+      <mat-card-subtitle *ngIf="userToShow.sector !== 'undefined'"
+                         style="color: #FF50A8">{{ userToShow.sector.toUpperCase() }}</mat-card-subtitle>
     </mat-card-header>
     <mat-divider></mat-divider>
     <div class="card-around-img">
-      <img class="image-card" src="{{ userToShow._avatar }}" alt="Photo of student">
+      <img class="image-card" src="{{ userToShow.avatar }}" alt="Photo of student">
     </div>
     <mat-divider></mat-divider>
     <mat-card-content>
       <p style="margin-top: 4%">
-        {{ userToShow._presentation }}
+        {{ userToShow.presentation }}
       </p>
       <div class="row">
         <div class="col-6">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ userToShow._email }}</li>
-            <li class="list-group-item">{{ userToShow._birthDate | date : 'd MMM yyyy' }}</li>
+            <li class="list-group-item">{{ userToShow.email }}</li>
+            <li class="list-group-item">{{ userToShow.birthDate | date : 'd MMM yyyy' }}</li>
           </ul>
         </div>
         <div class="col-6">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ userToShow._phone1 }} / {{ userToShow._phone2 }}</li>
-            <li class="list-group-item">{{ userToShow._address }} {{ userToShow._postcode }} {{ userToShow._city }}</li>
+            <li class="list-group-item">{{ userToShow.phone1 }} / {{ userToShow.phone2 }}</li>
+            <li class="list-group-item">{{ userToShow.address }} {{ userToShow.postcode }} {{ userToShow.city }}</li>
           </ul>
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="editProfile(userToShow)" style="margin-right: 2%" mat-stroked-button color="accent">Edit your
+      <button *ngIf="currentUser && currentUser.userID === userToShow.userID" (click)="editProfile(userToShow)" style="margin-right: 2%" mat-stroked-button color="accent">Edit your
         profile
       </button>
-      <button (click)="deleteUser(userToShow)" mat-stroked-button color="link">Delete</button>
-      <!--<button (click)="editProfile(userToShow)" mat-stroked-button color="accent">Edit his-->
-      <!--profile-->
-      <!--</button>-->
-      <!--<button mat-stroked-button color="accent">Edit his profile</button>-->
+      <button *ngIf="currentUser && currentUser.userID === userToShow.userID" (click)="deleteUser(userToShow)" mat-stroked-button color="link">Delete</button>
     </mat-card-actions>
   </mat-card>
 </div>
 <div style="margin-top: 9%">
-  <app-result-search *ngIf="usersResult !== null" [result]="usersResult"></app-result-search>
+  <app-result-search *ngIf="usersResult" [result]="usersResult"></app-result-search>
 </div>
 

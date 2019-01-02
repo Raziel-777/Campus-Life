@@ -6,7 +6,7 @@
     </div>
     <div style="margin-top: 3%">
       <p>Sector</p>
-      <mat-radio-group [formControl]="formGroupSector">
+      <mat-radio-group [formControl]="formGroupSector" (change)="changeMinMaxValue(formGroupSector.value)">
         <mat-radio-button style="margin-right: 10px" value="all">All</mat-radio-button>
         <mat-radio-button style="margin-right: 10px" value="indus">Indus</mat-radio-button>
         <mat-radio-button value="web">Web</mat-radio-button>
@@ -43,20 +43,20 @@
   </div>
   <cdk-virtual-scroll-viewport itemSize="50" class="group-list-viewport">
     <div class="list-group">
-      <a class="list-group-item d-flex justify-content-between selectHover" (click)="showGroups(i)"
-         *cdkVirtualFor="let userGroup of usersGroupList; let i = index" [class.active]="selectedIndex === i">
-        <span style="font-size: 0.8em">From 25 Jan to 19 April</span>
-        <span style="color: #3f51b5">Indus</span>
+      <a class="list-group-item d-flex justify-content-between selectHover" (click)="showGroups(userGroup.id)"
+         *cdkVirtualFor="let userGroup of usersGroupList" [class.active]="selectedId === userGroup.id">
+        <span style="font-size: 0.8em">From {{ userGroup.createdAt | date }}</span>
+        <span *ngIf="userGroup.sector != 'all'" style="color: #3f51b5">{{ userGroup.sector }}</span>
         <span class="badge badge-dark" style="max-height: 20px">{{ userGroup.size }}</span>
       </a>
     </div>
   </cdk-virtual-scroll-viewport>
   <div class="row justify-content-between" style="margin: 7% 4% 0">
-    <div [matTooltipDisabled]="selectedIndex !== null" matTooltip="Please choose a group before">
-      <button (click)="export()" [disabled]="selectedIndex === null" mat-stroked-button color="primary">Export to PDF</button>
+    <div [matTooltipDisabled]="selectedId !== null" matTooltip="Please choose a group before">
+      <button (click)="export()" [disabled]="selectedId === null" mat-stroked-button color="primary">Export to PDF</button>
     </div>
-    <div [matTooltipDisabled]="selectedIndex !== null" matTooltip="Please choose a group before">
-      <button (click)="delete()" [disabled]="selectedIndex === null" mat-stroked-button color="warn">Delete</button>
+    <div [matTooltipDisabled]="selectedId !== null" matTooltip="Please choose a group before">
+      <button (click)="delete()" [disabled]="selectedId === null" mat-stroked-button color="warn">Delete</button>
     </div>
   </div>
 </div>

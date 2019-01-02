@@ -33,11 +33,6 @@
   cursor: pointer;
 }
 
-.avatar {
-  max-width: 100%;
-  height: auto;
-}
-
 .buttonToggleSize {
   min-width: 100px;
 }
@@ -57,4 +52,8 @@
 
 .noPadding {
   padding: 0;
+}
+
+.result-card {
+  width: 100%;
 }
