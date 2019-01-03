@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../../services/users/users.service';
 import {User} from '../user';
 import {MatDialog} from '@angular/material';
@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit {
   userPart: number;
   listHidden;
   loaderOn;
-  loaderOptions: {color: string, mode: string, value: number} = {color: 'primary', mode: 'determinate', value: 0};
+  loaderOptions: { color: string, mode: string, value: number } = {color: 'primary', mode: 'determinate', value: 0};
 
   constructor(private authService: AuthService, private usersService: UsersService, private dialog: MatDialog) {
     authService.user.subscribe(user => this.currentUser = user);
@@ -41,6 +41,10 @@ export class UserListComponent implements OnInit {
     this.usersListAdmin = this.usersService.usersAdmin;
     this.usersLength = this.usersList.length;
     this.userPart = Math.ceil(100 / this.usersLength);
+    setTimeout(() => {
+      this.loaderOn = false;
+      this.listHidden = false;
+    }, 8000);
   }
 
   handlerLoaderRun() {

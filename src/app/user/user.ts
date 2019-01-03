@@ -36,8 +36,4 @@ export class User {
     this.presentation = presentation;
     this.sector = sector;
   }
-
-  get _role() {
-    return this.role;
-  }
 }

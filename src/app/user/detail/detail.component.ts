@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {UsersService} from '../../services/users/users.service';
 import {User} from '../user';
 import {DialogProfileComponent} from '../dialog-profile/dialog-profile.component';
@@ -21,7 +21,7 @@ export class DetailComponent implements OnInit {
   private currentUser: User;
 
   constructor(private usersService: UsersService, private authService: AuthService, private firebaseService: FirebaseService,
-              private logger: LoggerService, private router: Router, private dialog: MatDialog) {
+              private logger: LoggerService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
     authService.user.subscribe(user => this.currentUser = user);
     this.usersService.sendDetails.subscribe(userToShow => {
       this.userToShow = userToShow;
@@ -57,8 +57,8 @@ export class DetailComponent implements OnInit {
     const alertDialog = this.dialog.open(DialogAlertComponent, {
       width: '450px',
       data: {
-        state: 'You are about to delete a user.',
-        message: 'Do you want to continue?',
+        state: 'You are going to delete your account.',
+        message: 'Do you want to continue ?',
         responseOne: 'Yes',
         responseTwo: 'No'
       },
@@ -73,6 +73,15 @@ export class DetailComponent implements OnInit {
         this.firebaseService.deleteUser(user.userID).then(() => this.authService.deleteUser());
       }
     });
+  }
+
+  resetPassword(user: User) {
+    this.authService.resetPassword(user.email).then(() => {
+      this.snackBar.open('Email sent, check it for reset your password.', '', {
+        duration: 5000,
+        panelClass: 'successSnackBar'
+      });
+    }, (error) => this.logger.storeError(error));
   }
 }
 

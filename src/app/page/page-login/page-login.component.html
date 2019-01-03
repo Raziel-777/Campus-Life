@@ -1,5 +1,8 @@
 <div class="row">
-  <div class="col-sm-6 offset-3">
+  <div style="margin-top: 10%" *ngIf="!displayFormLogin" class="row col-sm-6 offset-3 justify-content-center">
+    <app-loader [loaderOptions]="loaderOptions"></app-loader>
+  </div>
+  <div *ngIf="displayFormLogin" class="col-sm-6 offset-3">
     <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
       <mat-card>
         <mat-card-header>
@@ -23,12 +26,17 @@
         </mat-card-actions>
       </mat-card>
     </form>
-    <div class="row align-items-end" style="margin-top: 2%">
-      <div>
-        <span style="vertical-align: text-bottom">You don't have an account yet ? </span>
+    <div class="row container-fluid" style="margin-top: 2%">
+      <div class="row col-sm-7 align-items-center">
+        <div>
+          <span>You don't have an account yet ?</span>
+        </div>
+        <div style="margin-left: 5%">
+          <button mat-raised-button (click)="goToPageRegister()" color="primary">Register now</button>
+        </div>
       </div>
-      <div style="margin-left: 2%">
-        <button mat-raised-button (click)="goToPageRegister()" color="primary">Register now</button>
+      <div class="col-sm-2 offset-2">
+        <button mat-raised-button (click)="forgotPassword()" color="link">Forgot your password ?</button>
       </div>
     </div>
   </div>

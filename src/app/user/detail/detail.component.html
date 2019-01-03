@@ -31,10 +31,24 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button *ngIf="currentUser && currentUser.userID === userToShow.userID" (click)="editProfile(userToShow)" style="margin-right: 2%" mat-stroked-button color="accent">Edit your
-        profile
-      </button>
-      <button *ngIf="currentUser && currentUser.userID === userToShow.userID" (click)="deleteUser(userToShow)" mat-stroked-button color="link">Delete</button>
+      <div class="row container-fluid" style="padding: 0">
+        <div class="col-sm-10">
+          <button class="margin2" *ngIf="currentUser && currentUser.userID === userToShow.userID"
+                  (click)="editProfile(userToShow)" mat-stroked-button color="accent">Edit your
+            profile
+          </button>
+          <button *ngIf="currentUser && currentUser.userID === userToShow.userID"
+                  (click)="resetPassword(userToShow)" mat-stroked-button color="primary">Reset password
+          </button>
+        </div>
+        <div class="col-sm-2">
+          <button *ngIf="currentUser && currentUser.userID === userToShow.userID"
+                  (click)="deleteUser(userToShow)" mat-stroked-button color="link">Delete
+          </button>
+        </div>
+
+
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>

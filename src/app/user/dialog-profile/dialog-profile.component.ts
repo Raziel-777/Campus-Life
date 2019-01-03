@@ -21,6 +21,7 @@ export class DialogProfileComponent implements OnInit {
   @ViewChild('avatarInput')
   avatarInput: ElementRef;
   displayPassword: boolean;
+  displayEmail: boolean;
 
 
   constructor(private dialogRef: MatDialogRef<DialogProfileComponent>,
@@ -28,6 +29,7 @@ export class DialogProfileComponent implements OnInit {
               formBuilder: FormBuilder,
               public snackBar: MatSnackBar) {
     this.displayPassword = !!data.password;
+    this.displayEmail = !!data.email;
     this.formTitle = data.formTitle;
     const user: User = (data.user) ? data.user : {};
     let birthDate;
@@ -41,7 +43,6 @@ export class DialogProfileComponent implements OnInit {
       firstName: new FormControl(user.firstName || '', Validators.required),
       lastName: new FormControl(user.lastName || '', Validators.required),
       presentation: new FormControl(user.presentation || '', Validators.maxLength(255)),
-      email: new FormControl(user.email || data.email, [Validators.required, Validators.email]),
       phone1: new FormControl(user.phone1 || '', [Validators.minLength(10), Validators.maxLength(10),
         Validators.pattern('^([0-9]*)$')]),
       phone2: new FormControl(user.phone2 || '', [Validators.minLength(10), Validators.maxLength(10),
@@ -53,6 +54,10 @@ export class DialogProfileComponent implements OnInit {
       gender: new FormControl(user.gender || '', Validators.required),
       sector: new FormControl(user.sector || 'undefined', Validators.required)
     });
+    if (data.email) {
+      const email = new FormControl(data.email, [Validators.required, Validators.email]);
+      this.formProfile.addControl('email', email);
+    }
     if (data.password) {
       const password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$')]);
       const repeatPassword = new FormControl('', [Validators.required]);
@@ -86,7 +91,8 @@ export class DialogProfileComponent implements OnInit {
     }
   }
 
-  cancelClick() {
+  cancelClick(event) {
+    event.preventDefault();
     this.dialogRef.close('cancel');
   }
 

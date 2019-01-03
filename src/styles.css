@@ -46,6 +46,10 @@
   background-color: #C60700;
 }
 
+.successSnackBar {
+  background-color: #117118;
+}
+
 .marginRightTen {
   margin-right: 10px;
 }

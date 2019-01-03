@@ -14,9 +14,12 @@ import {Router} from '@angular/router';
 export class PageRegisterComponent implements OnInit {
 
   private formBeforeRegister: FormGroup;
+  displayFormReg: boolean;
+  loaderOptions = {color: 'primary', mode: 'indeterminate'};
 
   constructor(private authService: AuthService, formBuilder: FormBuilder, private logger: LoggerService, private dialog: MatDialog,
               private snackBar: MatSnackBar, private router: Router) {
+    this.displayFormReg = true;
     this.formBeforeRegister = formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email])
     });
@@ -37,9 +40,11 @@ export class PageRegisterComponent implements OnInit {
 
       profileDialog.afterClosed().subscribe(result => {
         if (result && result !== 'cancel') {
+          this.displayFormReg = false;
           this.authService.signUp(result).then(() => {
             this.router.navigate(['/students']).then(null);
           }, (error) => {
+            this.displayFormReg = true;
             this.logger.storeError(error);
             this.snackBar.open(error.message, '', {
               duration: 5000,

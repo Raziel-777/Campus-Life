@@ -55,6 +55,7 @@ import {UsersService} from './services/users/users.service';
 import {AccessGuard} from './guard/access.guard';
 import {LoaderComponent} from './component/loader/loader.component';
 import {DialogAddUsersComponent} from './user/dialog-add-users/dialog-add-users.component';
+import {DialogPromptComponent} from './component/dialog-prompt/dialog-prompt.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {DialogAddUsersComponent} from './user/dialog-add-users/dialog-add-users.
     DialogAlertComponent,
     PageRegisterComponent,
     DialogAddUsersComponent,
-    LoaderComponent
+    LoaderComponent,
+    DialogPromptComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +116,8 @@ import {DialogAddUsersComponent} from './user/dialog-add-users/dialog-add-users.
   entryComponents: [
     DialogProfileComponent,
     DialogAlertComponent,
-    DialogAddUsersComponent
+    DialogAddUsersComponent,
+    DialogPromptComponent
   ],
   providers: [
     LoggerService,

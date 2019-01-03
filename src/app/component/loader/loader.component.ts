@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LoaderComponent implements OnInit {
 
-  @Input() loaderOptions: {color: string, mode: string, value: number};
+  @Input() loaderOptions: {color: string, mode: string, value?: number};
 
   constructor() { }
 

@@ -234,6 +234,12 @@ export class UsersService {
     this.sendExportGroupPdf.emit();
   }
 
+  deleteGroup(selectedId: string) {
+    this.currentUsersGroupId = null;
+    this.usersGroupList = null;
+    this.firebaseService.deleteGroup(selectedId).then(() => this.sendGroup.emit(), (error) => this.logger.storeError(error));
+  }
+
   triggerShowDetails(userId) {
     this.showDetails(userId);
     this.router.navigate(['/students']).then(null);

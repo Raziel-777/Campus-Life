@@ -1,7 +1,6 @@
 <div id="groups" *ngIf="groups !== null">
-  <!--TODO: add ng-if created_at-->
   <div class="text-center" style="margin-bottom: 5%">
-    <h4 *ngIf="usersGroupPeriod">Period from 25 January to 12 Mars</h4>
+    <h4 *ngIf="usersGroupPeriod">Period from {{usersGroupPeriod | date}}</h4>
     <h5 *ngIf="usersGroupSector !== 'all'" style="color: #FF50A8">{{usersGroupSector.toUpperCase()}}</h5>
   </div>
   <div class="container-fluid">

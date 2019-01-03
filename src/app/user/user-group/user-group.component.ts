@@ -22,43 +22,48 @@ export class UserGroupComponent implements OnInit {
   rowHeight: number;
 
 
-  constructor(private userService: UsersService) {
-    this.userService.sendExportGroupPdf.subscribe(() => {
+  constructor(private usersService: UsersService) {
+    this.usersService.sendExportGroupPdf.subscribe(() => {
       this.exportGroupToPdf();
     });
-    this.userService.sendGroup.subscribe(data => {
-      this.groups = data.groups;
-      this.usersGroupSize = data.size;
-      this.usersGroupSector = data.sector;
-      switch (data.size) {
-        case 2:
-          this.colsNumber = 4;
-          this.groupColSize = 6;
-          this.rowHeight = 1;
-          break;
-        case 3:
-          this.colsNumber = 3;
-          this.groupColSize = 4;
-          this.rowHeight = 0.8;
-          break;
-        default:
-          this.colsNumber = 2;
-          this.groupColSize = 3;
-          switch (data.size) {
-            case 4:
-              this.rowHeight = 0.5;
-              break;
-            default:
-              this.rowHeight = Math.ceil(data.size / 4 - 1) * 0.2 + 0.6;
-              break;
-          }
-          break;
+    this.usersService.sendGroup.subscribe(data => {
+      if (data) {
+        this.groups = data.groups;
+        this.usersGroupSize = data.size;
+        this.usersGroupSector = data.sector;
+        this.usersGroupPeriod = (data.createdAt) ? data.createdAt : null;
+        switch (data.size) {
+          case 2:
+            this.colsNumber = 4;
+            this.groupColSize = 6;
+            this.rowHeight = 1;
+            break;
+          case 3:
+            this.colsNumber = 3;
+            this.groupColSize = 4;
+            this.rowHeight = 0.8;
+            break;
+          default:
+            this.colsNumber = 2;
+            this.groupColSize = 3;
+            switch (data.size) {
+              case 4:
+                this.rowHeight = 0.5;
+                break;
+              default:
+                this.rowHeight = Math.ceil(data.size / 4 - 1) * 0.2 + 0.6;
+                break;
+            }
+            break;
+        }
+      } else {
+        this.groups = null;
       }
     });
   }
 
   ngOnInit() {
-    const dataGroups = this.userService._currentUsersGroup;
+    const dataGroups = this.usersService._currentUsersGroup;
     if (dataGroups) {
       this.groups = dataGroups.groups;
       this.usersGroupSize = dataGroups.size;

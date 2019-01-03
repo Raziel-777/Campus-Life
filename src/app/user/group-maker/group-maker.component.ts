@@ -29,6 +29,8 @@ export class GroupMakerComponent implements OnInit {
       if (id) {
         this.saveGroupsBtn = false;
         this.selectedId = id;
+      } else {
+        this.selectedId = null;
       }
     });
     this.maxGroupSize = Math.round(this.usersService.users.length / 2);
@@ -124,7 +126,22 @@ export class GroupMakerComponent implements OnInit {
   }
 
   delete() {
+    const alertDialog = this.dialog.open(DialogAlertComponent, {
+      width: '450px',
+      data: {
+        state: 'Be careful you are going to delete a group',
+        message: 'Are you sure ?',
+        responseOne: 'Yes',
+        responseTwo: 'No'
+      },
+      autoFocus: false
+    });
 
+    alertDialog.afterClosed().subscribe(result => {
+      if (result === 'Yes') {
+        this.usersService.deleteGroup(this.selectedId);
+      }
+    });
   }
 
   changeMinMaxValue(value) {

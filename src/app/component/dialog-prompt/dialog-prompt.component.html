@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row" style="margin-top: 2%">
+    <p>{{ message }}</p>
+  </div>
+  <mat-form-field style="width: 100%">
+    <input [formControl]="prompt" matInput placeholder="{{ placeHolder }}">
+    <mat-error *ngIf="prompt.invalid">{{ getEmailErrorMessage() }}</mat-error>
+  </mat-form-field>
+  <div class="row justify-content-around" style="margin-top: 5%">
+    <button (click)="response(responseTwo)" mat-stroked-button color="accent">{{ responseTwo }}</button>
+    <button [disabled]="prompt.invalid" (click)="response(responseOne)" mat-stroked-button color="primary">{{ responseOne }}</button>
+  </div>
+</div>

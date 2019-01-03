@@ -170,5 +170,12 @@ export class FirebaseService {
       .doc(emailToDelete).delete()
       .then(null);
   }
+
+  deleteGroup(selectedId: string) {
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('groupLists').doc(selectedId).delete()
+        .then(() => resolve(), (error) => reject(error));
+    });
+  }
 }
 
