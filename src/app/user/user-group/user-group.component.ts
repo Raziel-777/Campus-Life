@@ -105,9 +105,9 @@ export class UserGroupComponent implements OnInit {
     }
   }
 
-  exportGroupToPdf() {
-    const data = document.getElementById('groups');
-    html2canvas(data).then(canvas => {
+  async exportGroupToPdf() {
+    const data = await document.getElementById('groups');
+    await html2canvas(data).then(canvas  => {
       const imgWidth = 200;
       const pageHeight = 300;
       const imgHeight = canvas.height * imgWidth / canvas.width;
