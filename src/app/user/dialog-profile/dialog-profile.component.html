@@ -2,7 +2,8 @@
   <h2 mat-dialog-title>{{ formTitle }}</h2>
   <div mat-dialog-content>
 
-    <form class="form-profile" [formGroup]="formProfile" (ngSubmit)="saveUser()" (keydown.enter)="$event.preventDefault()">
+    <form class="form-profile" [formGroup]="formProfile" (ngSubmit)="saveUser()"
+          (keydown.enter)="$event.preventDefault()">
       <mat-form-field>
         <input matInput placeholder="First Name" formControlName="firstName" required>
         <mat-error *ngIf="formProfile.controls.firstName.invalid">{{ getFirstNameErrorMessage() }}</mat-error>
@@ -85,7 +86,8 @@
       </div>
 
       <div mat-dialog-actions>
-        <button type="submit" class="marginRightTen" style="width: 30%; margin-right: 3%" mat-raised-button color="accent">Save profile
+        <button type="submit" class="marginRightTen" style="width: 30%; margin-right: 3%" mat-raised-button
+                color="accent">Save profile
         </button>
         <br>
         <button (click)="cancelClick($event)" style="width: 30%" mat-button>Cancel</button>
@@ -95,28 +97,31 @@
 </div>
 
 <div [hidden]="displayForm">
-  <h3 class="text-center">Please Crop your image</h3>
-  <div class="row">
-    <image-cropper
-      [imageChangedEvent]="imageChangedEvent"
-      [maintainAspectRatio]="true"
-      [aspectRatio]="1"
-      [resizeToWidth]="250"
-      format="png"
-      (imageCropped)="imageCropped($event)"
-      (imageLoaded)="imageLoaded()"
-      (loadImageFailed)="loadImageFailed()"
-    ></image-cropper>
-  </div>
-  <div class="row contentMarginTop">
-    <div class="col-sm-5">
-      <img [src]="croppedImage"/>
+  <h2 style="margin-bottom: 2%" mat-dialog-title>{{ formTitle }}</h2>
+  <p class="text-center">Please Crop your image</p>
+  <div mat-dialog-content>
+    <div class="row">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1"
+        [resizeToWidth]="250"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
     </div>
-    <div class="col-sm-5 align-self-end">
-      <button class="marginRightTen" (click)="saveCrop()" style="margin-left: 10%" mat-raised-button color="primary">
-        Upload
-      </button>
-      <button style="margin-left: 2%" class="marginRightTen" (click)="cancelCrop()" mat-stroked-button>Cancel</button>
+    <div class="row contentMarginTop">
+      <div class="col-sm-5">
+        <img [src]="croppedImage"/>
+      </div>
+      <div class="col-sm-5 align-self-end">
+        <button class="marginRightTen" (click)="saveCrop()" style="margin-left: 10%" mat-raised-button color="primary">
+          Upload
+        </button>
+        <button style="margin-left: 2%" class="marginRightTen" (click)="cancelCrop()" mat-stroked-button>Cancel</button>
+      </div>
     </div>
   </div>
 </div>

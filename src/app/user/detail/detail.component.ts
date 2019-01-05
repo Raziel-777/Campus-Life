@@ -16,9 +16,9 @@ import {Router} from '@angular/router';
 })
 export class DetailComponent implements OnInit {
 
-  private userToShow: User;
-  private usersResult: User[];
-  private currentUser: User;
+  userToShow: User;
+  usersResult: User[];
+  currentUser: User;
 
   constructor(private usersService: UsersService, private authService: AuthService, private firebaseService: FirebaseService,
               private logger: LoggerService, private router: Router, private dialog: MatDialog, private snackBar: MatSnackBar) {
