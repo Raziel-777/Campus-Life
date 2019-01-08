@@ -151,7 +151,7 @@ export class DialogProfileComponent implements OnInit {
   getPasswordErrorMessage() {
     return this.formProfile.controls.password.hasError('required') ? 'This field is required' :
       this.formProfile.controls.password.hasError('pattern') ?
-        'Password must contain at least 6 characters with 1 capital and 1 digit at least' :
+        'Password must contain at least 6 characters (no special), 1 capital and 1 digit' :
         '';
   }
 
